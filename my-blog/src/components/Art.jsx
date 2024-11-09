@@ -29,6 +29,18 @@ function Art() {
           <li>Ling Qing Meng speaking at the WCEF blockchain conference: <a className="text-blue-600 underline hover:text-blue-800">Link</a></li>
           <li>Ling Qing Meng coaching a Hackathon team to first place in Korea: <a href="https://github.com/decentral-inc/secret-voting" className="text-blue-600 underline hover:text-blue-800">Link</a></li>
         </ol>
+        <h3>Recent Speaking Experiences</h3>
+        <p>Representatives from various companies and organizations such as Patagonia, Reformation, Nike, Sustainable Apparel Coalition, Sudio 189, IBM, BCG and Microsfot participated in different workshops and addressed topics. </p>
+        
+        <blockquote className="border-l-4 border-gray-300 pl-4 my-4 italic">
+          The Transparency Hack was moderated by Ana Andjelic and divided into two different sessions.
+        </blockquote>
+
+        <img 
+            src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*qRYbR9HGTRi_28lX" 
+            alt="Description of the image" 
+            className="w-full h-auto"
+          />
       </div>
     );
   }
