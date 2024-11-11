@@ -20,14 +20,22 @@ function Art() {
             Jason Meng speaking at Ministry of Ideas on the next digital disruption: How blockchain and AI will transform Guest Experience in Hospitality. Conference Website: https://moi.lemiami.com/
           </figcaption>
         </figure>
+        <h3 className="text-xl font-semibold mt-6 mb-3"> Recent Appearances </h3>
+          <li>Jason starring in Blockchain Reality Show Angels Villa. View trailer: <a href="https://www.instagram.com/reel/C-g4WToy6IJ/?igsh=MTBrZ296Z3RwODl0bg==" className="text-blue-600 underline hover:text-blue-800">Instagram Video</a></li>
+          <li>Jason pitching at ETH CC 2024 in Brussels
+            <a href="https://youtu.be/vg_Dh5hbOag" className="text-blue-600 underline hover:text-blue-800">  Part 1  </a>  
+            <a href="https://youtu.be/RtKRJpnxfxY" className="text-blue-600 underline hover:text-blue-800">  Part 2   </a>  
+            <a href="https://youtu.be/JN-tGf7BANQ" className="text-blue-600 underline hover:text-blue-800">  Part 3   </a>  
+          </li> 
         <h3 className="text-xl font-semibold mt-6 mb-3"> Past Talks </h3>
         <ol>
           {/* add timestamp */}
-          <li>Ling Qing Meng speaking at Hacker Dojo Santa Clara: <a href="https://www.youtube.com/watch?v=aLC-bNitw7Y" className="text-blue-600 underline hover:text-blue-800">Link</a></li>
-          <li>Ling Qing Meng speaks at NYC Blockchain Center's first educational seminar: <a className="text-blue-600 underline hover:text-blue-800">Link</a></li>
-          <li>Ling Qing Meng speaking at ETH San Francisco, the recent, largest Hackathon for blockchain developers: <a className="text-blue-600 underline hover:text-blue-800">Link</a></li>
-          <li>Ling Qing Meng speaking at the WCEF blockchain conference: <a className="text-blue-600 underline hover:text-blue-800">Link</a></li>
-          <li>Ling Qing Meng coaching a Hackathon team to first place in Korea: <a href="https://github.com/decentral-inc/secret-voting" className="text-blue-600 underline hover:text-blue-800">Link</a></li>
+          <li>Jason speaking at Hacker Dojo Santa Clara: <a href="https://www.youtube.com/watch?v=aLC-bNitw7Y" className="text-blue-600 underline hover:text-blue-800">Link</a></li>
+          <li>Jason speaks at NYC Blockchain Center's first educational seminar: <a className="text-blue-600 underline hover:text-blue-800">Link</a></li>
+          <li>Jason speaking at ETH San Francisco, the recent, largest Hackathon for blockchain developers: <a className="text-blue-600 underline hover:text-blue-800">Link</a></li>
+          <li>Jason speaking at the WCEF blockchain conference: <a className="text-blue-600 underline hover:text-blue-800">Link</a></li>
+          <li>Jason coaching a Hackathon team to first place in Korea: <a href="https://github.com/decentral-inc/secret-voting" className="text-blue-600 underline hover:text-blue-800">Link</a></li>
+          <li>Jason speaking at Austin Texas <a className="text-blue-600 underline hover:text-blue-800">Link</a></li>
         </ol>
         <h3>Recent Speaking Experiences</h3>
         <p>Representatives from various companies and organizations such as Patagonia, Reformation, Nike, Sustainable Apparel Coalition, Sudio 189, IBM, BCG and Microsfot participated in different workshops and addressed topics. </p>
