@@ -15,23 +15,6 @@ function Art() {
           </div>
         </div>
 
-        {/* Recent Talks */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-semibold mb-6 text-gray-800">Recent Talks</h3>
-          <div className="text-lg text-gray-700 mb-8">Todo: Update this section with ETH CC</div>
-        </div>
-
-        <figure className="my-16">
-          <img 
-            src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*OQyZREFWnw8ZKhOVod-DsA.png" 
-            alt="Description of the image" 
-            className="w-full rounded-lg shadow-md"
-          />
-          <figcaption className="text-gray-600 text-base mt-4 text-center leading-relaxed">
-            Jason Meng speaking at Ministry of Ideas on the next digital disruption: How blockchain and AI will transform Guest Experience in Hospitality. Conference Website: https://moi.lemiami.com/
-          </figcaption>
-        </figure>
-
         {/* Recent Appearances */}
         <div className="mb-16">
           <h3 className="text-2xl font-semibold mb-6 text-gray-800">Recent Appearances</h3>
@@ -46,6 +29,19 @@ function Art() {
             </li>
           </ul>
         </div>
+
+        <figure className="my-16">
+          <img 
+            src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*OQyZREFWnw8ZKhOVod-DsA.png" 
+            alt="Description of the image" 
+            className="w-full rounded-lg shadow-md"
+          />
+          <figcaption className="text-gray-600 text-base mt-4 text-center leading-relaxed">
+            Jason Meng speaking at Ministry of Ideas on the next digital disruption: How blockchain and AI will transform Guest Experience in Hospitality. Conference Website: https://moi.lemiami.com/
+          </figcaption>
+        </figure>
+
+        
 
         {/* Past Talks */}
         <div className="mb-16">
