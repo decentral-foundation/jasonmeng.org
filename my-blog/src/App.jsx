@@ -1,22 +1,24 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Header from './components/Header';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Posts from './components/Posts';
+import PostPage from './components/PostPage';
 import Art from './components/Art';
 import About from './components/About';
+import Header from './components/Header';
 import './index.css';
 
 function App() {
   return (
-    <Router>
-      <div className="max-w-3xl mx-auto px-4 py-8">
+    <BrowserRouter>
+      <div className="container mx-auto px-4">
         <Header />
         <Routes>
           <Route path="/" element={<Posts />} />
+          <Route path="/blog/:id" element={<PostPage />} />
           <Route path="/art" element={<Art />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
