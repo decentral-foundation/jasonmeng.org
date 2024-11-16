@@ -37,6 +37,18 @@ function PostPage() {
       <div className="prose">
         {paragraphs}
       </div>
+      {post.fullArticleUrl && (
+        <footer className="mt-8 pt-4 border-t border-gray-200">
+          <a 
+            href={post.fullArticleUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            Read the full article →
+          </a>
+        </footer>
+      )}
     </article>
   );
 }

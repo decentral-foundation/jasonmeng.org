@@ -3,8 +3,8 @@ import LuciaSDK from "luciasdk-t3";
 const lucia = {
     init: () => {
         LuciaSDK.init({
-            baseURL: process.env.VITE_BASE_URL,
-            api_key: process.env.VITE_API_KEY,
+            baseURL: import.meta.env.VITE_BASE_URL,
+            api_key: import.meta.env.VITE_API_KEY,
         });
     },
 
@@ -24,5 +24,5 @@ const lucia = {
 }
 
 lucia.init();
-
+console.log("Lucia initialized", lucia);
 export default lucia;
