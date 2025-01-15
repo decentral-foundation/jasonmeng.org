@@ -6,9 +6,9 @@ const lucia = {
     init: () => {
         console.log('About to initialize SDK');
         LuciaSDK.init({ 
-            clientId: process.env.REACT_APP_CLIENT_ID,
-            baseURL: process.env.REACT_APP_BASE_URL,
-            api_key: process.env.REACT_APP_API_KEY,
+            clientId: process.env.VITE_CLIENT_ID,
+            baseURL: process.env.VITE_BASE_URL,
+            api_key: process.env.VITE_API_KEY,
         });
         LuciaSDK.getClientIP();
       },
