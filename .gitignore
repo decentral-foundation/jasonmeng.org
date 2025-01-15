@@ -5,7 +5,7 @@ node_modules
 .pnp.js
 .env
 /my-blog/.env
-/my-blog/.env.stage
+/my-blog/.env.staging
 
 # Testing
 /coverage
