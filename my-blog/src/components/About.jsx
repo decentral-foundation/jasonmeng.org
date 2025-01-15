@@ -39,7 +39,7 @@ function About() {
           </ul>
 
           <p className="text-gray-700">
-            To this date (last updated Nov 7th 2024) none of his clients have ever gotten hacked. He is also starring in a blockchain reality show called Angels Villa. A show about 10 founders competing to build the next innovative multi-billion dollar company. He is one of the experts and contestants on the show. Preview can be viewed on Instgram.
+            To this date (last updated Jan 15th 2025) none of his clients have ever gotten hacked. He is also starring in a blockchain reality show called Angels Villa. A show about 10 founders competing to build the next innovative multi-billion dollar company. He is one of the experts and contestants on the show. Preview can be viewed on Instgram.
           </p>
 
           <p className="text-gray-700">
