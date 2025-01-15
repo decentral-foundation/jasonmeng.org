@@ -1,4 +1,6 @@
+import lucia from "../lucia";
 function Art() {
+    lucia.pageView("Art");
     return (
       <div className="max-w-[768px] mx-auto px-4 py-12 leading-relaxed text-gray-800">
         <h2 className="text-4xl font-bold mb-12 text-gray-900">Art</h2>
