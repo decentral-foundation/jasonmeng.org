@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import lucia from "../lucia";
 import { db } from '../firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 function Apply() {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,17 +14,26 @@ function Apply() {
         setIsSubmitting(true);
         setSubmitStatus({ type: '', message: '' });
 
-        const formData = {
-            email: e.target.email.value,
-            xAccount: e.target.xAccount.value,
-            industry: e.target.industry.value,
-            arr: e.target.arr.value,
-            timestamp: new Date()
-        };
-
         try {
+            console.log('Starting form submission...');
+            
+            const formData = {
+                email: e.target.email.value,
+                xAccount: e.target.xAccount.value,
+                industry: e.target.industry.value,
+                arr: e.target.arr.value,
+                createdAt: serverTimestamp()
+            };
+
+            console.log('Form data prepared:', formData);
+            console.log('Firestore instance:', db);
+
             // Add form data to Firestore
-            await addDoc(collection(db, "applications"), formData);
+            console.log('Attempting to add document to Firestore...');
+            const docRef = await addDoc(collection(db, "applications"), formData);
+            
+            console.log("Document written with ID:", docRef.id);
+            
             setSubmitStatus({
                 type: 'success',
                 message: 'Application submitted successfully!'
@@ -32,9 +41,15 @@ function Apply() {
             e.target.reset();
         } catch (error) {
             console.error("Error submitting form:", error);
+            console.error("Error details:", {
+                code: error.code,
+                message: error.message,
+                stack: error.stack
+            });
+            
             setSubmitStatus({
                 type: 'error',
-                message: 'Error submitting form. Please try again.'
+                message: `Error submitting form: ${error.message}`
             });
         } finally {
             setIsSubmitting(false);
