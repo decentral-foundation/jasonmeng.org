@@ -12,9 +12,10 @@ function Header() {
         <Link to="/art">Art</Link>
         <Link to="/about">About</Link>
         <Link to="/">Posts</Link>
+        <Link to="/apply">Apply</Link>
       </nav>
     </header>
   );
 }
 
-export default Header; 
+export default Header;

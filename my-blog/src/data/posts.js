@@ -31,7 +31,7 @@ export const posts = [
   },{
     id: "third-post",
     date: "Jan 27th, 2025",
-    title: "How to host How I’ve determined Agentic AI as THE most lucrative domain to build in for the next decade",
+    title: "How I’ve determined Agentic AI as THE most lucrative domain to build in for the next decade",
     fullArticleUrl: "https://medium.com/@a2859236246/ai-agents-96eeb1cd2af2",
     content: `
       AI Agents are a level beyond what ChatGPT can provide. AI Agents can take an abstract problem and use advanced reasoning skills to solve much more complex problems than a prompt based LLM such as ChatGPT. 
