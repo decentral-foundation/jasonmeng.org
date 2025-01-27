@@ -28,5 +28,17 @@ export const posts = [
       
       When reaching out to co-hosts and sponsors: To demonstrate past credibility, use this album just that shows pictures from past events. Feel free to add your own from recent events. 
     `
+  },{
+    id: "third-post",
+    date: "Jan 27th, 2025",
+    title: "How to host How I’ve determined Agentic AI as THE most lucrative domain to build in for the next decade",
+    fullArticleUrl: "https://medium.com/@a2859236246/ai-agents-96eeb1cd2af2",
+    content: `
+      AI Agents are a level beyond what ChatGPT can provide. AI Agents can take an abstract problem and use advanced reasoning skills to solve much more complex problems than a prompt based LLM such as ChatGPT. 
+
+      Agents are still in its infancy but are poised for massive growth
+       - The global AI agents market is set to increase from USD 5.2 billion in 2024 to USD 139.12 billion by 2033, with a CAGR of 43.88% over the forecast period. 
+       - The market is anticipated to grow from USD 5.29 billion in 2024 to USD 216.8 billion by 2035, indicating a CAGR of 40.15% 
+    `
   }
 ]; 
