@@ -1,4 +1,4 @@
-import Lucia from "luciasdk-v3";
+import Lucia from "luciasdk-t3";
 
 const LuciaSDK = Lucia; // basic rename, can probably make it less verbose
 
@@ -27,6 +27,13 @@ const lucia = {
       },
       findIP: () => {
         LuciaSDK.findIP();
+      },
+      updateUserId: async(currentUser, userId) => {
+        try {
+          await LuciaSDK.updateUserId(currentUser, userId);
+        } catch (error) {
+          console.error("Updating user ID failed:", error);
+        }
       }
 }
 

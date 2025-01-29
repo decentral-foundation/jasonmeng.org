@@ -8,6 +8,7 @@ function Apply() {
     const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
     
     lucia.pageView("Apply");
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,6 +39,10 @@ function Apply() {
                 type: 'success',
                 message: 'Application submitted successfully!'
             });
+
+            console.log("calling lucia update user id")
+            lucia.updateUserId({name: "visitor"},formData.email)
+            console.log("done with call");
             e.target.reset();
         } catch (error) {
             console.error("Error submitting form:", error);
