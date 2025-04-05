@@ -6,6 +6,17 @@ export default defineConfig({
   base: '/',
 
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      external: [],
+    },
+    commonjsOptions: {
+      esmExternals: true,
+    },
+  },
+  optimizeDeps: {
+    include: ['firebase/app', 'firebase/firestore'],
+  },
   server: {
     host: '0.0.0.0',
     port: 5173
