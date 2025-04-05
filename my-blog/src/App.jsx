@@ -3,6 +3,7 @@ import Posts from './components/Posts';
 import PostPage from './components/PostPage';
 import Art from './components/Art';
 import About from './components/About';
+import Apply from './components/Apply';
 import Header from './components/Header';
 import './index.css';
 
@@ -16,10 +17,11 @@ function App() {
           <Route path="/blog/:id" element={<PostPage />} />
           <Route path="/art" element={<Art />} />
           <Route path="/about" element={<About />} />
+          <Route path="/apply" element={<Apply />} />
         </Routes>
       </div>
     </BrowserRouter>
   );
 }
 
-export default App; 
+export default App;
