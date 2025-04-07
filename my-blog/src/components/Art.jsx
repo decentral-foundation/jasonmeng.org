@@ -22,7 +22,7 @@ function Art() {
           <h3 className="text-2xl font-semibold mb-6 text-gray-800">Recent Appearances</h3>
           <ul className="space-y-4 text-lg list-disc pl-6 text-gray-700">
             <li>Jason starring in Blockchain Reality Show Angels Villa. View trailer: 
-              <a href="https://www.instagram.com/reel/C-r5xrQuhX6/?igsh=MXBmMmF2ampzcjVnOQ==">Instagram Video</a>
+              <a href="https://www.instagram.com/reel/C-r5xrQuhX6/?igsh=MXBmMmF2ampzcjVnOQ==" className="text-blue-600 hover:text-blue-800 underline">Instagram Video</a>
             </li>
             <li>Jason pitching at ETH CC 2024 in Brussels
               <a href="https://youtu.be/vg_Dh5hbOag" className="text-blue-600 hover:text-blue-800 mx-1">Part 1</a>
