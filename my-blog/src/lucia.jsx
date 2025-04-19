@@ -1,4 +1,4 @@
-import Lucia from "luciasdk-t3";
+import Lucia from "luciasdk-v3";
 
 const LuciaSDK = Lucia; // basic rename, can probably make it less verbose
 
