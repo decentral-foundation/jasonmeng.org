@@ -1,4 +1,4 @@
-import Lucia from "luciasdk-v3";
+import Lucia from "lucia-sdk";
 
 const LuciaSDK = Lucia; // basic rename, can probably make it less verbose
 
@@ -6,7 +6,9 @@ const lucia = {
     init: () => {
         console.log('About to initialize SDK');
         LuciaSDK.init({ 
-            api_key: import.meta.env.VITE_API_KEY
+            clientId: import.meta.env.VITE_CLIENT_ID,
+            baseURL: import.meta.env.VITE_BASE_URL,
+            api_key: import.meta.env.VITE_API_KEY,
         });
         LuciaSDK.getClientIP();
       },
