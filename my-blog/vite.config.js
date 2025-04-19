@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     nodePolyfills({
-      // Whether to polyfill `node:` protocol imports.
+      // needed to run node crypto library in browser
       protocolImports: true,
     }),
   ],
