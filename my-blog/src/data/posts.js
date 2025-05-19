@@ -13,7 +13,7 @@ export const posts = [
         I'm an accomplished founder. In this image this was when I was running my cybersecurity firm.
       </p>
 
-      <img src="https://i.imgur.com/GUfPBYR.jpeg" alt="Conference presentation" style="width: 100%; max-width: 800px; height: auto; margin: 20px auto; display: block; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" />
+      <img src="https://i.imgur.com/79cLIxD.png" alt="Conference presentation with CZ at Binance" style="width: 100%; max-width: 800px; height: auto; margin: 20px auto; display: block; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" />
       
 
       Beyond audits and cybersec, I also have a background in AI working in some of the top Silicon Valley firms. I was frequently invited to speak at a number of conferences, this was in Miami during Art Basel. 
