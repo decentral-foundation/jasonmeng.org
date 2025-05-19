@@ -32,16 +32,10 @@ function PostPage() {
     );
   }
 
-  // Convert the content string into paragraphs
-  const paragraphs = post.content
-    .trim()
-    .split('\n')
-    .filter(p => p.trim())
-    .map((p, i) => (
-      <p key={i} className="mb-4">
-        {p.trim()}
-      </p>
-    ));
+  // Render content with HTML support
+  const createMarkup = () => {
+    return { __html: post.content.trim() };
+  };
 
   return (
     <article className="max-w-2xl mx-auto py-8">
@@ -50,9 +44,7 @@ function PostPage() {
       </Link>
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
       <div className="text-gray-500 mb-8">{post.date}</div>
-      <div className="prose">
-        {paragraphs}
-      </div>
+      <div className="prose lg:prose-xl" dangerouslySetInnerHTML={createMarkup()} />
       {post.fullArticleUrl && (
         <footer className="mt-8 pt-4 border-t border-gray-200">
           <a 

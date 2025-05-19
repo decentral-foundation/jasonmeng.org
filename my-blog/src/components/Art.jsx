@@ -11,6 +11,14 @@ function Art() {
           <div className="space-y-2 text-lg">
             <div className="font-medium">Jason Meng</div>
             <div className="text-gray-600">Angel Investor, Speaker, Engineer</div>
+            
+            <div>
+            I'm founder and investor in AI and blockchain. I was frequently invited to speak at a number of conferences, this was in Miami during Art Basel. 
+            </div>
+
+            <img src="https://i.imgur.com/GUfPBYR.jpeg" alt="Conference presentation" className="w-full max-w-2xl mx-auto rounded-lg shadow-lg my-8" />
+      
+
             <div>
               <a href="https://twitter.com/lingqingm" className="text-blue-600 hover:text-blue-800">Twitter</a>
             </div>
