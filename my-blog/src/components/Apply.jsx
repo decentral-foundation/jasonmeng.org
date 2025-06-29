@@ -21,8 +21,8 @@ function Apply() {
             const formData = {
                 email: e.target.email.value,
                 xAccount: e.target.xAccount.value,
-                industry: e.target.industry.value,
-                arr: e.target.arr.value,
+                cvUrl: e.target.cvUrl.value,
+                skills: e.target.skills.value,
                 createdAt: serverTimestamp()
             };
 
@@ -63,7 +63,44 @@ function Apply() {
 
     return (
         <div className="max-w-[768px] mx-auto px-4 py-12 leading-relaxed text-gray-800">
-            <h2 className="text-4xl font-bold mb-12 text-gray-900">Apply</h2>
+            <h2 className="text-4xl font-bold mb-6 text-gray-900">Executive Assistant Position</h2>
+            
+            <div className="mb-12 space-y-6 text-gray-700">
+                <p className="text-lg">Looking for an exceptional Executive Assistant to support high-impact entrepreneurial ventures and strategic initiatives.</p>
+                
+                <div className="space-y-4">
+                    <h3 className="text-xl font-semibold text-gray-900">Role Overview:</h3>
+                    <ul className="list-disc pl-5 space-y-2">
+                        <li>Direct support to founder in managing complex schedules, communications, and projects</li>
+                        <li>Coordinate with internal teams, external partners, and stakeholders</li>
+                        <li>Handle sensitive information with utmost discretion and professionalism</li>
+                        <li>Drive operational efficiency and process improvements</li>
+                    </ul>
+                </div>
+
+                <div className="space-y-4">
+                    <h3 className="text-xl font-semibold text-gray-900">Key Requirements:</h3>
+                    <ul className="list-disc pl-5 space-y-2">
+                        <li>Exceptional organizational and time management skills</li>
+                        <li>Strong written and verbal communication abilities</li>
+                        <li>Proactive problem-solving mindset</li>
+                        <li>Experience in fast-paced, entrepreneurial environments</li>
+                        <li>Tech-savvy with proficiency in modern productivity tools</li>
+                    </ul>
+                </div>
+
+                <div className="space-y-4">
+                    <h3 className="text-xl font-semibold text-gray-900">What We Offer:</h3>
+                    <ul className="list-disc pl-5 space-y-2">
+                        <li>Competitive compensation package</li>
+                        <li>Opportunity to work directly with founder and key decision-makers</li>
+                        <li>Exposure to cutting-edge projects and ventures</li>
+                        <li>Professional growth and development opportunities</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 className="text-2xl font-semibold mb-6 text-gray-900">Application Form</h3>
             
             {submitStatus.message && (
                 <div className={`mb-6 p-4 rounded-md ${
@@ -99,25 +136,37 @@ function Apply() {
                 </div>
 
                 <div className="space-y-2">
-                    <label htmlFor="industry" className="block text-gray-700">Business Industry</label>
+                    <label htmlFor="cvUrl" className="block text-gray-700">CV/Resume URL</label>
                     <input
-                        type="text"
-                        id="industry"
-                        name="industry"
+                        type="url"
+                        id="cvUrl"
+                        name="cvUrl"
                         required
+                        pattern="https?://.+"
+                        placeholder="https://your-cv-link.com"
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+                        onInvalid={(e) => {
+                            if (e.target.validity.patternMismatch) {
+                                e.target.setCustomValidity('Please enter a valid URL starting with http:// or https://');
+                            } else if (e.target.validity.valueMissing) {
+                                e.target.setCustomValidity('Please provide a URL to your CV');
+                            }
+                        }}
+                        onInput={(e) => e.target.setCustomValidity('')}
                     />
+                    <p className="text-sm text-gray-600 mt-1">Please provide a link to your CV/resume (e.g., Google Drive, Dropbox, or personal website)</p>
                 </div>
 
                 <div className="space-y-2">
-                    <label htmlFor="arr" className="block text-gray-700">ARR</label>
-                    <input
-                        type="text"
-                        id="arr"
-                        name="arr"
+                    <label htmlFor="skills" className="block text-gray-700">Key Skills & Tools</label>
+                    <textarea
+                        id="skills"
+                        name="skills"
                         required
+                        placeholder="List your relevant skills, software proficiency, and tools you're experienced with"
+                        rows="4"
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
-                    />
+                    ></textarea>
                 </div>
 
                 <button

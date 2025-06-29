@@ -15,9 +15,9 @@ function App() {
         <CookieConsent />
         <Header />
         <Routes>
-          <Route path="/" element={<Posts />} />
+          <Route path="/" element={<Art />} />
+          <Route path="/post" element={<Posts />} />
           <Route path="/post/:id" element={<PostPage />} />
-          <Route path="/art" element={<Art />} />
           <Route path="/about" element={<About />} />
           <Route path="/apply" element={<Apply />} />
         </Routes>

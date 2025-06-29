@@ -10,7 +10,7 @@ export const posts = [
       </p>
 
       <p>
-        I'm an accomplished founder. In this image this was when I was running my cybersecurity firm.
+        I'm enjoy being a founder, and believe that finding new markets, executing quickly, and having competitive spirit makes life much more fulfilling :) 
       </p>
 
       <img src="https://i.imgur.com/79cLIxD.png" alt="Conference presentation with CZ at Binance" style="width: 100%; max-width: 800px; height: auto; margin: 20px auto; display: block; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" />

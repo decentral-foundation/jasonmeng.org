@@ -11,7 +11,7 @@ function Header() {
       <nav className="flex justify-center gap-8">
         <Link to="/art">Art</Link>
         <Link to="/about">About</Link>
-        <Link to="/">Posts</Link>
+        <Link to="/post">Posts</Link>
         <Link to="/apply">Apply</Link>
       </nav>
     </header>
