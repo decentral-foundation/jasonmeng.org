@@ -158,6 +158,9 @@ export const posts = [
     fullArticleUrl: "https://medium.com",
     content: `
       <h1>Introduction</h1>
+      <p>
+        Authors Note: I'm writing this because if it weren't for Roman I would have never been as involved or interested in the crypto space. He has mentored me countless times on blockchain development, is a friend and overall a great person. 
+      </p>
       <h2>DISCLAIMER: THIS IS NOT LEGAL ADVICE</h2>
       <p>
         Like the atomic bomb, Tornado Cash represents a technological breakthrough that forces us to confront the balance between innovation and control. While law preserves civilization, it primarily serves state interests.
@@ -165,6 +168,9 @@ export const posts = [
       <h1>The DeFi Privacy Dilemma</h1>
       <div>
         Roman Storm's Tornado Cash revolutionized crypto privacy, enabling transactions to be 5x more difficult to trace. This advancement, while powerful for legitimate privacy needs, has also aided groups like Lazarus in fund laundering.
+      </div>
+      <div> 
+        Many pundits will make the case that code should be treated as free speech. This is a clear example of when code goes against the will of the State, you'll face much more pressure than a person expressing themselves or taking part of a political rally. Tornado cash can be a tool for thieves and terrorists to launder money. The US wants order, instead of chaos. But are they really thinking about this in the right direction? 
       </div>
       <div> 
         As this <strong><a href="https://x.com/zmanian/status/1934966216000491872">analysis shows</a></strong>, Roman Storm's trial could effectively criminalize privacy in crypto. Yet true privacy remains elusive - just look at how governments worldwide resist privacy-focused projects like Monero.
@@ -178,19 +184,28 @@ export const posts = [
       <div>
         Modern tracking occurs at the hardware level through <i>Supercookies</i> - persistent identifiers that survive browser clearing. While this enables marketing and helps catch criminals (see this <a href="https://www.wired.com/story/jeffrey-epstein-island-visitors-data-broker-leak/">Epstein case study</a>), it also demonstrates the death of true digital privacy.
       </div>
-      <h1>The Bigger Picture</h1>
+      <h1>Everyone knows how to use Tornado Cash, you just don't talk about using it</h1>
       <div>
         Just as nuclear technology led to international treaties, privacy tools like Tornado Cash will require similar governance frameworks. Ironically, supercookie tracking provides a counterbalance to mixer technology, as users can still be traced at the device level.
       </div>
       <div>
         The stakes are high: While prosecuting Roman may deter privacy tools, it ignores legitimate needs - from protecting dissidents using Signal to securing crypto holders from physical threats. When even Vitalik needs a bulletproof vest, the need for privacy tools becomes clear.
       </div>
+      <div>
+        If you've been in the crypto space for a while, you'll eventually run into degens that will risk it all to make 10's or 100's of millions. Sometimes operating in a legal grey area. It's really not uncommon to hear at a conference "I just got my coin to pump 15x and cashing out, going to fork tornado cash this weekend and secure the bag". 
+      </div>
+      <div>
+        Mind you these are probably UCSB undergrads literally just finished with their CS degree doing this type of work. "Forking Tornado Cash" in the crypto upper circles is really just another weekend chore for some people's side project that nets them 10M after 3 months. 
+      </div>
+      <div>
+        The cat is out of the hat already, and theres no way to put it back in. As in, what has been seen (what's possible with Tornado cash) can no longer be unseen...
+      </div> 
       <h1>A Strategic Perspective</h1>
       <div>
         Having this technology developed openly by American citizens like Roman Storm is ultimately beneficial. The alternative - secret development by actors like North Korea - could produce far more dangerous tools without the current hardware-level safeguards, potentially making fund laundering 20x easier instead of just 5x.
       </div>
       <div>
-      <h2>Conclusion: Privacy as a Controllable Innovation</h2>
+      <h2>Privacy as a Controllable Innovation</h2>
       
       <p>The Tornado Cash case underscores a fundamental tension: <strong>privacy is both a right and a risk</strong>. Just as nuclear technology demanded frameworks like the Non-Proliferation Treaty, crypto privacy tools require governance that balances individual autonomy with collective security.</p>
 
@@ -208,6 +223,16 @@ export const posts = [
         <p>The question isn't whether privacy will survive, but <strong>who will build it right</strong>. The answer will define not just crypto's future, but the future of digital human rights.</p>
       </div>
     </div>
+    <h1> Where do we go from here?</h1>
+    <div>
+      If you want to play a part. I'm donating to the cause. I can confirm with him and we will create a contract which will automatically forward donation funds to his ENS account Romanstorm.eth. <a href="https://etherscan.io/address/romanstorm.eth">Etherscan Link</a>
+
+      For those who want to donate using other blockchain networks, I will list the appropriate addresses here. 
+    </div>
+    <ul>
+      <li> Bitcoin deposit address: bc1qvmpwl3c270z9v8fkywf8ma5xwhp9atcv39psft</li>
+      <li> Solana deposit address: 9rU2wK5UqdjJT7xMMWJhWBzwpaUnPvp1nUNbbZt9tvsH</li>
+    </ul>
     `
   }
 ]; 
