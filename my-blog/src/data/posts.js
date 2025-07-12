@@ -225,7 +225,7 @@ export const posts = [
     </div>
     <h1> Where do we go from here?</h1>
     <div>
-      If you want to play a part. I'm donating to the cause. I can confirm with him and we will create a contract which will automatically forward donation funds to his ENS account Romanstorm.eth. <a href="https://etherscan.io/address/romanstorm.eth">Etherscan Link</a>
+      If you want to play a part. I'm donating to the cause. I can confirm with him and we will create a contract which will automatically forward donation funds to his official donation account on Giveth. <a href="https://giveth.io/project/defend-roman-storm?tab=donations">Giveth Link</a>
 
       For those who want to donate using other blockchain networks, I will list the appropriate addresses here. 
     </div>
