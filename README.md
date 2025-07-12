@@ -1,4 +1,4 @@
-# jasonmeng.org
+# Jasonmeng.org
 
 Personal website built with React and Vite.
 
