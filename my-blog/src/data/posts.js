@@ -151,5 +151,17 @@ export const posts = [
         Practice this technique by starting with short talks and familiar spaces. As you become more comfortable, you can create more elaborate memory palaces for longer presentations. Remember, the Greeks weren't born great orators - they developed these techniques through practice and refinement.
       </p>
     `
+  }, {
+    id: "sixth-post",
+    date: "Jul 12th, 2025",
+    title: "The Tornado Cash Case - Roman Storm goes to trial",
+    fullArticleUrl: "https://medium.com",
+    content: `
+      <h1>The Tornado Cash Case - Roman Storm goes to trial</h1>
+      <p>The invention of Tornado cash was equivalent of that of the atomic bomb. Law is intended to keep civilization civilazed, but its also designed to preserve the interests of the state. 
+      </p>
+      <div>Because after all, a states ability to exist is a function based off of its ability to defend itself. Many books have already covered these topics. I would recommend checking Guns, Germs and Steel for a more detailed thesis on that. 
+      </div>
+    `
   }
 ]; 
