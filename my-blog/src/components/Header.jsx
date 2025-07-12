@@ -9,7 +9,7 @@ function Header() {
         <Link to="/">Jason M</Link>
       </h1>
       <nav className="flex justify-center gap-8">
-        <Link to="/art">Art</Link>
+        <Link to="/">Home</Link>
         <Link to="/about">About</Link>
         <Link to="/post">Posts</Link>
         <Link to="/apply">Apply</Link>
