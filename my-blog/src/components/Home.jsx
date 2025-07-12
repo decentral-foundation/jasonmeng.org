@@ -1,9 +1,9 @@
 import lucia from "../lucia";
-function Art() {
-    lucia.pageView("Art");
+function Home() {
+    lucia.pageView("Home");
     return (
       <div className="max-w-[768px] mx-auto px-4 py-12 leading-relaxed text-gray-800">
-        <h2 className="text-4xl font-bold mb-12 text-gray-900">Art</h2>
+        <h2 className="text-4xl font-bold mb-12 text-gray-900">Home</h2>
         
         {/* Bio section */}
         <div className="mb-16">
@@ -13,7 +13,7 @@ function Art() {
             <div className="text-gray-600">Angel Investor, Speaker, Engineer</div>
             
             <div>
-            I'm founder and investor in AI and blockchain. I was frequently invited to speak at a number of conferences, this was in Miami during Art Basel. 
+            I'm founder and investor in AI and blockchain. I was frequently invited to speak at a number of conferences, including during Art Basel Miami. 
             </div>
 
             <img src="https://i.imgur.com/GUfPBYR.jpeg" alt="Conference presentation" className="w-full max-w-2xl mx-auto rounded-lg shadow-lg my-8" />
@@ -87,4 +87,4 @@ function Art() {
     );
   }
   
-  export default Art;
+  export default Home;

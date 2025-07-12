@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Posts from './components/Posts';
 import PostPage from './components/PostPage';
-import Art from './components/Art';
+import Home from './components/Home';
 import About from './components/About';
 import Apply from './components/Apply';
 import Header from './components/Header';
@@ -15,7 +15,7 @@ function App() {
         <CookieConsent />
         <Header />
         <Routes>
-          <Route path="/" element={<Art />} />
+          <Route path="/" element={<Home />} />
           <Route path="/post" element={<Posts />} />
           <Route path="/post/:id" element={<PostPage />} />
           <Route path="/about" element={<About />} />
