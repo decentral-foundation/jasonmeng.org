@@ -157,10 +157,47 @@ export const posts = [
     title: "The Tornado Cash Case - Roman Storm goes to trial",
     fullArticleUrl: "https://medium.com",
     content: `
-      <h1>The Tornado Cash Case - Roman Storm goes to trial</h1>
-      <p>The invention of Tornado cash was equivalent of that of the atomic bomb. Law is intended to keep civilization civilazed, but its also designed to preserve the interests of the state. 
+      <h1>Introduction</h1>
+      <h2>DISCLAIMER: THIS IS NOT LEGAL ADVICE</h2>
+      <p>
+        The invention of Tornado cash was equivalent of that of the atomic bomb. Law is intended to keep civilization civilazed, but its also designed to preserve the interests of the state. 
       </p>
-      <div>Because after all, a states ability to exist is a function based off of its ability to defend itself. Many books have already covered these topics. I would recommend checking Guns, Germs and Steel for a more detailed thesis on that. 
+      <div>
+        Because after all, a states ability to exist is a function based off of its ability to defend itself. Many books have already covered these topics. I would recommend checking Guns, Germs and Steel for a more detailed thesis on that. 
+      </div>
+      <h1>For those that care about the future of DeFi</h1>
+      <div>
+        Roman Storm and his team at Tornado Cash created essentially the equivalent of the atomic bomb in crypto. It has helped adverserial state actors like Lazarus Group launder billions of dollars with 20x the ease due to how strong the encryption is and how well designed the system is. 
+      </div>
+      <div> 
+        In this well written  <strong><a href="https://x.com/zmanian/status/1934966216000491872">X post</a></strong> it highlights how if Roman Storm loses it would send a loud and clear message that privacy has no place in crypto.
+
+        However most people in crypto don't even realize that privacy doesn't even exist at all in the first place. Privacty is an illusion. Just look at all the resistance projects such Monero faces from essentially all governments in the world. 
+      </div>
+      <div>
+        Privacy is power. And too much power, concentrated in the hands of those that have opposing ideas to the state, is dangerous. To give an example, you can look at books such as Surveillance Capitalism. A quick synopsis of the book is:
+      </div>
+      <div class="book-synopsis">
+        Surveillance Capitalism, written by Shoshana Zuboff, explores how tech companies have created a new economic order that claims human experiences as free raw material. The book reveals how companies like Google and Facebook pioneered this new form of capitalism by tracking and monetizing our online behavior, turning our private experiences into behavioral data that can be analyzed, packaged, and sold to advertisers and other third parties.
+      </div>
+      <div class="book-synopsis">
+        The implications are profound: this system threatens not just privacy but human autonomy itself. By predicting and manipulating our behavior through sophisticated algorithms and targeted content, surveillance capitalists aim to automate us, steering our behavior toward their commercial goals. The book argues this creates a fundamental threat to democracy and personal freedom, as it concentrates unprecedented power in the hands of private surveillance capital, operating outside meaningful democratic oversight.
+      </div>
+      <div> 
+        Basically, everything is tracked - and this occurs at a hardware level. This happens whether you are in USA or China. Afterall, these 2 countries are not as different as you think.       
+      </div>
+      <div>
+        There are companies that specialize in the use of <i>Supercookies</i> to track you across the internet. These cookies are designed to be undetectable by most browsers and are used to track your online activity even when you are not logged into a website. Yes, even when you clear your cache and cookies, these companies can still track you. 
+      </div>
+      <div>
+        Some people may be outraged. But the truth is, without this technology then startups would have a really hard time with marketing. These supercookie companies also are responsible for tracking down bad actors - see <a href="https://www.wired.com/story/jeffrey-epstein-island-visitors-data-broker-leak/">this article</a> explaining how Jeffrey Epstein got caught. 
+      </div>
+      <h1> What this means </h1>
+      <div> 
+        After the atomic bomb got invented, there were a bunch of accords and international treaties to prevent the use/abuse of the atomic bomb. The same will happen to crypto. 
+      </div>
+      <div>
+        You see, the whole concept of supercookies is actually a solution to the problem that Tornado Cash causes. 
       </div>
     `
   }
