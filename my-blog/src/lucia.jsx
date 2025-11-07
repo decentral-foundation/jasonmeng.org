@@ -30,6 +30,10 @@ const lucia = {
         } catch (error) {
           console.error("Updating user ID failed:", error);
         }
+      },
+      buttonClick: (buttonName) => {
+        console.log('Tracked this Button being clicked:', buttonName);
+        LuciaSDK.buttonClick(buttonName);
       }
 }
 

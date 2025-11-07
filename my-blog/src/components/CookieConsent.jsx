@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import lucia from "../lucia";
 function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -11,11 +11,13 @@ function CookieConsent() {
   }, []);
 
   const handleAccept = () => {
+    lucia.buttonClick('accept_cookie_consent');
     localStorage.setItem('cookieConsent', 'true');
     setIsVisible(false);
   };
 
   const handleDecline = () => {
+    lucia.buttonClick('decline_cookie_consent');
     localStorage.setItem('cookieConsent', 'false');
     setIsVisible(false);
   };
