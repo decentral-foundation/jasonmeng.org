@@ -9,6 +9,7 @@ const lucia = {
             clientId: import.meta.env.VITE_CLIENT_ID,
             baseURL: import.meta.env.VITE_BASE_URL,
             apiKey: import.meta.env.VITE_API_KEY,
+            debugURL: import.meta.env.VITE_CLICKINSIGHTS_DEBUG_URL,
         });
       },
     
