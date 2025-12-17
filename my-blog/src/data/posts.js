@@ -67,14 +67,13 @@ export const posts = [
   },{
     id: "third-post",
     date: "Jan 27th, 2025",
-    title: "How I’ve determined Agentic AI as THE most lucrative domain to build in for the next decade",
+    title: "The best thing you can do",
     fullArticleUrl: "https://medium.com/@a2859236246/ai-agents-96eeb1cd2af2",
     content: `
-      AI Agents are a level beyond what ChatGPT can provide. AI Agents can take an abstract problem and use advanced reasoning skills to solve much more complex problems than a prompt based LLM such as ChatGPT. 
+      If its really the case that AI is going to become a bigger and bigger factor into how we live our lives. 
 
-      Agents are still in its infancy but are poised for massive growth
-       - The global AI agents market is set to increase from USD 5.2 billion in 2024 to USD 139.12 billion by 2033, with a CAGR of 43.88% over the forecast period. 
-       - The market is anticipated to grow from USD 5.29 billion in 2024 to USD 216.8 billion by 2035, indicating a CAGR of 40.15% 
+      The best thing you can do is run an AI company. That way you stay ahead of the curve, and you get decent exposure to using the tools. 
+      You'll know when new paradigms get released. And its 
     `
   },{
     id: "fourth-post",
@@ -233,6 +232,63 @@ export const posts = [
       <li> Bitcoin deposit address: bc1qvmpwl3c270z9v8fkywf8ma5xwhp9atcv39psft</li>
       <li> Solana deposit address: 9rU2wK5UqdjJT7xMMWJhWBzwpaUnPvp1nUNbbZt9tvsH</li>
     </ul>
+    `
+  }, {
+    id: "post-six-point-five",
+    date: "Nov 1st, 2025",
+    title: "Twitter and Faucets",
+    fullArticleUrl: "https://medium.com",
+    content: `Our approach to Customer Acquisition
+    
+    We use a lot of AI. 
+
+    We worked with a firm that's building a L1 Blockchain. It had a completely novel consensus mechanism. 
+    
+    <div> 
+      They had a faucet, and it used Twitter to authenticate. A lot of Founders seem to lack agency. That is, they didn't take responsiblity for 
+      what traffic does on their website after the user gets on there. However, that's where they are wrong. And there is plenty of opportunity 
+      for them to take control of the situation. 
+    </div> 
+
+    <div> 
+
+    </div> 
+
+    
+    `
+
+  },
+  
+  {
+    id: "seventh-post",
+    date: "Dec 17th, 2025",
+    title: "Where crypto is now",
+    fullArticleUrl: "https://medium.com",
+    content: `Really what this article is about the current macroeconomic trends
+    
+    <div>
+    Most people in Twitter are rightfully making fun of ghost chains. 
+    But let's address that problem. What if we can measure the utility of a chain? Even if its just a quantitative approximation exercise. 
+    You can start with a couple demographics. One could be the typical person in North America. Seocnd could be someone from South East Asia that lives and works abroad, and have a setup where they can send money they make back home. 
+    </div>
+
+    They're getting fed up with the lack of traction in crypto. 
+
+    A lot of prominent people in the web3 industry has predicted this already. There's still room for breakout hits such as Hyperliquid, but lets really break thsi down as to why the general pattern occurs. 
+
+    <p>
+      There's people that still want blockchain to take off. 
+    </p>
+    
+    The fact is, blockchain will still have room to grow. It just becomes a more stable industry. 
+    Many people say that its iPhone moment has yet to occur. I concur with this statement. 
+
+    The shift will go towards better distribution. For us to do that, we have to unify user acquisition. 
+    The current strategy of 
+
+    <div> 
+    Incentivizing is the same as running a Billboard of Subway Ad in Times Square. You'll get people once its up, but once it's down you're back to square one. 
+    </div> 
     `
   }
 ]; 

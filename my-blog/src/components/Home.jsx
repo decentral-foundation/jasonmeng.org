@@ -3,15 +3,19 @@ function Home() {
     lucia.pageView("Home");
     return (
       <div className="max-w-[768px] mx-auto px-4 py-12 leading-relaxed text-gray-800">
-        <h2 className="text-4xl font-bold mb-12 text-gray-900">Home</h2>
+        <h2 className="text-4xl font-bold mb-12 text-gray-900">Thesis</h2>
         
+        <div className="mb-16">
+          <div className="text-2xl font-semibold mb-6 text-gray-800">Concept</div>
+          <div className="text-gray-600">The importance of principled thinking</div>
+        </div>
         {/* Bio section */}
         <div className="mb-16">
           <h3 className="text-2xl font-semibold mb-6 text-gray-800">Bio</h3>
           <div className="space-y-2 text-lg">
             <div className="font-medium">Jason Meng</div>
             <div className="text-gray-600">Angel Investor, Speaker, Engineer</div>
-            
+
             <div>
             I'm founder and investor in AI and blockchain. I was frequently invited to speak at a number of conferences, including during Art Basel Miami. 
             </div>
