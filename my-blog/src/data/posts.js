@@ -73,7 +73,24 @@ export const posts = [
       If its really the case that AI is going to become a bigger and bigger factor into how we live our lives. 
 
       The best thing you can do is run an AI company. That way you stay ahead of the curve, and you get decent exposure to using the tools. 
-      You'll know when new paradigms get released. And its 
+      You'll know when new paradigms get released. 
+
+      If you don't want to run an AI company, the next best thing is to work at one. You'll carry less of the risk. 
+      You'll get the same upside in terms of understanding how AI works.  
+
+      Let's say Generative AI becomes so good, not using it is like not using your right hand. The amount of output in life diminishes, when you don't use these tools. 
+      Your happiness, work life balance, they all deteriorate. People that have really good AI skills are in this new wave of wealth. 
+      You are left behind. 
+
+      Imagine a dystopian future where each AI business competes heavily with one another. The effects of their actions are felt by everyone. 
+      Even now, people are freaking out about Cursor constantly redoing its UIUX. Imagine being on the receiving end of a policy change that affects how much money you make. 
+
+      Or it affects the ability for you to care for your loved ones. To these AI conglomerates, this is just another random decision they made on a Tuesday, that was deemed necessary for them to outcompete their rivals. 
+
+      However, the collateral damage left you, and probably hundreds of thousands of other people in your demographic. 
+      If this was happening while you were inside an AI company, well it would be different. You would at least be armed with tools necessary to fight back. 
+
+      You'll have the same leverage as anyone other company, I mean so long as the AI you're developing is compettiive. 
     `
   },{
     id: "fourth-post",
