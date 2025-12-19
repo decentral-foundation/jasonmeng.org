@@ -1,6 +1,10 @@
 import lucia from "../lucia";
+import useScrollDepth from "../hooks/useScrollDepth";
+
 function About() {
     lucia.pageView("About");
+    const depth = useScrollDepth();
+
     return (
       <div className="max-w-[768px] mx-auto px-4 py-12 leading-relaxed text-gray-800">
         <h2 className="text-4xl font-bold mb-12 text-gray-900">About</h2>
@@ -55,6 +59,7 @@ function About() {
           <p className="text-gray-700">
             He is also an active angel investor and speaker. He has spoken at many conferences and workshops about blockchain technology and its applications.
           </p>
+          <p className="text-sm text-gray-500 mb-6">Scroll depth: {depth}%</p>
         </div>
       </div>
     );

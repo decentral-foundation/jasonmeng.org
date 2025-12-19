@@ -1,9 +1,14 @@
 import lucia from "../lucia";
+import useScrollDepth from "../hooks/useScrollDepth";
+
 function Home() {
     lucia.pageView("Home");
+    const depth = useScrollDepth();
+
     return (
       <div className="max-w-[768px] mx-auto px-4 py-12 leading-relaxed text-gray-800">
         <h2 className="text-4xl font-bold mb-12 text-gray-900">Thesis</h2>
+        
         
         <div className="mb-16">
           <div className="text-2xl font-semibold mb-6 text-gray-800">Concept</div>
@@ -87,6 +92,7 @@ function Home() {
             className="w-full rounded-lg shadow-md mt-8"
           />
         </div>
+        <p className="text-sm text-gray-500 mb-6">Scroll depth: {depth}%</p>
       </div>
     );
   }
