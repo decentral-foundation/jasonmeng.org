@@ -15,7 +15,7 @@ const useScrollDepth = () => {
       setDepth((prev) => {
         const next = Math.min(100, Math.max(0, Math.round(currentDepth)));
         if (next !== prev) {
-          console.log(`[useScrollDepth] depth: ${next}%`);
+          // console.log(`[useScrollDepth] depth: ${next}%`);
         }
         return next;
       });

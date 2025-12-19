@@ -83,7 +83,13 @@ function Home() {
           </p>
           
           <blockquote className="my-8 pl-6 border-l-4 border-gray-300 italic text-xl text-gray-700">
-            The Transparency Hack was moderated by Ana Andjelic and divided into two different sessions.
+            <a
+              href="https://hmgroup.com/news/hm-group-transparency-hack/"
+              className="text-blue-600 hover:text-blue-800 underline"
+            >
+              The Transparency Hack
+            </a>{" "}
+            was moderated by Ana Andjelic and divided into two different sessions.
           </blockquote>
 
           <img 
