@@ -251,6 +251,12 @@ export const posts = [
     </ul>
     `
   }, {
+    id: "post-six-point-two-five",
+    date: "Oct 1st 2025",
+    title: "Product is EZ, Marketing is Hard", 
+    fullArticleUrl: "https://medium.com"
+  },
+  {
     id: "post-six-point-five",
     date: "Nov 1st, 2025",
     title: "Twitter and Faucets",
@@ -258,8 +264,14 @@ export const posts = [
     content: `Our approach to Customer Acquisition
     
     We use a lot of AI. 
+    <div> 
+      We don't build for the world of today. We build for the world 6 months form now. And we automate. If we see the same campaign review meeting action items. We will build tooling and infra around that to go from a 4-6 times a week thing to a once a week prompt that fixes it
+    </div> 
 
-    We worked with a firm that's building a L1 Blockchain. It had a completely novel consensus mechanism. 
+    <div> 
+      We worked with a firm that's building a predictions market. 
+    </div>
+    
     
     <div> 
       They had a faucet, and it used Twitter to authenticate. A lot of Founders seem to lack agency. That is, they didn't take responsiblity for 
@@ -268,6 +280,15 @@ export const posts = [
     </div> 
 
     <div> 
+      Imagine running a community. It can be a niche one. For example Asian Business Owners. You probably know a thing or 2 about marketing. Your community group on FB is growing. You join a project and its about to do a launch. How do you ensure it gets off the ground? I mean the project knows basics, and you are running their ads. There is some shortform content. But how do you know for sure if it goes to go well. 
+    </div> 
+
+    <div> 
+      The 2 main factors are product and marketing. If its a great product, that has funding, that is simple enough to create value. You'll get a start. It could scale to 20k DAU's. And you would have 5-10 partnerships ready for distribution. But the company won't be ultra profitable yet. And it will be at least 2 years before it sees its return on investment from the initial launch that brought onboard 500 people. 
+    </div> 
+
+    <div> 
+      So many company's are on this trajectory. In fact, in the previous article I talked about th
 
     </div> 
 
@@ -306,6 +327,68 @@ export const posts = [
     <div> 
     Incentivizing is the same as running a Billboard of Subway Ad in Times Square. You'll get people once its up, but once it's down you're back to square one. 
     </div> 
+    `
+  }, {
+    id: "eigth-post",
+    date: "Dec 22nd, 2025",
+    title: "The inevitability of agents in marketing",
+    fullArticleUrl: "https://medium.com",
+    content: `
+    <h1> The decision problem</h1>
+    <div>
+      Agents in marketing are not inevitable because they are trendy.
+      They are inevitable because the decision problem has already exceeded human bandwidth.
+    </div>
+    <div>
+      <ol>
+        <li>The decision surface exploded
+      Modern marketing decisions are no longer about Which channel, Which creative, Which audience. </li>
+        <li> 
+        Marketing is already automated, just badly
+        Today’s stack already makes decisions: Rules engines, Lookalike expansion, Shortform trial and error 
+        These systems: React slowly, Encode stale assumptions, Cannot explain themselves
+        Agents are the correction.
+        </li> 
+      <ol>
+    </div>
+
+
+    
+
+    <h1> 
+      How Effective Is Attribution for Abandoned Cart Recovery?
+    </h1>
+
+    <div>
+      Attribution products do not directly recover abandoned carts. Execution systems do. Email, SMS, push notifications, and checkout UX improvements consistently recover <stong>3–5% of abandoned revenue on average</strong>, with best-in-class programs reaching 10%+. Attribution does not fix shipping shock, payment friction, or weak intent. What it does is surface where spend is wasted, for example paid retargeting claiming credit for users who would have converted via owned channels anyway. In practice, attribution’s primary bottom-line value is cost avoidance, not conversion creation.
+    </div>
+    <div>
+      Where attribution becomes financially meaningful is when it is paired with <strong>incrementality testing</strong>. Without holdouts, most attribution models overstate impact by confusing correlation with causation. Teams that run proper holdouts often discover that a large share of abandoned-cart “wins” would have happened regardless. Cutting those false positives frequently improves profit more than increasing recovery volume. Used correctly, attribution helps you stop paying for conversions you already earned.
+    </div>
+    <h2>Citations</h2>
+
+    <ol>
+      <li>
+        Baymard Institute, <em>Cart Abandonment Rate Statistics</em><br />
+        <a href="https://baymard.com/lists/cart-abandonment-rate">https://baymard.com/lists/cart-abandonment-rate</a>
+      </li>
+      <li>
+        Klaviyo, <em>Ecommerce Benchmarks: Abandoned Cart Email Performance</em><br />
+        <a href="https://www.klaviyo.com/marketing-resources/abandoned-cart-email">https://www.klaviyo.com/marketing-resources/abandoned-cart-email</a>
+      </li>
+      <li>
+        Shopify, <em>Recover Abandoned Carts</em><br />
+        <a href="https://www.shopify.com/blog/abandoned-cart">https://www.shopify.com/blog/abandoned-cart</a>
+      </li>
+      <li>
+        Meta (Facebook), <em>Conversion Lift &amp; Incrementality Testing</em><br />
+        <a href="https://www.facebook.com/business/help/149297272060759">https://www.facebook.com/business/help/149297272060759</a>
+      </li>
+      <li>
+        Google, <em>Measuring Incrementality in Marketing</em><br />
+        <a href="https://www.thinkwithgoogle.com/marketing-strategies/data-and-measurement/incrementality-testing/">https://www.thinkwithgoogle.com/marketing-strategies/data-and-measurement/incrementality-testing/</a>
+      </li>
+    </ol>
     `
   }
 ]; 
