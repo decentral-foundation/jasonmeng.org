@@ -254,7 +254,18 @@ export const posts = [
     id: "post-six-point-two-five",
     date: "Oct 1st 2025",
     title: "Product is EZ, Marketing is Hard", 
-    fullArticleUrl: "https://medium.com"
+    fullArticleUrl: "https://substack.com",
+    content: `
+      <h1> No vibe marketing yet</h1>
+      <div>
+        Everyone on Tech Twitter is stating how building a product is super easy. You know what happens right? When barrier to entry decreases, you'll have everyone and their brother try to create the next big thing. 
+
+        However, people are still constrained by one non-negotiable factor. Time. 
+        You've only got so much time in the day. Truthfully, there is no way for you to try out 4 of the latest "prediction market" apps. You need to pick one, and it will probably be the one that your friends talk about the most. 
+
+
+      </div>
+    `
   },
   {
     id: "post-six-point-five",
@@ -262,22 +273,105 @@ export const posts = [
     title: "Twitter and Faucets",
     fullArticleUrl: "https://medium.com",
     content: `Our approach to Customer Acquisition
-    
-    We use a lot of AI. 
+    Modern marketing has crossed a complexity threshold that humans cannot manage manually anymore.
+
     <div> 
       We don't build for the world of today. We build for the world 6 months form now. And we automate. If we see the same campaign review meeting action items. We will build tooling and infra around that to go from a 4-6 times a week thing to a once a week prompt that fixes it
     </div> 
 
     <div> 
-      We worked with a firm that's building a predictions market. 
+      The number of distribution channels have multiplied. Before it was paid ads on Google or Facebook. Those platforms were actually super novel at the time. 
+      Organic channels have always been a strong base. These would be special interest communities, forums. Then, the amount of content and data exploded. 
+      Soon, everyone realized how beneficial it is to create a brand profile. We now live in a world where budgets are fragmented across dozens of micro-experiments. 
+    </div>
+
+    <pre style="background:#0d1117;color:#e6edf3;padding:16px;border-radius:8px;overflow:auto;font-family:SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:14px;line-height:1.5;">
+    <code>
+                    ┌────────────┐
+                    │   Paid Ads │
+                    └─────┬──────┘
+                          │
+      ┌──────────┐   ┌────▼────┐   ┌─────────────┐
+      │  Content │──▶│  HUMAN  │◀──│  Influencers│
+      └──────────┘   │ MANAGER │   └─────────────┘
+            │        └────┬────┘          │
+            ▼             │               ▼
+      ┌──────────┐   ┌────▼────┐    ┌─────────────┐
+      │  Email   │──▶│  GUESS  │ ◀──│   Onchain   │
+      └──────────┘   │  WORK   │    │  Activity   │
+                     └─────────┘    └─────────────┘
+
+    </code>    
+    </pre>
+
+    <div>
+      A human can't reason across 10 different signals at once. Modern growth environments generate thousands of signals each hour. This creates 3 failure modes that 
+      everone recognizes. Decisions are made far too late. Accountability in what marketing investments are working is lost. Strategy becomes reactive instead of predictive. 
+    </div>
+
+    <pre style="background:#0d1117;color:#e6edf3;padding:16px;border-radius:8px;overflow:auto;font-family:SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:14px;line-height:1.5;">
+    <code> 
+              BEFORE                               AFTER
+        ┌────────────────────┐           ┌──────────────────────────┐
+        │  Human Decides     │           │   Human Sets Objectives  │
+        │  What To Do Next   │           │   ("Grow retention")     │
+        └─────────┬──────────┘           └──────────┬───────────────┘
+                  │                                 │
+                  ▼                                 ▼
+          Manual Execution                 AI Agent Orchestration
+          (slow, reactive)                (continuous, adaptive)
+                  │                                 │
+                  ▼                                 ▼
+          Fragmented Results           Unified Feedback Loop
+    </code>
+    </pre>
+
+    <div>
+      The cure is to move from dashboards to decision systems. The job of each human is to define the intent and the constraints. Agents observe the firehouse of data 
+      continuously. And on top of that they are very good at synthesizing the data into a coherent story. Agents then test, learn and adjust in real time!
+      Humans intervene only at decision boundaries. Just like no one manually balances a database anymore, no one will manually orchestrate growth.
+    </div>
+    
+    
+
+    <pre style="background:#0d1117;color:#e6edf3;padding:16px;border-radius:8px;overflow:auto;font-family:SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:14px;line-height:1.5;">
+    <code>
+                MORE CHANNELS
+                 ▲
+                 │
+                 │     Human Management
+                 │     Breaks Here
+                 │          ✖
+                 │
+                 │
+                 │        Agent Layer
+                 │     (Coordination Layer)
+                 │        ✓ Scales
+                 │
+                 └──────────────────────────▶
+                         TIME & COMPLEXITY
+
+    </code>
+    </pre>
+    <div style="text-align:center;margin-top:6px;font-size:14px;color:#6e7681;">
+      As channels, data, and experimentation increase, human-managed growth collapses under complexity.
+      Agent-based systems are not optional; they are the only stable configuration.
+    </div>
+
+    <div>
+      People want consistent leads generated, and consistent revenue. Unfortuantely, we live in a state where tools are all fragmented. 
+      That's why we've designed our system as the layer that coordinates ads, content, incentives, and users. 
+      Its the only layer that can see across silos. Marketing tools optimize channels. We optimize outcomes across channels.
     </div>
     
     
     <div> 
+      We worked with a firm that's building a predictions market.
       They had a faucet, and it used Twitter to authenticate. A lot of Founders seem to lack agency. That is, they didn't take responsiblity for 
       what traffic does on their website after the user gets on there. However, that's where they are wrong. And there is plenty of opportunity 
       for them to take control of the situation. 
     </div> 
+    
 
     <div> 
       Imagine running a community. It can be a niche one. For example Asian Business Owners. You probably know a thing or 2 about marketing. Your community group on FB is growing. You join a project and its about to do a launch. How do you ensure it gets off the ground? I mean the project knows basics, and you are running their ads. There is some shortform content. But how do you know for sure if it goes to go well. 
