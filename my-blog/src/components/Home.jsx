@@ -1,17 +1,26 @@
 import lucia from "../lucia";
+import useScrollDepth from "../hooks/useScrollDepth";
+
 function Home() {
     lucia.pageView("Home");
+    const depth = useScrollDepth();
+
     return (
       <div className="max-w-[768px] mx-auto px-4 py-12 leading-relaxed text-gray-800">
-        <h2 className="text-4xl font-bold mb-12 text-gray-900">Home</h2>
+        <h2 className="text-4xl font-bold mb-12 text-gray-900">Thesis</h2>
         
+        
+        <div className="mb-16">
+          <div className="text-2xl font-semibold mb-6 text-gray-800">Concept</div>
+          <div className="text-gray-600">The importance of principled thinking</div>
+        </div>
         {/* Bio section */}
         <div className="mb-16">
           <h3 className="text-2xl font-semibold mb-6 text-gray-800">Bio</h3>
           <div className="space-y-2 text-lg">
             <div className="font-medium">Jason Meng</div>
             <div className="text-gray-600">Angel Investor, Speaker, Engineer</div>
-            
+
             <div>
             I'm founder and investor in AI and blockchain. I was frequently invited to speak at a number of conferences, including during Art Basel Miami. 
             </div>
@@ -74,7 +83,13 @@ function Home() {
           </p>
           
           <blockquote className="my-8 pl-6 border-l-4 border-gray-300 italic text-xl text-gray-700">
-            The Transparency Hack was moderated by Ana Andjelic and divided into two different sessions.
+            <a
+              href="https://hmgroup.com/news/hm-group-transparency-hack/"
+              className="text-blue-600 hover:text-blue-800 underline"
+            >
+              The Transparency Hack
+            </a>{" "}
+            was moderated by Ana Andjelic and divided into two different sessions.
           </blockquote>
 
           <img 
@@ -83,6 +98,7 @@ function Home() {
             className="w-full rounded-lg shadow-md mt-8"
           />
         </div>
+        <p className="text-sm text-gray-500 mb-6">Scroll depth: {depth}%</p>
       </div>
     );
   }

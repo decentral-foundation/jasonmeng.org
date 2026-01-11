@@ -38,3 +38,8 @@ Personal website built with React and Vite.
    ```bash
    npm run preview
    ```
+
+## Content Exceptions
+
+* No political stuff
+* Nothing about "the process". No coaching 😂. Won't share about "the grind" 
