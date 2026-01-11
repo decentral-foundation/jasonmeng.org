@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { posts } from "../data/posts";
 import lucia from "../lucia";
 import useScrollDepth from "../hooks/useScrollDepth";
 
@@ -7,26 +9,59 @@ function Home() {
 
     return (
       <div className="max-w-[768px] mx-auto px-4 py-12 leading-relaxed text-gray-800">
+        <div className="relative w-full mb-12 rounded-2xl overflow-hidden shadow-lg">
+          <img 
+            src="https://i.imgur.com/GUfPBYR.jpeg" 
+            alt="Presenting on Blockchain & AI" 
+            className="w-full h-64 md:h-80 object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/35 to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4 text-white drop-shadow">
+            <p className="text-xs md:text-sm uppercase tracking-wide text-white/80">Forefront of AI innovation</p>
+            <h1 className="text-2xl md:text-3xl font-bold leading-snug">Founder who ships AI products and learns in public</h1>
+            <p className="mt-2 text-sm md:text-base text-white/90">
+              Building fast, talking to users, writing when it helps others learn.
+            </p>
+          </div>
+        </div>
+
         <h2 className="text-4xl font-bold mb-12 text-gray-900">Thesis</h2>
-        
-        
+
         <div className="mb-16">
           <div className="text-2xl font-semibold mb-6 text-gray-800">Concept</div>
-          <div className="text-gray-600">The importance of principled thinking</div>
+          <div className="text-gray-600">Principled execution, shipping fast, listening to users</div>
+        </div>
+        
+        <div className="mb-16">
+          <div className="text-2xl font-semibold mb-6 text-gray-800">Recent Posts</div>
+          <ul className="space-y-3 text-lg text-gray-700">
+            {posts.slice(0, 3).map((post) => (
+              <li key={post.id} className="flex flex-col">
+                <span className="text-sm text-gray-500">{post.date}</span>
+                <Link to={`/post/${post.id}`} className="text-blue-600 hover:text-blue-800">
+                  {post.title}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link to="/post" className="text-blue-600 hover:text-blue-800">
+                View all posts →
+              </Link>
+            </li>
+          </ul>
         </div>
         {/* Bio section */}
         <div className="mb-16">
           <h3 className="text-2xl font-semibold mb-6 text-gray-800">Bio</h3>
           <div className="space-y-2 text-lg">
             <div className="font-medium">Jason Meng</div>
-            <div className="text-gray-600">Angel Investor, Speaker, Engineer</div>
+            <div className="text-gray-600">Founder/Engineer building AI products</div>
 
             <div>
-              I&apos;m founder and investor in AI and blockchain. I was frequently invited to speak at a number of conferences, including during Art Basel Miami. 
+              I ship quickly, test with real users, and iterate. I speak at conferences when it helps distribution, but my bias is toward building, not punditry.
             </div>
 
-            <img src="https://i.imgur.com/GUfPBYR.jpeg" alt="Conference presentation" className="w-full max-w-2xl mx-auto rounded-lg shadow-lg my-8" />
-      
+            
 
             <div>
               <a href="https://twitter.com/lingqingm" className="text-blue-600 hover:text-blue-800">Twitter</a>
