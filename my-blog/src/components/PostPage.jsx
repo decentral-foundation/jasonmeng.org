@@ -1,7 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { posts } from '../data/posts';
 import lucia from '../lucia';
-import useScrollDepth  from '../hooks/useScrollDepth';
 
 function PostPage() {
   const { id } = useParams();

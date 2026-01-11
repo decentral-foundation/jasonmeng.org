@@ -22,7 +22,7 @@ function Home() {
             <div className="text-gray-600">Angel Investor, Speaker, Engineer</div>
 
             <div>
-            I'm founder and investor in AI and blockchain. I was frequently invited to speak at a number of conferences, including during Art Basel Miami. 
+              I&apos;m founder and investor in AI and blockchain. I was frequently invited to speak at a number of conferences, including during Art Basel Miami. 
             </div>
 
             <img src="https://i.imgur.com/GUfPBYR.jpeg" alt="Conference presentation" className="w-full max-w-2xl mx-auto rounded-lg shadow-lg my-8" />
@@ -67,7 +67,7 @@ function Home() {
           <h3 className="text-2xl font-semibold mb-6 text-gray-800">Past Talks</h3>
           <ol className="space-y-4 text-lg list-decimal pl-6 text-gray-700">
             <li>Jason speaking at Hacker Dojo Santa Clara: <a href="https://www.youtube.com/watch?v=aLC-bNitw7Y" className="text-blue-600 hover:text-blue-800">Link</a></li>
-            <li>Jason speaks at NYC Blockchain Center's first educational seminar: <a className="text-blue-600 hover:text-blue-800">Link</a></li>
+            <li>Jason speaks at NYC Blockchain Center&apos;s first educational seminar: <a className="text-blue-600 hover:text-blue-800">Link</a></li>
             <li>Jason speaking at ETH San Francisco, the recent, largest Hackathon for blockchain developers: <a className="text-blue-600 hover:text-blue-800">Link</a></li>
             <li>Jason speaking at the WCEF blockchain conference: <a className="text-blue-600 hover:text-blue-800">Link</a></li>
             <li>Jason coaching a Hackathon team to first place in Korea: <a href="https://github.com/decentral-inc/secret-voting" className="text-blue-600 hover:text-blue-800">Link</a></li>
