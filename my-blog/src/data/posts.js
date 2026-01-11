@@ -67,14 +67,30 @@ export const posts = [
   },{
     id: "third-post",
     date: "Jan 27th, 2025",
-    title: "How I’ve determined Agentic AI as THE most lucrative domain to build in for the next decade",
+    title: "The best thing you can do",
     fullArticleUrl: "https://medium.com/@a2859236246/ai-agents-96eeb1cd2af2",
     content: `
-      AI Agents are a level beyond what ChatGPT can provide. AI Agents can take an abstract problem and use advanced reasoning skills to solve much more complex problems than a prompt based LLM such as ChatGPT. 
+      If its really the case that AI is going to become a bigger and bigger factor into how we live our lives. 
 
-      Agents are still in its infancy but are poised for massive growth
-       - The global AI agents market is set to increase from USD 5.2 billion in 2024 to USD 139.12 billion by 2033, with a CAGR of 43.88% over the forecast period. 
-       - The market is anticipated to grow from USD 5.29 billion in 2024 to USD 216.8 billion by 2035, indicating a CAGR of 40.15% 
+      The best thing you can do is run an AI company. That way you stay ahead of the curve, and you get decent exposure to using the tools. 
+      You'll know when new paradigms get released. 
+
+      If you don't want to run an AI company, the next best thing is to work at one. You'll carry less of the risk. 
+      You'll get the same upside in terms of understanding how AI works.  
+
+      Let's say Generative AI becomes so good, not using it is like not using your right hand. The amount of output in life diminishes, when you don't use these tools. 
+      Your happiness, work life balance, they all deteriorate. People that have really good AI skills are in this new wave of wealth. 
+      You are left behind. 
+
+      Imagine a dystopian future where each AI business competes heavily with one another. The effects of their actions are felt by everyone. 
+      Even now, people are freaking out about Cursor constantly redoing its UIUX. Imagine being on the receiving end of a policy change that affects how much money you make. 
+
+      Or it affects the ability for you to care for your loved ones. To these AI conglomerates, this is just another random decision they made on a Tuesday, that was deemed necessary for them to outcompete their rivals. 
+
+      However, the collateral damage left you, and probably hundreds of thousands of other people in your demographic. 
+      If this was happening while you were inside an AI company, well it would be different. You would at least be armed with tools necessary to fight back. 
+
+      You'll have the same leverage as anyone other company, I mean so long as the AI you're developing is compettiive. 
     `
   },{
     id: "fourth-post",
@@ -233,6 +249,240 @@ export const posts = [
       <li> Bitcoin deposit address: bc1qvmpwl3c270z9v8fkywf8ma5xwhp9atcv39psft</li>
       <li> Solana deposit address: 9rU2wK5UqdjJT7xMMWJhWBzwpaUnPvp1nUNbbZt9tvsH</li>
     </ul>
+    `
+  }, {
+    id: "post-six-point-two-five",
+    date: "Oct 1st 2025",
+    title: "Product is EZ, Marketing is Hard", 
+    fullArticleUrl: "https://substack.com",
+    content: `
+      <h1> No vibe marketing yet</h1>
+      <div>
+        Everyone on Tech Twitter is stating how building a product is super easy. You know what happens right? When barrier to entry decreases, you'll have everyone and their brother try to create the next big thing. 
+
+        However, people are still constrained by one non-negotiable factor. Time. 
+        You've only got so much time in the day. Truthfully, there is no way for you to try out 4 of the latest "prediction market" apps. You need to pick one, and it will probably be the one that your friends talk about the most. 
+
+
+      </div>
+    `
+  },
+  {
+    id: "post-six-point-five",
+    date: "Nov 1st, 2025",
+    title: "Twitter and Faucets",
+    fullArticleUrl: "https://medium.com",
+    content: `Our approach to Customer Acquisition
+    Modern marketing has crossed a complexity threshold that humans cannot manage manually anymore.
+
+    <div> 
+      We don't build for the world of today. We build for the world 6 months form now. And we automate. If we see the same campaign review meeting action items. We will build tooling and infra around that to go from a 4-6 times a week thing to a once a week prompt that fixes it
+    </div> 
+
+    <div> 
+      The number of distribution channels have multiplied. Before it was paid ads on Google or Facebook. Those platforms were actually super novel at the time. 
+      Organic channels have always been a strong base. These would be special interest communities, forums. Then, the amount of content and data exploded. 
+      Soon, everyone realized how beneficial it is to create a brand profile. We now live in a world where budgets are fragmented across dozens of micro-experiments. 
+    </div>
+
+    <pre style="background:#0d1117;color:#e6edf3;padding:16px;border-radius:8px;overflow:auto;font-family:SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:14px;line-height:1.5;">
+    <code>
+                    ┌────────────┐
+                    │   Paid Ads │
+                    └─────┬──────┘
+                          │
+      ┌──────────┐   ┌────▼────┐   ┌─────────────┐
+      │  Content │──▶│  HUMAN  │◀──│  Influencers│
+      └──────────┘   │ MANAGER │   └─────────────┘
+            │        └────┬────┘          │
+            ▼             │               ▼
+      ┌──────────┐   ┌────▼────┐    ┌─────────────┐
+      │  Email   │──▶│  GUESS  │ ◀──│   Onchain   │
+      └──────────┘   │  WORK   │    │  Activity   │
+                     └─────────┘    └─────────────┘
+
+    </code>    
+    </pre>
+
+    <div>
+      A human can't reason across 10 different signals at once. Modern growth environments generate thousands of signals each hour. This creates 3 failure modes that 
+      everone recognizes. Decisions are made far too late. Accountability in what marketing investments are working is lost. Strategy becomes reactive instead of predictive. 
+    </div>
+
+    <pre style="background:#0d1117;color:#e6edf3;padding:16px;border-radius:8px;overflow:auto;font-family:SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:14px;line-height:1.5;">
+    <code> 
+              BEFORE                               AFTER
+        ┌────────────────────┐           ┌──────────────────────────┐
+        │  Human Decides     │           │   Human Sets Objectives  │
+        │  What To Do Next   │           │   ("Grow retention")     │
+        └─────────┬──────────┘           └──────────┬───────────────┘
+                  │                                 │
+                  ▼                                 ▼
+          Manual Execution                 AI Agent Orchestration
+          (slow, reactive)                (continuous, adaptive)
+                  │                                 │
+                  ▼                                 ▼
+          Fragmented Results           Unified Feedback Loop
+    </code>
+    </pre>
+
+    <div>
+      The cure is to move from dashboards to decision systems. The job of each human is to define the intent and the constraints. Agents observe the firehouse of data 
+      continuously. And on top of that they are very good at synthesizing the data into a coherent story. Agents then test, learn and adjust in real time!
+      Humans intervene only at decision boundaries. Just like no one manually balances a database anymore, no one will manually orchestrate growth.
+    </div>
+    
+    
+
+    <pre style="background:#0d1117;color:#e6edf3;padding:16px;border-radius:8px;overflow:auto;font-family:SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:14px;line-height:1.5;">
+    <code>
+                MORE CHANNELS
+                 ▲
+                 │
+                 │     Human Management
+                 │     Breaks Here
+                 │          ✖
+                 │
+                 │
+                 │        Agent Layer
+                 │     (Coordination Layer)
+                 │        ✓ Scales
+                 │
+                 └──────────────────────────▶
+                         TIME & COMPLEXITY
+
+    </code>
+    </pre>
+    <div style="text-align:center;margin-top:6px;font-size:14px;color:#6e7681;">
+      As channels, data, and experimentation increase, human-managed growth collapses under complexity.
+      Agent-based systems are not optional; they are the only stable configuration.
+    </div>
+
+    <div>
+      People want consistent leads generated, and consistent revenue. Unfortuantely, we live in a state where tools are all fragmented. 
+      That's why we've designed our system as the layer that coordinates ads, content, incentives, and users. 
+      Its the only layer that can see across silos. Marketing tools optimize channels. We optimize outcomes across channels.
+    </div>
+    
+    
+    <div> 
+      We worked with a firm that's building a predictions market.
+      They had a faucet, and it used Twitter to authenticate. A lot of Founders seem to lack agency. That is, they didn't take responsiblity for 
+      what traffic does on their website after the user gets on there. However, that's where they are wrong. And there is plenty of opportunity 
+      for them to take control of the situation. 
+    </div> 
+    
+
+    <div> 
+      Imagine running a community. It can be a niche one. For example Asian Business Owners. You probably know a thing or 2 about marketing. Your community group on FB is growing. You join a project and its about to do a launch. How do you ensure it gets off the ground? I mean the project knows basics, and you are running their ads. There is some shortform content. But how do you know for sure if it goes to go well. 
+    </div> 
+
+    <div> 
+      The 2 main factors are product and marketing. If its a great product, that has funding, that is simple enough to create value. You'll get a start. It could scale to 20k DAU's. And you would have 5-10 partnerships ready for distribution. But the company won't be ultra profitable yet. And it will be at least 2 years before it sees its return on investment from the initial launch that brought onboard 500 people. 
+    </div> 
+
+    <div> 
+      So many company's are on this trajectory. In fact, in the previous article I talked about th
+
+    </div> 
+
+    
+    `
+
+  },
+  
+  {
+    id: "seventh-post",
+    date: "Dec 17th, 2025",
+    title: "Where crypto is now",
+    fullArticleUrl: "https://medium.com",
+    content: `Really what this article is about the current macroeconomic trends
+    
+    <div>
+    Most people in Twitter are rightfully making fun of ghost chains. 
+    But let's address that problem. What if we can measure the utility of a chain? Even if its just a quantitative approximation exercise. 
+    You can start with a couple demographics. One could be the typical person in North America. Seocnd could be someone from South East Asia that lives and works abroad, and have a setup where they can send money they make back home. 
+    </div>
+
+    They're getting fed up with the lack of traction in crypto. 
+
+    A lot of prominent people in the web3 industry has predicted this already. There's still room for breakout hits such as Hyperliquid, but lets really break thsi down as to why the general pattern occurs. 
+
+    <p>
+      There's people that still want blockchain to take off. 
+    </p>
+    
+    The fact is, blockchain will still have room to grow. It just becomes a more stable industry. 
+    Many people say that its iPhone moment has yet to occur. I concur with this statement. 
+
+    The shift will go towards better distribution. For us to do that, we have to unify user acquisition. 
+    The current strategy of 
+
+    <div> 
+    Incentivizing is the same as running a Billboard of Subway Ad in Times Square. You'll get people once its up, but once it's down you're back to square one. 
+    </div> 
+    `
+  }, {
+    id: "eigth-post",
+    date: "Dec 22nd, 2025",
+    title: "The inevitability of agents in marketing",
+    fullArticleUrl: "https://medium.com",
+    content: `
+    <h1> The decision problem</h1>
+    <div>
+      Agents in marketing are not inevitable because they are trendy.
+      They are inevitable because the decision problem has already exceeded human bandwidth.
+    </div>
+    <div>
+      <ol>
+        <li>The decision surface exploded
+      Modern marketing decisions are no longer about Which channel, Which creative, Which audience. </li>
+        <li> 
+        Marketing is already automated, just badly
+        Today’s stack already makes decisions: Rules engines, Lookalike expansion, Shortform trial and error 
+        These systems: React slowly, Encode stale assumptions, Cannot explain themselves
+        Agents are the correction.
+        </li> 
+      <ol>
+    </div>
+
+
+    
+
+    <h1> 
+      How Effective Is Attribution for Abandoned Cart Recovery?
+    </h1>
+
+    <div>
+      Attribution products do not directly recover abandoned carts. Execution systems do. Email, SMS, push notifications, and checkout UX improvements consistently recover <stong>3–5% of abandoned revenue on average</strong>, with best-in-class programs reaching 10%+. Attribution does not fix shipping shock, payment friction, or weak intent. What it does is surface where spend is wasted, for example paid retargeting claiming credit for users who would have converted via owned channels anyway. In practice, attribution’s primary bottom-line value is cost avoidance, not conversion creation.
+    </div>
+    <div>
+      Where attribution becomes financially meaningful is when it is paired with <strong>incrementality testing</strong>. Without holdouts, most attribution models overstate impact by confusing correlation with causation. Teams that run proper holdouts often discover that a large share of abandoned-cart “wins” would have happened regardless. Cutting those false positives frequently improves profit more than increasing recovery volume. Used correctly, attribution helps you stop paying for conversions you already earned.
+    </div>
+    <h2>Citations</h2>
+
+    <ol>
+      <li>
+        Baymard Institute, <em>Cart Abandonment Rate Statistics</em><br />
+        <a href="https://baymard.com/lists/cart-abandonment-rate">https://baymard.com/lists/cart-abandonment-rate</a>
+      </li>
+      <li>
+        Klaviyo, <em>Ecommerce Benchmarks: Abandoned Cart Email Performance</em><br />
+        <a href="https://www.klaviyo.com/marketing-resources/abandoned-cart-email">https://www.klaviyo.com/marketing-resources/abandoned-cart-email</a>
+      </li>
+      <li>
+        Shopify, <em>Recover Abandoned Carts</em><br />
+        <a href="https://www.shopify.com/blog/abandoned-cart">https://www.shopify.com/blog/abandoned-cart</a>
+      </li>
+      <li>
+        Meta (Facebook), <em>Conversion Lift &amp; Incrementality Testing</em><br />
+        <a href="https://www.facebook.com/business/help/149297272060759">https://www.facebook.com/business/help/149297272060759</a>
+      </li>
+      <li>
+        Google, <em>Measuring Incrementality in Marketing</em><br />
+        <a href="https://www.thinkwithgoogle.com/marketing-strategies/data-and-measurement/incrementality-testing/">https://www.thinkwithgoogle.com/marketing-strategies/data-and-measurement/incrementality-testing/</a>
+      </li>
+    </ol>
     `
   }
 ]; 
