@@ -26,7 +26,8 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 5173
+    port: 5173,
+    allowedHosts: ['mardell-apish-colourlessly.ngrok-free.dev'],
   },
   test: {
     environment: 'jsdom',

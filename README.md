@@ -43,3 +43,10 @@ Personal website built with React and Vite.
 
 * No political stuff
 * Nothing about "the process". No coaching 😂. Won't share about "the grind" 
+
+
+## More info
+
+
+If you're testing in staging, you'll want to set both urls
+to staging.api.. and debug staging.api
