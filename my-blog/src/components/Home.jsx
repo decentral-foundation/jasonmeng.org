@@ -1,11 +1,39 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { posts } from "../data/posts";
 import lucia from "../lucia";
 import useScrollDepth from "../hooks/useScrollDepth";
 
 function Home() {
-    lucia.pageView("Home");
     const depth = useScrollDepth();
+    useEffect(() => {
+        lucia.pageView("Home");
+    }, []);
+    const [userEmail, setUserEmail] = useState("");
+    const [userFirstName, setUserFirstName] = useState("");
+    const [userLastName, setUserLastName] = useState("");
+    const [userTwitter, setUserTwitter] = useState("");
+    const [userInfoMessage, setUserInfoMessage] = useState("");
+
+    const handleUserInfoSubmit = async (event) => {
+        event.preventDefault();
+        if (!userEmail || !userFirstName) {
+            setUserInfoMessage("Please add an email and first name before sending.");
+            return;
+        }
+
+        try {
+            await lucia.userInfo(userEmail, {
+                firstname: userFirstName,
+                lastname: userLastName,
+                twitterHandle: userTwitter,
+            });
+            setUserInfoMessage("User info with the triple block sent to Lucia.");
+        } catch (error) {
+            console.error("Failed to send user info:", error);
+            setUserInfoMessage("Unable to send user info. Please try again.");
+        }
+    };
 
     return (
       <div className="max-w-[768px] mx-auto px-4 py-12 leading-relaxed text-gray-800">
@@ -61,9 +89,63 @@ function Home() {
               I ship quickly, test with real users, and iterate. I speak at conferences when it helps distribution, but my bias is toward building, not punditry.
             </div>
 
-            
+            <form onSubmit={handleUserInfoSubmit} className="mt-6 space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+              <div className="text-base font-semibold text-gray-800">Send user info to Lucia</div>
+              <div className="grid gap-3 md:grid-cols-2">
+                <label className="flex flex-col text-sm text-gray-700">
+                  User ID (email)
+                  <input
+                    className="mt-1 rounded border border-gray-300 px-3 py-2 text-gray-800"
+                    type="email"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    placeholder="johndoe@email.com"
+                    required
+                  />
+                </label>
+                <label className="flex flex-col text-sm text-gray-700">
+                  First name
+                  <input
+                    className="mt-1 rounded border border-gray-300 px-3 py-2 text-gray-800"
+                    value={userFirstName}
+                    onChange={(e) => setUserFirstName(e.target.value)}
+                    placeholder="Ada"
+                    required
+                  />
+                </label>
+                <label className="flex flex-col text-sm text-gray-700">
+                  Last name
+                  <input
+                    className="mt-1 rounded border border-gray-300 px-3 py-2 text-gray-800"
+                    value={userLastName}
+                    onChange={(e) => setUserLastName(e.target.value)}
+                    placeholder="Lovelace"
+                  />
+                </label>
+                <label className="flex flex-col text-sm text-gray-700">
+                  Twitter handle
+                  <input
+                    className="mt-1 rounded border border-gray-300 px-3 py-2 text-gray-800"
+                    value={userTwitter}
+                    onChange={(e) => setUserTwitter(e.target.value)}
+                    placeholder="@ada"
+                  />
+                </label>
+              </div>
+              <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                <button
+                  type="submit"
+                  className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                >
+                  Send userInfo
+                </button>
+                {userInfoMessage && (
+                  <span className="text-sm text-gray-600">{userInfoMessage}</span>
+                )}
+              </div>
+            </form>
 
-            <div>
+            <div className="pt-4">
               <a href="https://twitter.com/lingqingm" className="text-blue-600 hover:text-blue-800">Twitter</a>
             </div>
           </div>

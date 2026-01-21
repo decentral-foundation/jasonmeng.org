@@ -4,7 +4,7 @@ const LuciaSDK = Lucia; // basic rename, can probably make it less verbose
 
 const lucia = {
     init: () => {
-        console.log('About to initialize SDK');
+        console.log('About to initialize SDK with prod url for staging lqm888 gm');
         LuciaSDK.init({ 
             clientId: import.meta.env.VITE_CLIENT_ID,
             baseURL: import.meta.env.VITE_BASE_URL,
@@ -13,9 +13,13 @@ const lucia = {
         });
       },
     
-      pageView: (page) => {
-        console.log('Attempting to track page view:', page);
-        LuciaSDK.pageView(page);
+      pageView: async (page) => {
+        try {
+          console.log('Attempting to track page view:', page);
+          await LuciaSDK.pageView(page);
+        } catch (error) {
+          console.error("Tracking page view failed:", error);
+        }
       },
       trackConversion: async (eventTag, amount, eventDetails) => {
         try {
@@ -23,6 +27,13 @@ const lucia = {
           console.log("Conversion tracked:", eventTag);
         } catch (error) {
           console.error("Tracking conversion failed:", error);
+        }
+      },
+      userInfo: async(userId,userInfo) => { 
+        try {
+          await LuciaSDK.userInfo(userId,userInfo);
+        } catch (error) {
+          console.error("Updating user info failed:", error);
         }
       },
       updateUserId: async(currentUser, userId) => {
