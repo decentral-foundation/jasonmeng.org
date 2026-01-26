@@ -13,7 +13,9 @@ function Home() {
     const [userFirstName, setUserFirstName] = useState("");
     const [userLastName, setUserLastName] = useState("");
     const [userTwitter, setUserTwitter] = useState("");
+    const [userTxHash, setUserTxHash] = useState("");
     const [userInfoMessage, setUserInfoMessage] = useState("");
+    const [copiedAddressLabel, setCopiedAddressLabel] = useState("");
 
     const handleUserInfoSubmit = async (event) => {
         event.preventDefault();
@@ -27,11 +29,34 @@ function Home() {
                 firstname: userFirstName,
                 lastname: userLastName,
                 twitterHandle: userTwitter,
+                txHash: userTxHash,
             });
-            setUserInfoMessage("User info with the triple block sent to Lucia.");
+            setUserInfoMessage("User info sent to Lucia.");
         } catch (error) {
             console.error("Failed to send user info:", error);
             setUserInfoMessage("Unable to send user info. Please try again.");
+        }
+    };
+
+    const donationWallets = {
+        eth: import.meta.env.VITE_DONATION_ETH_ADDRESS || "0xAB7dF8c0efCfedF01DCCCdb303eed81E16053Ce5",
+        btc: import.meta.env.VITE_DONATION_BTC_ADDRESS || "bc1qcae5f3zvck7er4ackw73n5c4d59e4d0vqkdquy",
+    };
+
+    const qrUrl = (address) => {
+        if (!address) return "";
+        return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(address)}`;
+    };
+
+    const copyAddress = async (label, address) => {
+        if (!address) return;
+        try {
+            await navigator.clipboard.writeText(address);
+            setCopiedAddressLabel(label);
+            setTimeout(() => setCopiedAddressLabel(""), 1500);
+        } catch (error) {
+            console.error("Copy failed:", error);
+            setCopiedAddressLabel("copy-failed");
         }
     };
 
@@ -86,11 +111,87 @@ function Home() {
             <div className="text-gray-600">Founder/Engineer building AI products</div>
 
             <div>
-              I ship quickly, test with real users, and iterate. I speak at conferences when it helps distribution, but my bias is toward building, not punditry.
+              I ship quickly, test with real users, and iterate. I speak at conferences when it helps distribution, but my bias is toward building, not punditry. I've also created an organization that gives AI credits to help new grads find jobs in the age of AI. Source code can be licensed. We ask for is a small donation of at least $10 to cover costs. Submit your information and/or your donation if you'd like more information. 
+              <br/> 
+              <br/>
+              If for whatever I don't respond or the form information gets dropped, send me the details to my Twitter account 
+              
+            </div>
+            <div className="pt-4">
+              <a href="https://twitter.com/lingqingm" className="text-blue-600 hover:text-blue-800">Twitter</a>
             </div>
 
-            <form onSubmit={handleUserInfoSubmit} className="mt-6 space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
-              <div className="text-base font-semibold text-gray-800">Send user info to Lucia</div>
+            <form onSubmit={handleUserInfoSubmit} className="mt-6 space-y-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
+              <div className="text-base font-semibold text-gray-800">Donations (crypto only)</div>
+              <p className="text-sm text-gray-700">
+                Donations go to people seeking employment but lacking experience. Choose your network, copy the address, and include your transaction hash so we can attribute the donation.
+              </p>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-white p-4">
+                  <div className="text-sm font-semibold text-gray-800">ETH</div>
+                  <div className="flex flex-col gap-2">
+                    <input
+                      className="w-full rounded border border-gray-300 px-3 py-2 text-gray-800"
+                      value={donationWallets.eth}
+                      readOnly
+                    />
+                    <div className="flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => copyAddress("ETH", donationWallets.eth)}
+                        className="rounded-md bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700"
+                      >
+                        Copy ETH address
+                      </button>
+                      {donationWallets.eth && (
+                        <img
+                          src={qrUrl(donationWallets.eth)}
+                          alt="ETH donation QR code"
+                          className="h-28 w-28 rounded border border-gray-200 bg-white p-2"
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-white p-4">
+                  <div className="text-sm font-semibold text-gray-800">BTC</div>
+                  <div className="flex flex-col gap-2">
+                    <input
+                      className="w-full rounded border border-gray-300 px-3 py-2 text-gray-800"
+                      value={donationWallets.btc}
+                      readOnly
+                    />
+                    <div className="flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => copyAddress("BTC", donationWallets.btc)}
+                        className="rounded-md bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700"
+                      >
+                        Copy BTC address
+                      </button>
+                      {donationWallets.btc && (
+                        <img
+                          src={qrUrl(donationWallets.btc)}
+                          alt="BTC donation QR code"
+                          className="h-28 w-28 rounded border border-gray-200 bg-white p-2"
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <label className="flex flex-col text-sm text-gray-700">
+                Crypto transaction hash
+                <input
+                  className="mt-1 rounded border border-gray-300 px-3 py-2 text-gray-800"
+                  value={userTxHash}
+                  onChange={(e) => setUserTxHash(e.target.value)}
+                  placeholder="0x... or txid"
+                />
+              </label>
+
+              <div className="text-base font-semibold text-gray-800 pt-2">Your info</div>
               <div className="grid gap-3 md:grid-cols-2">
                 <label className="flex flex-col text-sm text-gray-700">
                   User ID (email)
@@ -145,9 +246,7 @@ function Home() {
               </div>
             </form>
 
-            <div className="pt-4">
-              <a href="https://twitter.com/lingqingm" className="text-blue-600 hover:text-blue-800">Twitter</a>
-            </div>
+            
           </div>
         </div>
 
