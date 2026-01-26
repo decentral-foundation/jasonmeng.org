@@ -42,7 +42,7 @@ Personal website built with React and Vite.
 ## Content Exceptions
 
 * No political stuff
-* Nothing about "the process". No coaching 😂. Won't share about "the grind" 
+* Nothing about "the process". No coaching. Nothing about "the grind" 
 
 
 ## More info
