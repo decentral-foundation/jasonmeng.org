@@ -27,7 +27,21 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
-    allowedHosts: ['mardell-apish-colourlessly.ngrok-free.dev'],
+    // allow all hosts to avoid dev/preview host-block issues behind ngrok/HTTPS
+    allowedHosts: true,
+    hmr: {
+      host: process.env.HOST ?? 'mardell-apish-colourlessly.ngrok-free.dev',
+      protocol: 'https',
+    },
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 5173,
+    allowedHosts: true,
+    hmr: {
+      host: process.env.HOST ?? 'mardell-apish-colourlessly.ngrok-free.dev',
+      protocol: 'https',
+    },
   },
   test: {
     environment: 'jsdom',
