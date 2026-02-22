@@ -1,4 +1,5 @@
 import lucia from "../lucia";
+
 import useScrollDepth from "../hooks/useScrollDepth";
 
 function About() {

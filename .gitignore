@@ -4,6 +4,7 @@ node_modules
 /.pnp
 .pnp.js
 .env
+
 /my-blog/.env
 /my-blog/.env.staging
 
