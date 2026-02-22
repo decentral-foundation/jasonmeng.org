@@ -1,4 +1,4 @@
-import LuciaSDK from "luciasdk-t3";
+import LuciaSDK from "lucia-sdk";
 
 const lucia = {
     init: () => {
