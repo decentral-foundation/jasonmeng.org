@@ -11,15 +11,23 @@ function CookieConsent() {
   }, []);
 
   const handleAccept = () => {
-    lucia.buttonClick('accept_cookie_consent');
     localStorage.setItem('cookieConsent', 'true');
     setIsVisible(false);
+    try {
+      lucia.buttonClick('accept_cookie_consent');
+    } catch (error) {
+      console.error('Cookie consent accept tracking failed:', error);
+    }
   };
 
   const handleDecline = () => {
-    lucia.buttonClick('decline_cookie_consent');
     localStorage.setItem('cookieConsent', 'false');
     setIsVisible(false);
+    try {
+      lucia.buttonClick('decline_cookie_consent');
+    } catch (error) {
+      console.error('Cookie consent decline tracking failed:', error);
+    }
   };
 
   if (!isVisible) return null;

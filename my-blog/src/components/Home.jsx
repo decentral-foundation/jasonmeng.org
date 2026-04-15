@@ -70,19 +70,21 @@ function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/35 to-transparent" />
           <div className="absolute bottom-4 left-4 right-4 text-white drop-shadow">
-            <p className="text-xs md:text-sm uppercase tracking-wide text-white/80">Forefront of AI innovation</p>
-            <h1 className="text-2xl md:text-3xl font-bold leading-snug">Founder who ships AI products and learns in public</h1>
+            <p className="text-xs md:text-sm uppercase tracking-wide text-white/80">AI Research x Web3 Systems</p>
+            <h1 className="text-2xl md:text-3xl font-bold leading-snug">Founder-Researcher building measurable intelligence for growth and behavior modeling</h1>
             <p className="mt-2 text-sm md:text-base text-white/90">
-              Building fast, talking to users, writing when it helps others learn.
+              I build production systems, publish research-grade thinking, and turn behavioral data into provable model improvements.
             </p>
           </div>
         </div>
 
-        <h2 className="text-4xl font-bold mb-12 text-gray-900">Thesis</h2>
+        <h2 className="text-4xl font-bold mb-12 text-gray-900">Research Thesis</h2>
 
         <div className="mb-16">
-          <div className="text-2xl font-semibold mb-6 text-gray-800">Concept</div>
-          <div className="text-gray-600">Principled execution, shipping fast, listening to users</div>
+          <div className="text-2xl font-semibold mb-6 text-gray-800">Core Position</div>
+          <div className="text-gray-600">
+            The next wave of AI agents will be won by teams that can model latent human state, optimize sequential decisions, and prove outcomes with controlled experiments.
+          </div>
         </div>
         
         <div className="mb-16">
@@ -108,14 +110,16 @@ function Home() {
           <h3 className="text-2xl font-semibold mb-6 text-gray-800">Bio</h3>
           <div className="space-y-2 text-lg">
             <div className="font-medium">Jason Meng</div>
-            <div className="text-gray-600">Founder/Engineer building AI products</div>
+            <div className="text-gray-600">Founder, engineer, and independent researcher</div>
 
             <div>
-              I ship quickly, test with real users, and iterate. I speak at conferences when it helps distribution, but my bias is toward building, not punditry. I've also created an organization that gives AI credits to help new grads find jobs in the age of AI. Source code can be licensed. We ask for is a small donation of at least $10 to cover costs. Submit your information and/or your donation if you'd like more information. 
-              <br/> 
-              <br/>
-              If for whatever I don't respond or the form information gets dropped, send me the details to my Twitter account 
-              
+              I work at the intersection of AI, behavior modeling, and revenue systems. My current focus is capability-layer research: latent emotion-state inference, memory-augmented agents, and sequential decision optimization for high-stakes user interactions.
+              <br />
+              <br />
+              A whitepaper is in progress on latent emotional state modeling for human-agent interaction, with explicit baselines and measurable win conditions. I combine this research track with real deployment data from production systems.
+              <br />
+              <br />
+              I also run programs that help early-career builders gain practical experience in AI. If you want collaboration, advisory, or access to selected tooling, submit the form below.
             </div>
             <div className="pt-4">
               <a href="https://twitter.com/lingqingm" className="text-blue-600 hover:text-blue-800">Twitter</a>
@@ -124,7 +128,7 @@ function Home() {
             <form onSubmit={handleUserInfoSubmit} className="mt-6 space-y-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
               <div className="text-base font-semibold text-gray-800">Donations (crypto only)</div>
               <p className="text-sm text-gray-700">
-                Donations go to people seeking employment but lacking experience. Choose your network, copy the address, and include your transaction hash so we can attribute the donation.
+                Donations fund people seeking employment but lacking direct experience. Choose your network, copy the address, and include your transaction hash so we can attribute the donation.
               </p>
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-white p-4">
@@ -191,7 +195,7 @@ function Home() {
                 />
               </label>
 
-              <div className="text-base font-semibold text-gray-800 pt-2">Your info</div>
+              <div className="text-base font-semibold text-gray-800 pt-2">Research & collaboration contact</div>
               <div className="grid gap-3 md:grid-cols-2">
                 <label className="flex flex-col text-sm text-gray-700">
                   User ID (email)
@@ -238,7 +242,7 @@ function Home() {
                   type="submit"
                   className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
                 >
-                  Send userInfo
+                  Submit
                 </button>
                 {userInfoMessage && (
                   <span className="text-sm text-gray-600">{userInfoMessage}</span>

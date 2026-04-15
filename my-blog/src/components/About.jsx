@@ -12,18 +12,17 @@ function About() {
         
         <div className="space-y-8 text-lg">
           <p className="text-gray-700">
-          <div>Ling Qing Meng is the CEO of Lucia Protocol, an AI-powered Ad Attribution platform that tracks real-time user interactions, measures conversions, and optimizes marketing using DeFi data. Lucia integrates cross-channel attribution with decentralized identity for a complete view of the customer journey.
+          <div>Ling Qing Meng is the CEO of Lucia Protocol and an independent researcher focused on sequential decision systems for marketing and user behavior. Lucia is an AI-powered attribution and optimization platform designed to measure causality, not just correlation, across fragmented channels.
           </div>
           <br/>
-          
           </p>
           <img src="https://i.imgur.com/P8gbG4F.jpeg" alt="Profile" className="w-full max-w-2xl mx-auto rounded-lg shadow-lg mt-8 mb-2" />
           <p className="text-center text-sm italic text-gray-500 mb-8">L to R: Studio 189 Manager, Ling Qing Meng (Lucia Protocol CEO), Ana Andjelic (Espirit PR), Rosario Dawson (Star Wars, Men in Black)</p>
-          <div>Before Lucia, he founded a Cybersecurity and Technology Services firm specializing in tech and GTM strategy. Example projects include working with HNWI Ethereum investors in San Francisco to MEV optimized trading infrastructure for deploying capital into competitive crowdsales. <a href="https://medium.com/@codetractio/kyber-ico-who-and-how-to-get-into-round-2-5a99fb6cde32" className="text-blue-500 hover:text-blue-600 hover:underline">https://medium.com/@codetractio/kyber-ico-who-and-how-to-get-into-round-2-5a99fb6cde32</a> covers those achievements.
+          <div>Before Lucia, he founded a cybersecurity and technology services firm covering systems architecture, product strategy, and GTM execution. Example projects include MEV-optimized infrastructure for Ethereum-aligned investors in San Francisco. <a href="https://medium.com/@codetractio/kyber-ico-who-and-how-to-get-into-round-2-5a99fb6cde32" className="text-blue-500 hover:text-blue-600 hover:underline">https://medium.com/@codetractio/kyber-ico-who-and-how-to-get-into-round-2-5a99fb6cde32</a> documents part of that work.
           </div>
           <br/>
           <div>
-          Ling has served as a CTO of an InsureTech platform, working alongside Will McDonough, who was formerly a VP at Goldman Sachs. He led technical teams, designed system architecture, performed audits and worked with firms like Quantstamp, FanVestor, and Machine Zone. 
+          He has served as CTO at an InsureTech platform, working alongside Will McDonough (former VP at Goldman Sachs). He has led technical teams, designed system architecture, performed audits, and worked with firms such as Quantstamp, FanVestor, and Machine Zone. 
           </div>
           
           <ul className="space-y-2 pl-6 text-gray-700"> 
@@ -54,11 +53,11 @@ function About() {
           </ul>
 
           <p className="text-gray-700">
-            To this date (last updated Jan 15th 2025) none of his clients have ever gotten hacked. He is also starring in a blockchain reality show called Angels Villa. A show about 10 founders competing to build the next innovative multi-billion dollar company. He is one of the experts and contestants on the show. Preview can be viewed on Instgram.
+            To date (last updated Jan 15th 2025), none of his clients have experienced a successful hack under his security scope. He is also featured in the blockchain reality show Angels Villa, where founders compete to build high-growth companies.
           </p>
 
           <p className="text-gray-700">
-            He is also an active angel investor and speaker. He has spoken at many conferences and workshops about blockchain technology and its applications.
+            He is an active angel investor and speaker, and is currently preparing a whitepaper on latent emotional state modeling for human-agent interaction. The objective is clear: define a hard problem, benchmark against strong baselines, and ship measurable gains.
           </p>
           <p className="text-sm text-gray-500 mb-6">Scroll depth: {depth}%</p>
         </div>

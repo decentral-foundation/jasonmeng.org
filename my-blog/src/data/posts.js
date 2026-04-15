@@ -2,11 +2,11 @@ export const posts = [
   {
     id: "first-post",
     date: "Nov 12th, 2024",
-    title: "Daily tasks integral for a successful startup",
+    title: "Operator to Researcher: Building with measurable hypotheses",
     fullArticleUrl: "https://medium.com/@a2859236246/daily-tasks-integral-for-a-successful-startup-577b7472dc1f",
     content: `
       <p>
-        Welcome to my first blog post! I'm excited to share my thoughts and experiences with you.
+        This note marks a shift from startup commentary to research-backed execution.
       </p>
 
       <p>
@@ -53,10 +53,10 @@ export const posts = [
   {
     id: "second-post",
     date: "Nov 14th, 2024",
-    title: "How to host an event",
+    title: "How to host a high-signal event in Web3",
     fullArticleUrl: "https://medium.com/@a2859236246/how-to-host-an-event-fae1a6f11b8e",
     content: `
-      Credibility and settings
+      Credibility, positioning, and signal density
       
       When it comes to hosting an event it's all about credibility. You should pick a thesis that’s relevant for the current investment narrative. E.g. lets assume we are doing one for mobile security. 
 
@@ -67,10 +67,10 @@ export const posts = [
   },{
     id: "third-post",
     date: "Jan 27th, 2025",
-    title: "The best thing you can do",
+    title: "The highest-leverage move in the AI era",
     fullArticleUrl: "https://medium.com/@a2859236246/ai-agents-96eeb1cd2af2",
     content: `
-      If its really the case that AI is going to become a bigger and bigger factor into how we live our lives. 
+      If AI continues to compound into every workflow, the strategic question is no longer whether to use it, but where to build unique capability. 
 
       The best thing you can do is run an AI company. That way you stay ahead of the curve, and you get decent exposure to using the tools. 
       You'll know when new paradigms get released. 
@@ -95,7 +95,7 @@ export const posts = [
   },{
     id: "fourth-post",
     date: "April 20th, 2025",
-    title: "The guide to end all guides on crypto product market fit",
+    title: "A practical framework for crypto product-market fit",
     fullArticleUrl: "https://medium.com/@a2859236246/a-method-to-incrementally-approach-startup-profitability-a-guaranteed-path-to-product-market-fit-a735ea95e269",
     content: `
       Building a business is hard. I like to think of startups as a comeptitive team sport. 
@@ -113,7 +113,7 @@ export const posts = [
   },{
     id: "fifth-post",
     date: "May 19th, 2025",
-    title: "How to get the most out of a conference",
+    title: "How to extract asymmetric value from conferences",
     fullArticleUrl: "https://medium.com",
     content: `
       <p>
@@ -253,7 +253,7 @@ export const posts = [
   }, {
     id: "post-six-point-two-five",
     date: "Oct 1st 2025",
-    title: "Product is EZ, Marketing is Hard", 
+    title: "Product Is Easier, Research-Driven Distribution Is Hard", 
     fullArticleUrl: "https://substack.com",
     content: `
       <h1> No vibe marketing yet</h1>
@@ -270,7 +270,7 @@ export const posts = [
   {
     id: "post-six-point-five",
     date: "Nov 1st, 2025",
-    title: "Twitter and Faucets",
+    title: "Attribution, Agents, and the Twitter Funnel",
     fullArticleUrl: "https://medium.com",
     content: `Our approach to Customer Acquisition
     Modern marketing has crossed a complexity threshold that humans cannot manage manually anymore.
@@ -394,7 +394,7 @@ export const posts = [
   {
     id: "seventh-post",
     date: "Dec 17th, 2025",
-    title: "Where crypto is now",
+    title: "Where crypto stands now: utility, distribution, and signal",
     fullArticleUrl: "https://medium.com",
     content: `Really what this article is about the current macroeconomic trends
     
