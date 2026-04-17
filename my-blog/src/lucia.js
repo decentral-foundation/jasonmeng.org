@@ -1,14 +1,17 @@
-import LuciaSDK from "lucia-sdk";
+const getLuciaSDK = () => {
+    const sdk = window.LuciaSDK;
+    if (!sdk) {
+        throw new Error("Lucia client-side SDK is not loaded.");
+    }
+    return sdk;
+};
 
 const lucia = {
     init: () => {
         try {
-            LuciaSDK.init({
-                clientId: import.meta.env.VITE_CLIENT_ID,
-                baseURL: import.meta.env.VITE_BASE_URL,
-                apiKey: import.meta.env.VITE_API_KEY,
-                debugURL: import.meta.env.VITE_CLICKINSIGHTS_DEBUG_URL,
-            });
+            // The CDN script auto-initializes via data-api-key in index.html.
+            // Keep this as a safe no-op accessor in case this module runs first.
+            getLuciaSDK();
         } catch (error) {
             console.error("Lucia init failed:", error);
         }
@@ -16,7 +19,7 @@ const lucia = {
 
     pageView: async (page) => {
         try {
-            await LuciaSDK.pageView(page);
+            await getLuciaSDK().pageView(page);
         } catch (error) {
             console.error("Tracking page view failed:", error);
         }
@@ -24,7 +27,7 @@ const lucia = {
 
     trackConversion: async (eventTag, amount, eventDetails) => {
         try {
-            await LuciaSDK.trackConversion(eventTag, amount, eventDetails);
+            await getLuciaSDK().trackConversion(eventTag, amount, eventDetails);
             console.log("Conversion tracked:", eventTag);
         } catch (error) {
             console.error("Tracking conversion failed:", error);
@@ -33,7 +36,7 @@ const lucia = {
 
     userInfo: async (userId, userInfo) => {
         try {
-            await LuciaSDK.userInfo(userId, userInfo);
+            await getLuciaSDK().userInfo(userId, userInfo);
         } catch (error) {
             console.error("Updating user info failed:", error);
         }
@@ -41,7 +44,7 @@ const lucia = {
 
     updateUserId: async (currentUser, userId) => {
         try {
-            await LuciaSDK.updateUserId(currentUser, userId);
+            await getLuciaSDK().updateUserId(currentUser, userId);
         } catch (error) {
             console.error("Updating user ID failed:", error);
         }
@@ -49,10 +52,11 @@ const lucia = {
 
     buttonClick: (buttonName) => {
         try {
-            if (typeof LuciaSDK.buttonClick !== "function") {
+            const sdk = getLuciaSDK();
+            if (typeof sdk.buttonClick !== "function") {
                 throw new Error("LuciaSDK.buttonClick is unavailable");
             }
-            LuciaSDK.buttonClick(buttonName);
+            sdk.buttonClick(buttonName);
         } catch (error) {
             console.error(`Tracking button click failed for "${buttonName}":`, error);
         }

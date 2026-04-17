@@ -51,7 +51,7 @@ function Art() {
           <h3 className="text-2xl font-semibold mb-6 text-gray-800">Past Talks</h3>
           <ol className="space-y-4 text-lg list-decimal pl-6 text-gray-700">
             <li>Jason speaking at Hacker Dojo Santa Clara: <a href="https://www.youtube.com/watch?v=aLC-bNitw7Y" className="text-blue-600 hover:text-blue-800">Link</a></li>
-            <li>Jason speaks at NYC Blockchain Center's first educational seminar: <a className="text-blue-600 hover:text-blue-800">Link</a></li>
+            <li>Jason speaks at NYC Blockchain Center&apos;s first educational seminar: <a className="text-blue-600 hover:text-blue-800">Link</a></li>
             <li>Jason speaking at ETH San Francisco, the recent, largest Hackathon for blockchain developers: <a className="text-blue-600 hover:text-blue-800">Link</a></li>
             <li>Jason speaking at the WCEF blockchain conference: <a className="text-blue-600 hover:text-blue-800">Link</a></li>
             <li>Jason coaching a Hackathon team to first place in Korea: <a href="https://github.com/decentral-inc/secret-voting" className="text-blue-600 hover:text-blue-800">Link</a></li>

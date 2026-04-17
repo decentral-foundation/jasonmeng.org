@@ -25,7 +25,11 @@ jobs:
           cache-dependency-path: my-blog/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --include=optional
+
+      # Workaround for npm optional dependency resolution on Linux runners.
+      - name: Ensure Rollup Linux binary is present
+        run: npm install --no-save @rollup/rollup-linux-x64-gnu
 
       - name: Lint
         run: npm run lint
