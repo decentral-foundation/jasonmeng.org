@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
+const tunnelHost = 'mardell-apish-colourlessly.ngrok-free.dev'
+
 // https://vite.dev/config/
 export default defineConfig({
   base: '/',
@@ -30,7 +32,7 @@ export default defineConfig({
     // allow all hosts to avoid dev/preview host-block issues behind ngrok/HTTPS
     allowedHosts: true,
     hmr: {
-      host: process.env.HOST ?? 'mardell-apish-colourlessly.ngrok-free.dev',
+      host: tunnelHost,
       protocol: 'https',
     },
   },
@@ -39,7 +41,7 @@ export default defineConfig({
     port: 5173,
     allowedHosts: true,
     hmr: {
-      host: process.env.HOST ?? 'mardell-apish-colourlessly.ngrok-free.dev',
+      host: tunnelHost,
       protocol: 'https',
     },
   },

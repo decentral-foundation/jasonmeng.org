@@ -184,6 +184,12 @@ function Home() {
                   </div>
                 </div>
               </div>
+              {copiedAddressLabel && copiedAddressLabel !== "copy-failed" && (
+                <p className="text-sm text-green-700">Copied {copiedAddressLabel} address.</p>
+              )}
+              {copiedAddressLabel === "copy-failed" && (
+                <p className="text-sm text-red-700">Could not copy. Please copy the address manually.</p>
+              )}
 
               <label className="flex flex-col text-sm text-gray-700">
                 Crypto transaction hash
