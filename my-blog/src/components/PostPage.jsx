@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { posts } from '../data/posts';
 import lucia from '../lucia';
@@ -5,7 +6,7 @@ import lucia from '../lucia';
 function PostPage() {
   const { id } = useParams();
   const post = posts.find(post => post.id === id);
-  lucia.pageView("PostPage");
+  useEffect(() => { lucia.pageView("PostPage"); }, []);
 
   const handleLoginClick = () => {
     console.log('Login button clicked');

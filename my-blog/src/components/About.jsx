@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import lucia from "../lucia";
 
 import useScrollDepth from "../hooks/useScrollDepth";
 
 function About() {
-    lucia.pageView("About");
+    useEffect(() => { lucia.pageView("About"); }, []);
     const depth = useScrollDepth();
 
     return (
