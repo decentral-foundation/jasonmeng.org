@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { posts } from '../data/posts';
 import lucia from '../lucia';
 
 function Posts() {
-  lucia.pageView("posts");
+  useEffect(() => { lucia.pageView("posts"); }, []);
   return (
     <div>
       <section>

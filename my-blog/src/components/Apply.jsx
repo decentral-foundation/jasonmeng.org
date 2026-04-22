@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import lucia from "../lucia";
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -7,7 +7,7 @@ function Apply() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
     
-    lucia.pageView("Apply");
+    useEffect(() => { lucia.pageView("Apply"); }, []);
     
 
     const handleSubmit = async (e) => {
