@@ -485,5 +485,26 @@ export const posts = [
     </ol>
 
     `
-  }
+  },{
+    id: "nineth-post",
+    date: "Sep 3rd, 2025",
+    title: "Workflows with Swarms",
+    fullArticleUrl: "https://app.luciaprotocol.com",
+    content: `<h1> What exactly are agentic swarms?</h1>
+    <div>
+      First, when someone says to build a claude agent. Is it just an Anthropic API key and a function that does things? 
+      Short answer: mechanically that's pretty much it, but you'll be missing the one thing that makes it an "agent". 
+      THe API Key is the boring part.
+    </div>
+    <br/>
+    <div>
+      An agent is 3 things
+      <ol>
+        <li> State: a message array you keep appending to</li> 
+        <li> Tools: functions you describe to the model in JSON schema, and can actually execute commands on your bhealf</li>
+        <li> A loop: this is where you call the model, append the result, grade it, and call it again. </li> 
+      </ol>
+    </div>
+    
+    `
 ]; 
