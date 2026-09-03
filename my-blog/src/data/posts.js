@@ -505,6 +505,18 @@ export const posts = [
         <li> A loop: this is where you call the model, append the result, grade it, and call it again. </li> 
       </ol>
     </div>
-    
+    <div>
+      Right now the state of agentic loops isn't really that innovative. You have people building patterns. Multi-agent workflows can be of series pattern, pararllel pattern, router pattern. 
+      At this point discoveries are in the process of being made. The companies coming up with them are too busy writing and refining their innovations than publishing so really the only 
+      way to stay ahead of the curve is for you to be on the cutting edge. 
+    </div>
+
+    <div> 
+      A good way to test your skills is to build a five agent research system. They would be composed of a Supervisor, Researcher A, Researcher B, Researcher C, Fact Checker and Synthesizer. 
+      Then the phase after that is the interesting part. Task graphs and dynamic decomposition. You'll be moving from Supervisor -> workers to Task DAG -> scheduler -> worker pool. 
+      A true agent swarm implementation will have a dashboard. It will track task success percentage. Cost per successful task. Tokens per task. Latency. Agent calls per task. Retry frequeuncy. Replan frequency.
+      And a few other core KPIs. Thsi lets you compare 1 agent teams vs 3 agent vs 10 agent teams. Somewhere in there you'll hit a limit until the next innovation arrives. 
+    </div>
     `
+  }
 ]; 
