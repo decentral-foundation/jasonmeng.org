@@ -12,8 +12,8 @@ vi.mock('../../lucia', () => ({
 
 vi.mock('../../data/posts', () => ({
   posts: [
-    { id: 'one', date: 'Jan 1', title: 'First' },
-    { id: 'two', date: 'Feb 2', title: 'Second' },
+    { id: 'one', date: 'Jan 1st, 2025', title: 'First' },
+    { id: 'two', date: 'Feb 2nd 2025', title: 'Second' },
   ],
 }));
 
@@ -34,13 +34,24 @@ describe('Posts', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText('Jan 1')).toBeInTheDocument();
-    expect(screen.getByText('Feb 2')).toBeInTheDocument();
+    expect(screen.getByText('Jan 1st, 2025')).toBeInTheDocument();
+    expect(screen.getByText('Feb 2nd 2025')).toBeInTheDocument();
 
     const firstLink = screen.getByRole('link', { name: 'First' });
     const secondLink = screen.getByRole('link', { name: 'Second' });
 
     expect(firstLink).toHaveAttribute('href', '/post/one');
     expect(secondLink).toHaveAttribute('href', '/post/two');
+  });
+
+  it('lists posts newest first', () => {
+    render(
+      <MemoryRouter>
+        <Posts />
+      </MemoryRouter>
+    );
+
+    const titles = screen.getAllByRole('link').map((link) => link.textContent);
+    expect(titles).toEqual(['Second', 'First']);
   });
 });
