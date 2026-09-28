@@ -643,6 +643,210 @@ export const posts = [
       We can't compute \(\pi^\star\) exactly at realistic sizes, and no one expects to unless \(\mathrm{P} = \mathrm{NP}\). What we can do is design a Markov chain whose stationary distribution concentrates on \(\Pi^\star\), cool it at a rate we can afford, and run many copies at once. The result is a polynomial-time heuristic that reliably beats greedy. To see it in action, try the side-by-side comparison of greedy and parallel annealing at <a href="https://worldsieve.org/" target="_blank" rel="noopener noreferrer">worldsieve.org</a>.
     </p>
     `
+  },
+  {
+    id: "tenth-post",
+    date: "Sep 29th, 2026",
+    title: "The Missing 9/10: Why Transformers Aren't Enough for High-Touch Sales, and What a World Model of Human Response Looks Like",
+    content: String.raw`
+<h2>The bottleneck</h2>
+
+<p>Transformer LLMs, even wrapped in harnesses, loops, and the agentic scaffolding frontier labs like OpenAI, Google DeepMind, Anthropic, and Moonshot AI now ship, are probably not enough for general intelligence. I don't claim to solve AGI. I want to name one concrete bottleneck, show where it breaks a real business, and propose a formal way around it.</p>
+
+<p>The bottleneck is this: <strong>LLMs are excellent at the median and blind to the tail.</strong> They learn from what people write down. The skills that separate a 10/10 operator from a 6/10 one are mostly never written down.</p>
+
+<p>In most software, being right on average is fine. In high-touch sales it is fatal. A sponsor, a buyer, or a guest decides from one email, one pitch, one answer. You need to be at 9/10 or better on every touch, not on average.</p>
+
+<h2>The experiment</h2>
+
+<p>I have spent years in real estate sales and I am an Airbnb Superhost, so I know what a 10/10 answer to a hard sales moment looks like. I wrote a set of real situations: a buyer going cold after a showing, a guest threatening a bad review, a seller anchored on an unrealistic price. For each, I wrote responses I would stake a deal on, plus weaker ones, and asked frontier models to grade them from 1 to 10. I tested the latest versions of frontier models from both the US and China, all within this week. A panel of other highly successful real estate salespeople then audited the findings, and they agreed.</p>
+
+<p>The models got it backwards where it mattered most:</p>
+
+<ul>
+  <li>Responses I rated <strong>10/10</strong> were scored as low as <strong>3/10</strong>.</li>
+  <li>Responses I rated <strong>8/10</strong> were scored around <strong>6/10</strong>, compressed toward the middle.</li>
+  <li>The failure mode was missing information, not missing intelligence. So much of what a great salesperson reads never becomes data an AI can train on: microexpressions, tonality of voice, the questions they ask and how people react to them. It is largely a data problem, and it is the one we are solving at <a href="https://www.luciaprotocol.com/" target="_blank" rel="noopener noreferrer">Lucia</a>.</li>
+</ul>
+
+<p>This was not noise. The models consistently penalized the moves that actually close: saying less than expected, naming the uncomfortable thing directly, slowing down when a textbook says to push. They rewarded answers that sounded like good advice, and they could not tell them apart from answers that work. An AI that can't recognize a 10/10 can't be trusted to write one.</p>
+
+<h2>Why it fails: knowledge nobody writes down</h2>
+
+<p>Coding models got good partly because programmers wrote their knowledge down in public. Stack Overflow, GitHub, and documentation form a huge corpus of problems, attempts, and verified answers. Sales has no equivalent. Top closers don't post their best emails with the outcome attached, and the reason a message worked lives in their head, not in the text. Michael Polanyi called this tacit knowledge: we know more than we can tell.</p>
+
+<p>Formally, a model with parameters \( \theta \) learns a distribution over responses from public text, \( p_\theta(y \mid x) \approx p_{\text{web}}(y \mid x) \). When it grades a response \( y \), it effectively measures how typical \( y \) is for context \( x \):</p>
+
+$$
+\hat{q}(x, y) \;\propto\; \log p_\theta(y \mid x) \;\approx\; \log p_{\text{web}}(y \mid x)
+$$
+
+<p>But expert responses come from a different distribution, \( p_{\text{expert}} \), concentrated where \( p_{\text{web}} \) has little mass. The quality that matters is \( q^*(x, y) \), measured by what the recipient does next. The grading error is then driven by the gap between the two distributions:</p>
+
+$$
+\begin{aligned}
+&\mathbb{E}_{y \sim p_{\text{expert}}}\big[\, q^*(x,y) - \hat{q}(x,y) \,\big] \\
+&\qquad \text{grows with } \; D_{\mathrm{KL}}\big(p_{\text{expert}} \,\|\, p_{\text{web}}\big)
+\end{aligned}
+$$
+
+<p>That is exactly the pattern in the experiment. The best responses are the least typical, so a model of typical text grades them as mistakes. More parameters, more loops, and a harsher critic don't fix this, because every one of them inherits the same prior. The missing ingredient is not more text. It is feedback from the world.</p>
+
+<h2>Sales as a partially observable decision process</h2>
+
+<p>A robot doesn't learn to move a cup by reading about cups. It acts, watches what changes, and builds a model of how its actions affect the world. A great salesperson does the same with people. Each message changes the other person's state, and the salesperson reads that change from small signals.</p>
+
+<p>That structure is a partially observable Markov decision process (POMDP):</p>
+
+$$
+\mathcal{M} = \langle \mathcal{S}, \mathcal{A}, \mathcal{O}, T, Z, R, \gamma \rangle
+$$
+
+<ul>
+  <li><strong>State \( s \in \mathcal{S} \):</strong> the recipient's hidden condition. Trust, attention, perceived fit, urgency, authority to decide, where they are in a budget cycle.</li>
+  <li><strong>Action \( a \in \mathcal{A} \):</strong> a message and its parameters. Content, framing, length, timing, channel.</li>
+  <li><strong>Observation \( o \in \mathcal{O} \):</strong> what we actually see. An open, a click, reply text, time to reply, a meeting booked, a check signed.</li>
+  <li><strong>Transition \( T(s' \mid s, a) \)</strong> and <strong>observation model \( Z(o \mid s', a) \):</strong> how actions change people, and how their state shows up.</li>
+  <li><strong>Reward \( R \)</strong> and discount \( \gamma \in (0, 1) \).</li>
+</ul>
+
+<p>We never see \( s \) directly, so we maintain a belief \( b \), a distribution over states, and update it after every observation:</p>
+
+$$
+b'(s') \;=\; \eta \, Z(o \mid s', a) \sum_{s \in \mathcal{S}} T(s' \mid s, a)\, b(s)
+$$
+
+<p>where \( \eta \) normalizes. The optimal policy acts on beliefs, not states:</p>
+
+$$
+\begin{aligned}
+V^*(b) = \max_{a \in \mathcal{A}} \Big[\, & r(b,a) \\
+& + \gamma \sum_{o \in \mathcal{O}} P(o \mid b, a)\, V^*\big(\tau(b,a,o)\big) \Big]
+\end{aligned}
+$$
+
+<p>with \( \tau \) the belief update above. This is what a 10/10 salesperson does intuitively: hold a model of what the other person is thinking, update it on every signal, and choose the next move by its effect several steps out.</p>
+
+<p><strong>The 9/10 bar is a constraint, not an average.</strong> Standard reinforcement learning maximizes expected reward, which happily trades one brilliant email for one embarrassing one. High-touch sales can't. Let \( q_t \in [0, 10] \) be the true quality of touch \( t \). We require every touch to clear the bar with high probability:</p>
+
+$$
+\begin{aligned}
+&\max_{\pi} \; \mathbb{E}_{\pi}\Big[\sum_{t=0}^{\infty} \gamma^t r_t\Big] \\
+&\text{s.t.} \;\; P_{\pi}\big(q_t \ge 9\big) \;\ge\; 1 - \delta \quad \forall t
+\end{aligned}
+$$
+
+<p>This is a chance-constrained problem. We solve it through its Lagrangian, with a multiplier \( \lambda_t \ge 0 \) per touch that rises whenever the policy starts sending anything below the bar:</p>
+
+$$
+\begin{aligned}
+\mathcal{L}(\pi, \lambda) &= \mathbb{E}_{\pi}\Big[\sum_{t} \gamma^t r_t\Big] \\
+&\quad + \sum_{t} \lambda_t \Big( P_{\pi}(q_t \ge 9) - (1 - \delta) \Big)
+\end{aligned}
+$$
+
+<p>A stricter variant replaces the probability with a tail measure, requiring the conditional value at risk of quality to stay above 9, so even the worst \( \alpha \)-fraction of touches is judged, not just how often we fail.</p>
+
+<h2>A world model of the recipient, in latent space</h2>
+
+<p>The POMDP needs \( T \) and \( Z \), and nobody hands us those for human beings. We have to learn them. Yann LeCun's Joint-Embedding Predictive Architecture (JEPA) points to how: don't predict the raw next observation, predict its representation. I-JEPA applied this to images, V-JEPA to video, and V-JEPA 2 added an action-conditioned variant that lets robots plan by imagining the consequences of actions in latent space.</p>
+
+<p>That matters here because we don't need to predict the exact words a sponsor will reply with. We need to predict how their state changes. Predicting tokens wastes capacity on phrasing. Predicting latents spends it on intent.</p>
+
+<p>Let \( x_t \) be everything observable about a recipient at step \( t \): the thread so far, the organization, past interactions, and identity context resolved across sources. A context encoder \( f_\theta \) maps it to a latent state. A target encoder \( \bar{f} \), an exponential moving average of \( f_\theta \) with \( \tau \) close to 1, encodes what actually happened next. An action-conditioned predictor \( g_\phi \) imagines the result of sending message \( a_t \), with \( z_t \) capturing what we can't know in advance, like whether the recipient had a bad morning.</p>
+
+<p>Training minimizes prediction error in representation space, with a stop-gradient on the target. Following LeCun's proposal, VICReg-style variance and covariance terms keep the latents from collapsing to a single point. Small outcome heads \( h_\psi \) then read off the probability of a reply, a meeting, or a signed check, plus the predicted quality of the touch with its uncertainty:</p>
+
+$$
+\begin{aligned}
+s_t &= f_\theta(x_t), \qquad \hat{s}_{t+1} = g_\phi(s_t, a_t, z_t) \\
+\bar{s}_{t+1} &= \bar{f}_{\bar{\theta}}(x_{t+1}), \qquad \bar{\theta} \leftarrow \tau \bar{\theta} + (1-\tau)\,\theta \\[8pt]
+\mathcal{L} &= \mathbb{E}\, \| \hat{s}_{t+1} - \operatorname{sg}(\bar{s}_{t+1}) \|_2^2 \\
+&\quad + \mu \textstyle\sum_{j} \max\!\big(0,\, 1 - \sqrt{\operatorname{Var}(s_{\cdot j}) + \epsilon}\big) \\
+&\quad + \nu \textstyle\sum_{i \ne j} \operatorname{Cov}(s)_{ij}^2 \\[8pt]
+\hat{p}_k(s) &= \sigma\big(h_{\psi_k}(s)\big), \quad k \in \{\text{reply}, \text{meeting}, \text{check}\} \\
+\hat{q}(s,a) &\sim \mathcal{N}\big(\mu_\psi(s,a),\, \sigma^2_\psi(s,a)\big)
+\end{aligned}
+$$
+
+<p><strong>What the latent state represents.</strong> A 10/10 salesperson works on three things at once: whether the other person feels safe, whether they remember you, and whether your ask survives their careful scrutiny. Neuroscience associates these loosely with threat and salience processing (the amygdala), memory and familiarity (the hippocampus), and deliberate evaluation (the prefrontal cortex). We use this only as a design analogy, not a claim about modeling brains. It suggests the latent space should capture affect, familiarity, and deliberation, and we can test whether it does by probing \( s_t \) against labeled outcomes.</p>
+
+<h2>Planning: imagine, filter, act, learn</h2>
+
+<p>With a learned world model, the agent plans the way a robot using V-JEPA 2 does: by imagining the effect of candidate actions in latent space and choosing the one that moves the world closest to the goal. The LLM doesn't disappear. It becomes the proposal distribution, the creative part, while the world model becomes the judge the LLM never could be.</p>
+
+<p>Each touch runs this loop:</p>
+
+<ol>
+  <li><strong>Encode</strong> the current situation into a latent state \( s_t \).</li>
+  <li><strong>Propose</strong> \( N \) candidate messages from the language model, \( a^{(i)} \sim \pi_{\text{LLM}}(\cdot \mid x_t) \).</li>
+  <li><strong>Imagine</strong> each candidate \( H \) steps ahead in latent space, with follow-ups also drawn from the proposal model (first line below).</li>
+  <li><strong>Score</strong> each plan by predicted reward, distance to a goal embedding \( s_{\text{goal}} \) such as the state of a sponsor who has committed, and the quality constraint (second group).</li>
+  <li><strong>Filter pessimistically.</strong> An ensemble of predictors gives an uncertainty estimate, and only candidates whose lower confidence bound clears the bar survive (third group). If none survive, the agent escalates to a human instead of sending its best guess. In high-touch sales, a 6/10 email sent automatically costs more than a delay.</li>
+  <li><strong>Refine and act.</strong> Refit the proposals toward the top scorers with the cross-entropy method, send the best survivor, observe the reply, update the belief, and add the transition to the training buffer. The multiplier \( \lambda_t \) tightens by dual ascent whenever real outcomes show quality slipping (last line).</li>
+</ol>
+
+$$
+\begin{aligned}
+\hat{s}^{(i)}_{t+k+1} &= g_\phi\big(\hat{s}^{(i)}_{t+k},\, a^{(i)}_{t+k},\, z_{t+k}\big) \\[8pt]
+J\big(a^{(i)}\big) &= \textstyle\sum_{k} \gamma^k \hat{r}\big(\hat{s}^{(i)}_{t+k}\big) \\
+&\quad - \beta \big\| \hat{s}^{(i)}_{t+H} - s_{\text{goal}} \big\|_2 \\
+&\quad - \lambda_t \big( (1-\delta) - \hat{P}(q_t \ge 9 \mid s_t, a^{(i)}_t) \big) \\[8pt]
+\mathcal{C}_t &= \big\{\, a^{(i)} : \bar{P}(q_t \ge 9) \\
+&\qquad\quad - \kappa\, \hat{\sigma}_{\text{ens}}(a^{(i)}) \ge 1 - \delta \,\big\} \\[8pt]
+\lambda_t &\leftarrow \max\big(0,\; \lambda_t + \eta_\lambda \big( (1-\delta) - \mathbf{1}[\, q_t \ge 9 \,] \big) \big)
+\end{aligned}
+$$
+
+<p><strong>Solving cold start with expert trajectories.</strong> A robot can practice on its own. A salesperson can't burn a hundred sponsors to learn. So the model starts from expert demonstrations: my own graded responses, plus threads where the outcome is known. We pretrain the predictor on these and fit the reward with inverse reinforcement learning, finding the reward under which the expert's choices look optimal:</p>
+
+$$
+\begin{aligned}
+\hat{R} = \arg\max_{R} \; & \mathbb{E}_{\tau \sim \pi_E}\Big[\textstyle\sum_t \gamma^t R(s_t, a_t)\Big] \\
+& - \max_{\pi}\, \mathbb{E}_{\tau \sim \pi}\Big[\textstyle\sum_t \gamma^t R(s_t, a_t)\Big]
+\end{aligned}
+$$
+
+<p>This is the key difference from an LLM. The expert's knowledge enters through what worked, not through what got written down.</p>
+
+<h3>User story: cold emails for event sponsorship</h3>
+
+<p>An event host is running a side event at a major conference and needs sponsorship checks from companies that don't know them.</p>
+
+<ul>
+  <li><strong>State:</strong> each target sponsor's budget cycle, prior sponsorships, awareness of the host, fit between the audience and their buyers, the contact's authority, and trust.</li>
+  <li><strong>Actions:</strong> the first cold email, follow-ups, a deck, a warm intro request, a call proposal, the specific tier offered.</li>
+  <li><strong>Observations:</strong> opens, reply text, forwarding to a colleague, "send the deck," silence, a calendar link, a signed agreement.</li>
+  <li><strong>Reward:</strong> sparse and terminal. The sponsorship amount at signing, with penalties for unsubscribes, spam reports, and burned relationships. The goal-distance term in the scoring step gives the planner a signal long before the check arrives.</li>
+</ul>
+
+<p>A harness writes a polished email and sends it to everyone. The world model sees that one sponsor is mid-cycle with budget left, while another just committed their budget elsewhere. It proposes a short, specific note to the first, holds the second until next quarter, and escalates the third to the host because no candidate clears 9/10. That is the judgment a great event salesperson exercises, now made explicit, measurable, and improvable with every send.</p>
+
+<h2>What this does and doesn't claim</h2>
+
+<p><strong>It is not a path to AGI.</strong> It is a claim that one missing piece, a model that learns from consequences instead of text, blocks LLMs from domains where excellence is tacit. High-touch sales is one of them. Negotiation, hospitality, fundraising, and care work are likely others.</p>
+
+<p><strong>The math is a framework, not a result.</strong> The link between grading error and distribution gap in the tacit-knowledge section is a hypothesis to test, not a theorem. The experiment is small: graded by one expert and audited by a small panel. The next step is a larger study with multiple expert graders and real outcomes as ground truth.</p>
+
+<p><strong>Influence must stay honest.</strong> Robots that act around people are held to safety constraints, and so should agents that act on people's decisions. The objective here rewards signed sponsorships that fit, and it penalizes pressure, spam, and burned relationships. A sponsor who signs under pressure and regrets it doesn't come back next year, so honesty is also the winning strategy.</p>
+
+<p>The frontier labs are making language models better at language. The next gap is judgment about people, learned the way the best operators learned it: by acting, watching what happens, and getting better one conversation at a time. That is what we are building at Lucia.</p>
+
+<h2>References</h2>
+
+<ol class="references">
+  <li id="ref-1">LeCun, Y. (2022). <a href="https://openreview.net/forum?id=BZ5a1r-kVsf" target="_blank" rel="noopener noreferrer">A Path Towards Autonomous Machine Intelligence</a>. <em>OpenReview</em>.</li>
+  <li id="ref-2">Assran, M., et al. (2023). <a href="https://arxiv.org/abs/2301.08243" target="_blank" rel="noopener noreferrer">Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture</a> (I-JEPA). <em>CVPR</em>. <span class="ref-id">arXiv:2301.08243</span></li>
+  <li id="ref-3">Bardes, A., et al. (2024). <a href="https://arxiv.org/abs/2404.08471" target="_blank" rel="noopener noreferrer">Revisiting Feature Prediction for Learning Visual Representations from Video</a> (V-JEPA). <span class="ref-id">arXiv:2404.08471</span></li>
+  <li id="ref-4">Assran, M., et al. (2025). <a href="https://arxiv.org/abs/2506.09985" target="_blank" rel="noopener noreferrer">V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning</a>. <span class="ref-id">arXiv:2506.09985</span></li>
+  <li id="ref-5">Bardes, A., Ponce, J., and LeCun, Y. (2022). <a href="https://arxiv.org/abs/2105.04906" target="_blank" rel="noopener noreferrer">VICReg: Variance-Invariance-Covariance Regularization for Self-Supervised Learning</a>. <em>ICLR</em>. <span class="ref-id">arXiv:2105.04906</span></li>
+  <li id="ref-6">Kaelbling, L. P., Littman, M. L., and Cassandra, A. R. (1998). <a href="https://doi.org/10.1016/S0004-3702(98)00023-X" target="_blank" rel="noopener noreferrer">Planning and Acting in Partially Observable Stochastic Domains</a>. <em>Artificial Intelligence</em>. <span class="ref-id">doi:10.1016/S0004-3702(98)00023-X</span></li>
+  <li id="ref-7">Altman, E. (1999). <a href="https://doi.org/10.1201/9781315140223" target="_blank" rel="noopener noreferrer">Constrained Markov Decision Processes</a>. <em>Chapman and Hall/CRC</em>. <span class="ref-id">doi:10.1201/9781315140223</span></li>
+  <li id="ref-8">Hafner, D., et al. (2023). <a href="https://arxiv.org/abs/2301.04104" target="_blank" rel="noopener noreferrer">Mastering Diverse Domains through World Models</a> (DreamerV3). <span class="ref-id">arXiv:2301.04104</span></li>
+  <li id="ref-9">Ng, A. Y., and Russell, S. (2000). <a href="https://ai.stanford.edu/~ang/papers/icml00-irl.pdf" target="_blank" rel="noopener noreferrer">Algorithms for Inverse Reinforcement Learning</a>. <em>ICML</em>.</li>
+  <li id="ref-10">Rubinstein, R. Y. (1999). <a href="https://doi.org/10.1023/A:1010091220143" target="_blank" rel="noopener noreferrer">The Cross-Entropy Method for Combinatorial and Continuous Optimization</a>. <em>Methodology and Computing in Applied Probability</em>. <span class="ref-id">doi:10.1023/A:1010091220143</span></li>
+  <li id="ref-11">Polanyi, M. (1966). <a href="https://press.uchicago.edu/ucp/books/book/chicago/T/bo6035368.html" target="_blank" rel="noopener noreferrer">The Tacit Dimension</a>. <em>University of Chicago Press</em>.</li>
+</ol>
+`,
   }
 ];
-
