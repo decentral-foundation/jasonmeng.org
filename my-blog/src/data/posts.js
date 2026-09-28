@@ -485,5 +485,164 @@ export const posts = [
     </ol>
 
     `
+  }, {
+    id: "ninth-post",
+    date: "Sep 28th, 2026",
+    title: "Annealing the courier: a heuristic for an NP-hard routing problem",
+    content: String.raw`
+    <p>
+      A courier leaves the depot with \(n\) possible deliveries. Each one pays a tip, but the tip shrinks the later it arrives, and every mile driven costs money. The courier has to decide <em>which</em> stops to make and <em>in what order</em>. This is the Prize-Collecting Traveling Salesman Problem (PCTSP). This post formulates it, shows why exact solutions are out of reach, and explains how simulated annealing finds good solutions anyway. You can watch it run live at <a href="https://worldsieve.org/" target="_blank" rel="noopener noreferrer">worldsieve.org</a>.
+    </p>
+
+    <h2>1. The problem</h2>
+    <p>
+      Let \(V = \{0, 1, \dots, n\}\) be the set of locations, with \(0\) the depot, and let \(d_{ij} \ge 0\) be the travel time from \(i\) to \(j\). A route is an ordered sequence of distinct stops
+    </p>
+    $$
+    \pi = (v_1, v_2, \dots, v_k), \qquad v_m \in V \setminus \{0\}, \quad 0 \le k \le n,
+    $$
+    <p>
+      driven as \(0 \to v_1 \to \cdots \to v_k \to 0\). The arrival time at the \(m\)-th stop is the running sum of the legs before it:
+    </p>
+    $$
+    t_m(\pi) = \sum_{l=1}^{m} d_{v_{l-1} v_l}, \qquad v_0 = 0.
+    $$
+    <p>
+      Stop \(i\) pays a base tip \(p_i\), promised by a deadline \(\tau_i\), after which it decays exponentially at rate \(\lambda_i\):
+    </p>
+    $$
+    r_i(t) = p_i \, e^{-\lambda_i (t - \tau_i)^+}, \qquad (x)^+ = \max(0, x).
+    $$
+    <p>
+      With cost \(c\) per unit of travel time, the courier's net profit is
+    </p>
+    $$
+    J(\pi) = \underbrace{\sum_{m=1}^{k} r_{v_m}\big(t_m(\pi)\big)}_{\text{tips collected}} \;-\; c \underbrace{\left( \sum_{m=1}^{k} d_{v_{m-1} v_m} + d_{v_k 0} \right)}_{\text{total route length } L(\pi)}
+    \tag{1}
+    $$
+    <p>
+      and the goal is \(\pi^\star = \arg\max_{\pi \in \Pi} J(\pi)\), where \(\Pi\) is the set of all ordered subsets of stops.
+    </p>
+
+    <h2>2. Why it's hard</h2>
+    <p>
+      <strong>The search space.</strong> Choosing \(k\) stops in order gives \(n!/(n-k)!\) routes, so
+    </p>
+    $$
+    |\Pi| = \sum_{k=0}^{n} \frac{n!}{(n-k)!} = n! \sum_{j=0}^{n} \frac{1}{j!} = \lfloor e \cdot n! \rfloor \quad (n \ge 1).
+    $$
+    <p>
+      That is more routes than the plain TSP's \(n!\). Enumeration dies somewhere around \(n = 15\).
+    </p>
+    <p>
+      <strong>NP-hardness.</strong> PCTSP contains the TSP as a special case. Set \(\lambda_i = 0\) (no decay) and make every tip larger than the longest possible tour, \(p_i \gt c \cdot \max_\pi L(\pi)\). Then skipping any stop is never profitable, so every optimal route visits all \(n\) stops, and (1) reduces to
+    </p>
+    $$
+    \max_{\pi} J(\pi) = \sum_{i=1}^{n} p_i - c \cdot \min_{\pi \text{ Hamiltonian}} L(\pi),
+    $$
+    <p>
+      which is exactly the TSP. A polynomial-time algorithm for PCTSP would therefore give one for the TSP, so PCTSP is NP-hard.
+    </p>
+    <p>
+      <strong>The best exact method.</strong> Held–Karp dynamic programming beats brute force by keeping a table \(D(S, j)\): the shortest path that starts at the depot, visits exactly the set \(S\), and ends at \(j\). The recurrence is
+    </p>
+    $$
+    D(S, j) = \min_{i \in S \setminus \{j\}} \Big[ D(S \setminus \{j\}, i) + d_{ij} \Big],
+    $$
+    <p>
+      which costs \(\Theta(n^2 2^n)\) time. At roughly a nanosecond per operation:
+    </p>
+    <table style="margin: 1em auto; border-collapse: collapse;">
+      <tr><th style="padding: 4px 16px; text-align: left;">\(n\)</th><th style="padding: 4px 16px; text-align: left;">\(n^2 2^n\)</th><th style="padding: 4px 16px; text-align: left;">Wall time</th></tr>
+      <tr><td style="padding: 4px 16px;">16</td><td style="padding: 4px 16px;">\(\approx 1.7 \times 10^{7}\)</td><td style="padding: 4px 16px;">17 ms</td></tr>
+      <tr><td style="padding: 4px 16px;">48</td><td style="padding: 4px 16px;">\(\approx 6.5 \times 10^{17}\)</td><td style="padding: 4px 16px;">20.6 years</td></tr>
+      <tr><td style="padding: 4px 16px;">64</td><td style="padding: 4px 16px;">\(\approx 7.6 \times 10^{22}\)</td><td style="padding: 4px 16px;">2.4 million years</td></tr>
+    </table>
+    <p>
+      A single afternoon of deliveries is out of reach. We have to give up on guaranteed optimality and look for a good heuristic.
+    </p>
+
+    <h2>3. Why greedy gets stuck</h2>
+    <p>
+      Treat routes as the states of a graph. Two routes are neighbors, \(\pi' \in \mathcal{N}(\pi)\), if one small edit turns one into the other:
+    </p>
+    <ul>
+      <li><strong>2-opt:</strong> reverse a segment \((v_a, \dots, v_b)\) of the route;</li>
+      <li><strong>relocate:</strong> move one stop to a different position;</li>
+      <li><strong>insert:</strong> add an unvisited stop somewhere in the route;</li>
+      <li><strong>drop:</strong> remove a visited stop.</li>
+    </ul>
+    <p>
+      Every move has an inverse, so the neighbor relation is symmetric, and any route can be reached from any other, so the graph is connected. Now define the <em>energy</em> \(E(\pi) = -J(\pi)\), so maximizing profit means minimizing energy. A route \(\hat\pi\) is a <em>local minimum</em> if no single edit improves it:
+    </p>
+    $$
+    E(\hat\pi) \le E(\pi') \quad \forall\, \pi' \in \mathcal{N}(\hat\pi).
+    $$
+    <p>
+      A greedy search only accepts moves with \(\Delta E = E(\pi') - E(\pi) \lt 0\), so it stops at the first local minimum it reaches. Decaying tips make the energy landscape very rugged. Committing early to a nearby cheap stop can make a far more valuable stop late, and no single move undoes that choice.
+    </p>
+
+    <h2>4. Simulated annealing</h2>
+    <p>
+      Simulated annealing sometimes accepts moves that make the route worse, which lets it climb out of local minima. At temperature \(T \gt 0\), a proposed neighbor \(\pi'\) is accepted with the <em>Metropolis</em> probability
+    </p>
+    $$
+    \Pr[\pi \to \pi'] = \min\!\left(1,\; e^{-\Delta E / T}\right).
+    \tag{2}
+    $$
+    <p>
+      Improvements are always accepted. A worse move of size \(\Delta E\) is accepted with probability that falls exponentially as \(\Delta E / T\) grows. Hot temperatures give a near-random walk; cold temperatures give near-greedy search.
+    </p>
+    <p>
+      <strong>What the chain converges to.</strong> Hold \(T\) fixed and propose neighbors symmetrically. Rule (2) then satisfies detailed balance with respect to the Boltzmann distribution
+    </p>
+    $$
+    \mu_T(\pi) = \frac{e^{-E(\pi)/T}}{Z_T}, \qquad Z_T = \sum_{\sigma \in \Pi} e^{-E(\sigma)/T},
+    $$
+    <p>
+      so \(\mu_T\) is the chain's stationary distribution. Let \(\Pi^\star\) be the set of optimal routes and \(E^\star\) their energy. Dividing the numerator and denominator by \(e^{-E^\star/T}\) shows that as the temperature drops, the distribution piles up on the optimal routes:
+    </p>
+    $$
+    \lim_{T \to 0^+} \mu_T(\pi) = \frac{\mathbf{1}[\pi \in \Pi^\star]}{|\Pi^\star|}.
+    $$
+    <p>
+      <strong>Cooling slowly enough.</strong> Hajek (1988) showed exactly how slow "slowly" has to be. With a logarithmic schedule
+    </p>
+    $$
+    T_k = \frac{\gamma}{\log(1 + k)},
+    $$
+    <p>
+      the chain converges to \(\Pi^\star\) in probability if and only if \(\gamma \ge d^\star\). Here \(d^\star\) is the depth of the deepest local minimum that is not a global one: the smallest amount of energy you have to climb to escape it. The guarantee is real, but logarithmic cooling is far too slow to use. In practice we cool geometrically instead, \(T_{k+1} = \alpha T_k\) with \(\alpha \in (0.95, 0.9999)\). That gives up the theorem but keeps most of the benefit.
+    </p>
+    <p>
+      <strong>Choosing the starting temperature.</strong> Let \(\overline{\Delta E}^{+}\) be the average size of a worsening move, found by sampling a few random moves first. To accept a fraction \(\chi_0\) of those moves at the start (e.g. \(\chi_0 = 0.8\)), set
+    </p>
+    $$
+    T_0 = -\frac{\overline{\Delta E}^{+}}{\ln \chi_0}.
+    $$
+
+    <h2>5. Many chains in parallel</h2>
+    <p>
+      A single annealing run is random: it may or may not end within \(\varepsilon\) of the optimum. Suppose one run succeeds with probability \(q\). Then \(K\) independent runs, keeping the best result, all fail with probability
+    </p>
+    $$
+    \Pr[\text{all } K \text{ fail}] = (1 - q)^K \le e^{-qK}.
+    $$
+    <p>
+      To push the failure probability below \(\delta\), it is enough to run
+    </p>
+    $$
+    K \ge \frac{\ln(1/\delta)}{q}
+    $$
+    <p>
+      chains. For example, if one chain succeeds a third of the time, 14 chains fail together less than 1% of the time. The chains never talk to each other, so the work is embarrassingly parallel and throughput scales with the number of cores. Oversubscribing doesn't help, though: 32 workers on an 8-core machine get about \(8\times\) the throughput of one worker, not \(32\times\), because the OS just time-slices them.
+    </p>
+
+    <h2>6. Takeaway</h2>
+    <p>
+      We can't compute \(\pi^\star\) exactly at realistic sizes, and no one expects to unless \(\mathrm{P} = \mathrm{NP}\). What we can do is design a Markov chain whose stationary distribution concentrates on \(\Pi^\star\), cool it at a rate we can afford, and run many copies at once. The result is a polynomial-time heuristic that reliably beats greedy. To see it in action, try the side-by-side comparison of greedy and parallel annealing at <a href="https://worldsieve.org/" target="_blank" rel="noopener noreferrer">worldsieve.org</a>.
+    </p>
+    `
   }
-]; 
+];
+

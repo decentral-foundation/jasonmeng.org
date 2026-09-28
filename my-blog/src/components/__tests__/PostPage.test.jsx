@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { MemoryRouter, useParams } from 'react-router-dom';
@@ -28,6 +28,12 @@ vi.mock('../../data/posts', () => ({
       title: 'Hello World',
       fullArticleUrl: 'https://example.com/full',
       content: '<p>Body</p>',
+    },
+    {
+      id: 'math',
+      date: 'Jan 2, 2025',
+      title: 'Math Post',
+      content: String.raw`<p>Inline \(Q_i^l(s, a_J)\) costs $5 and $10.</p><p>$$V_i^l = \max_{a_i' \in \mathcal{A}_i} \underbrace{P(\tilde{g}_j)}_{\text{goal}} \tag{4}$$</p>`,
     },
   ],
 }));
@@ -86,5 +92,20 @@ describe('PostPage', () => {
 
     expect(lucia.pageView).toHaveBeenCalledTimes(1);
     expect(lucia.pageView).toHaveBeenCalledWith('PostPage');
+  });
+
+  it('renders LaTeX with KaTeX and leaves dollar amounts alone', async () => {
+    vi.mocked(useParams).mockReturnValue({ id: 'math' });
+
+    const { container } = render(
+      <MemoryRouter>
+        <PostPage />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => expect(container.querySelectorAll('.katex').length).toBe(2));
+    expect(container.querySelectorAll('.katex-display').length).toBe(1);
+    expect(container.querySelector('.katex-error')).toBeNull();
+    expect(container.textContent).toContain('costs $5 and $10.');
   });
 });

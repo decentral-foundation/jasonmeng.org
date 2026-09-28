@@ -80,3 +80,9 @@
 .prose a:hover {
   text-decoration: none;
 }
+/* Wide display equations scroll instead of breaking the layout */
+.prose .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25em 0;
+}

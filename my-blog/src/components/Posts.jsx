@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { posts } from '../data/posts';
+import { newestFirst } from '../data/sortPosts';
 import lucia from '../lucia';
 
 function Posts() {
@@ -8,7 +9,7 @@ function Posts() {
     <div>
       <section>
         <h2 className="text-2xl font-bold mb-6">Posts</h2>
-        {posts.map((post) => (
+        {newestFirst(posts).map((post) => (
           <div key={post.id} className="mb-4">
             <span className="text-gray-500 mr-4">{post.date}</span>
             <Link 

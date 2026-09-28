@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { posts } from "../data/posts";
+import { newestFirst } from "../data/sortPosts";
 import lucia from "../lucia";
 import useScrollDepth from "../hooks/useScrollDepth";
 
@@ -90,7 +91,7 @@ function Home() {
         <div className="mb-16">
           <div className="text-2xl font-semibold mb-6 text-gray-800">Recent Posts</div>
           <ul className="space-y-3 text-lg text-gray-700">
-            {posts.slice(0, 3).map((post) => (
+            {newestFirst(posts).slice(0, 3).map((post) => (
               <li key={post.id} className="flex flex-col">
                 <span className="text-sm text-gray-500">{post.date}</span>
                 <Link to={`/post/${post.id}`} className="text-blue-600 hover:text-blue-800">
