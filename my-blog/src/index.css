@@ -86,3 +86,22 @@
   overflow-y: hidden;
   padding: 0.25em 0;
 }
+
+.prose h3 {
+  font-size: 1.25em;
+  margin: 1em 0 0.5em;
+  font-weight: 600;
+}
+
+.prose ol.references {
+  font-size: 0.9em;
+}
+
+.prose ol.references a {
+  font-style: italic;
+}
+
+.prose .ref-id {
+  color: #6b7280;
+  font-size: 0.9em;
+}
