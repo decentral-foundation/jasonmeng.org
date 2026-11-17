@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { posts } from '../data/posts';
 import lucia from '../lucia';
+import PipelineAuditCTA from './PipelineAuditCTA';
 
 function PostPage() {
   const { id } = useParams();
@@ -71,6 +72,7 @@ function PostPage() {
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
       <div className="text-gray-500 mb-8">{post.date}</div>
       <div ref={contentRef} className="prose lg:prose-xl" dangerouslySetInnerHTML={createMarkup()} />
+      {post.cta === 'pipeline-audit' && <PipelineAuditCTA />}
       {post.fullArticleUrl && (
         <footer className="mt-8 pt-4 border-t border-gray-200">
           <a 

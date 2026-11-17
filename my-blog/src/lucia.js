@@ -50,6 +50,16 @@ const lucia = {
         }
     },
 
+    // Links a connected wallet to the visitor's Lucia session.
+    // https://docs.luciaprotocol.com/docs/getting-started/connecting-wallets
+    sendWalletInfo: async (walletAddress, options) => {
+        try {
+            await getLuciaSDK().sendWalletInfo(walletAddress, options);
+        } catch (error) {
+            console.error("Sending wallet info failed:", error);
+        }
+    },
+
     buttonClick: (buttonName) => {
         try {
             const sdk = getLuciaSDK();
