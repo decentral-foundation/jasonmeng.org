@@ -18,16 +18,16 @@ const contentDir = path.join(root, 'content', 'pipeline-audit');
 const output = path.join(contentDir, 'pipeline-audit.pdf');
 
 const config = JSON.parse(readFileSync(path.join(contentDir, 'config.json'), 'utf8'));
-const fractlUrl = (config.fractlAuditUrl || '').trim();
-if (!fractlUrl) {
+const bookingUrl = (config.auditBookingUrl || '').trim();
+if (!bookingUrl) {
   console.warn(
-    '\n⚠  fractlAuditUrl is empty in content/pipeline-audit/config.json.\n'
+    '\n⚠  auditBookingUrl is empty in content/pipeline-audit/config.json.\n'
     + '   The last page will show a placeholder. Fill it in and rebuild before selling.\n',
   );
 }
 
 const markdown = readFileSync(path.join(contentDir, 'audit.md'), 'utf8')
-  .replaceAll('{{FRACTL_AUDIT_URL}}', fractlUrl || 'https://example.com/fractl-audit-link-coming-soon');
+  .replaceAll('{{AUDIT_BOOKING_URL}}', bookingUrl || 'https://example.com/audit-booking-link-coming-soon');
 
 const work = mkdtempSync(path.join(tmpdir(), 'pipeline-audit-'));
 try {
@@ -49,7 +49,9 @@ try {
     '--yes', MD_TO_PDF, mdPath,
     '--stylesheet', path.join(contentDir, 'style.css'),
     '--pdf-options', JSON.stringify(pdfOptions),
-  ], { stdio: 'inherit' });
+  // stdin is ignored: md-to-pdf otherwise waits for piped input when run
+  // from a non-interactive shell or CI.
+  ], { stdio: ['ignore', 'inherit', 'inherit'] });
 
   copyFileSync(path.join(work, 'pipeline-audit.pdf'), output);
   console.log(`Wrote ${path.relative(root, output)} (${Math.round(statSync(output).size / 1024)} KB)`);

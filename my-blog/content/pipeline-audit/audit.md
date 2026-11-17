@@ -259,11 +259,11 @@ Write today's date and score here, and come back in 30 days.
 
 ## Want a second pair of eyes?
 
-### Get a free live pipeline audit from Fractl
+### Book a free live pipeline audit
 
 Self-audits catch the obvious leaks. The expensive ones usually hide in how stages, channels, and follow-up interact, and they are much easier to spot from the outside.
 
-In a free live session, Fractl will go through your pipeline with you and:
+In a free live session, we'll go through your pipeline together and:
 
 - Walk through your scorecard results and benchmarks together
 - Find the stage where you lose the most revenue
@@ -272,7 +272,7 @@ In a free live session, Fractl will go through your pipeline with you and:
 
 No pitch deck, no prep required. Bring your CRM and this scorecard.
 
-<p class="cta">Book your free audit: <a href="{{FRACTL_AUDIT_URL}}">{{FRACTL_AUDIT_URL}}</a></p>
+<p class="cta">Book your free audit: <a href="{{AUDIT_BOOKING_URL}}">{{AUDIT_BOOKING_URL}}</a></p>
 
 <p class="small">The 15-Minute Sales Pipeline Self-Audit · jasonmeng.org</p>
 

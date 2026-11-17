@@ -98,7 +98,7 @@ mainnet `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`, Sepolia `0x1c7D4B196Cb0C7B
 
 ```bash
 cd my-blog
-# edit content/pipeline-audit/audit.md, and set fractlAuditUrl in content/pipeline-audit/config.json
+# edit content/pipeline-audit/audit.md, and set auditBookingUrl in content/pipeline-audit/config.json
 npm run build:pdf
 git add content/pipeline-audit/pipeline-audit.pdf
 ```
@@ -176,7 +176,7 @@ Unit tests cover signature checks, payment filtering, and the Lucia request:
    `ALCHEMY_RPC_URL`. They must match, or every payment check fails.
 2. Create a second Address Activity webhook on **Ethereum Mainnet** pointing at the
    production URL, and set its signing key as the Production `ALCHEMY_WEBHOOK_SIGNING_KEY`.
-3. Set `fractlAuditUrl`, run `npm run build:pdf`, and commit the PDF.
+3. Set `auditBookingUrl`, run `npm run build:pdf`, and commit the PDF.
 4. Redeploy (needed because `PUBLIC_*` values are baked in at build time).
 5. Make one real 1 USDC purchase to confirm, then check the Vercel logs and Lucia.
 
