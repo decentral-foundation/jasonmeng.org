@@ -15,7 +15,7 @@ const LUCIA_CONVERSIONS_URL = 'https://api.luciaprotocol.com/api/events-ingestio
 
 export const CONVERSION_TAG = 'pipeline_audit_purchase';
 
-export async function sendLuciaConversion({ wallet, txHash, amountUsdc, chainKey }) {
+export async function sendLuciaConversion({ wallet, txHash, chainKey, asset, paidAmount, amountUsd }) {
   const apiKey = process.env.LUCIA_API_KEY;
   if (!apiKey) throw new Error('LUCIA_API_KEY is not set.');
 
@@ -24,14 +24,16 @@ export async function sendLuciaConversion({ wallet, txHash, amountUsdc, chainKey
     headers: { 'X-API-KEY': apiKey, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       tag: CONVERSION_TAG,
-      amount: amountUsdc,
+      amount: amountUsd,
       details: {
         wallet,
         walletAddress: wallet,
         txHash,
         dedupeId: txHash,
         chain: chainKey,
-        currency: 'USDC',
+        currency: 'USD',
+        paidAsset: asset,
+        paidAmount,
         product: 'pipeline-audit-pdf',
       },
     }),

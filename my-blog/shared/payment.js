@@ -23,9 +23,16 @@ export const CHAINS = {
 
 export const DEFAULT_CHAIN = 'sepolia';
 
+// List price in USD, used as the Lucia conversion amount for ETH payments.
+export const PRICE_USD = 1;
+
 // 1 USDC. USDC has 6 decimals on both networks.
 export const USDC_DECIMALS = 6;
 export const PRICE_UNITS = 1_000_000n;
+
+// Native ETH alternative: a payment counts when it is AT LEAST this much.
+export const MIN_ETH = '0.00055';
+export const MIN_ETH_WEI = 550_000_000_000_000n; // 0.00055 ETH in wei
 
 // How old a signed "already paid" message may be before /api/download rejects it.
 export const SIGNATURE_MAX_AGE_MS = 10 * 60 * 1000;

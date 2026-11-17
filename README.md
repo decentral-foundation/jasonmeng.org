@@ -41,12 +41,13 @@ Personal website built with React and Vite.
 
 ## Pipeline Audit ($1 PDF, paid in USDC)
 
-`/pipeline-audit` sells *The 15-Minute Sales Pipeline Self-Audit* for 1 USDC on
-Ethereum, and records the sale as a Lucia conversion from a webhook. There is no
+`/pipeline-audit` sells *The 15-Minute Sales Pipeline Self-Audit* for 1 USDC, or at
+least 0.00055 ETH, on Ethereum, and records the sale as a Lucia conversion from a
+webhook. There is no
 database, auth, payment processor, or storage bucket.
 
 ```
-Buyer's wallet ──1 USDC──▶ your address
+Buyer's wallet ──1 USDC or ≥0.00055 ETH──▶ your address
       │                        │
       │                        └─ Alchemy address-activity webhook ─▶ /api/webhooks/payment ─▶ Lucia conversion
       │
@@ -59,7 +60,7 @@ Buyer's wallet ──1 USDC──▶ your address
 | `my-blog/src/components/PipelineAuditCTA.jsx` | Reusable call to action. Add `cta: 'pipeline-audit'` to a post in `src/data/posts.js` to show it under that post |
 | `my-blog/api/webhooks/payment.js` | Alchemy webhook → Lucia conversion |
 | `my-blog/api/download.js` | Verifies payment and streams the PDF |
-| `my-blog/shared/payment.js` | Chain table, USDC addresses, price, signed-message text |
+| `my-blog/shared/payment.js` | Chain table, USDC addresses, prices (`PRICE_UNITS`, `MIN_ETH`), signed-message text |
 | `my-blog/content/pipeline-audit/` | PDF source (`audit.md`), `config.json`, stylesheet, and the built PDF |
 
 ### Environment variables
@@ -78,6 +79,17 @@ Environment Variables. Never commit real values; `.env.example` lists them.
 `PUBLIC_*` variables are inlined into the browser bundle at build time (Vite
 `envPrefix`), so they must be set for the **build** in Vercel, and a change needs a
 redeploy. Never give a secret a `PUBLIC_` or `VITE_` prefix.
+
+### Accepted payments
+
+| Asset | Rule | How it is verified |
+|---|---|---|
+| USDC | at least 1 USDC in one transfer (tx-hash path) or in total ("already paid") | Transfer log on the configured chain's USDC contract |
+| ETH | **at least** 0.00055 ETH (`MIN_ETH` in `shared/payment.js`) | Plain sends *and* internal transfers, so smart-contract wallets (Safe, 4337 accounts) can pay. Found with Alchemy's Transfers API |
+
+Signatures from smart-contract wallets are checked with ERC-1271/6492 through viem.
+ETH payments are recorded in Lucia at the $1 list price (`amount: 1`), with the ETH
+paid in `details.paidAmount`, because there is no price feed.
 
 USDC contracts come from [Circle's list](https://developers.circle.com/stablecoins/usdc-contract-addresses):
 mainnet `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`, Sepolia `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`.
@@ -118,10 +130,11 @@ Sepolia's webhook a preview URL and mainnet's the production URL.
 
 1. Set `PUBLIC_CHAIN=sepolia`, a Sepolia `ALCHEMY_RPC_URL`, and a receiving address you control.
 2. Fund a **different** buyer wallet in MetaMask with:
-   - Sepolia ETH for gas (any Sepolia faucet), and
+   - Sepolia ETH for gas, and for the ETH option (any Sepolia faucet), and
    - test USDC from [faucet.circle.com](https://faucet.circle.com) (choose Ethereum Sepolia).
 3. Open `/pipeline-audit` on the deployment, click **Buy for $1**, approve the switch to
-   Sepolia, approve the 1 USDC transfer, then sign the message.
+   Sepolia, approve the 1 USDC transfer, then sign the message. Repeat with
+   **Pay with ETH (0.00055)**.
 4. The PDF downloads. Check:
    - Vercel logs for `[webhook] conversion sent for 0x…` (the webhook usually arrives within a minute).
    - The conversion `pipeline_audit_purchase` in the Lucia dashboard.
@@ -174,6 +187,12 @@ Unit tests cover signature checks, payment filtering, and the Lucia request:
   this needs a key-value store to record used hashes and nonces.
 - **Wallet connect is required.** Payments sent from an exchange can't be matched to a
   buyer, and the injected connector needs a browser extension wallet.
+- **ETH is a fixed amount, not $1.** 0.00055 ETH is not pegged to the dollar; update
+  `MIN_ETH` and `MIN_ETH_WEI` in `my-blog/shared/payment.js` if the ETH price moves a lot.
+- **Smart-wallet webhooks on Sepolia.** Internal (contract-sent) ETH is verified by the
+  download route on both networks, but whether Alchemy's address-activity webhook reports
+  internal transfers on Sepolia is not documented, so those Lucia conversions may only
+  fire on mainnet.
 - **Unverified Lucia fields.** Lucia's conversion API documents only `{ tag, amount,
   details }`. The wallet and the tx hash (as `dedupeId`) are sent inside `details`. Until
   Lucia confirms real fields for them, Lucia may count Alchemy's retries twice and may not

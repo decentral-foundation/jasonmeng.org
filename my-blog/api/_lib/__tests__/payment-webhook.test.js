@@ -1,8 +1,8 @@
 // @vitest-environment node
 import crypto from 'node:crypto';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { findQualifyingPayments, isValidAlchemySignature } from '../alchemy.js';
-import { CHAINS } from '../../../shared/payment.js';
+import { ethPaymentsInTx, findQualifyingPayments, hasPaid, isValidAlchemySignature } from '../alchemy.js';
+import { CHAINS, MIN_ETH_WEI } from '../../../shared/payment.js';
 
 const SIGNING_KEY = 'whsec_test_key';
 const RECEIVER = '0x1111111111111111111111111111111111111111';
@@ -75,6 +75,54 @@ describe('findQualifyingPayments', () => {
   });
 });
 
+describe('findQualifyingPayments: native ETH', () => {
+  const cfg = { usdcAddress: USDC, receivingAddress: RECEIVER };
+  const eth = (wei, overrides = {}) => activity({
+    category: 'external',
+    asset: 'ETH',
+    rawContract: { rawValue: rawValue(wei), address: null, decimals: 18 },
+    ...overrides,
+  });
+
+  it('accepts exactly 0.00055 ETH (the rule is "at least")', () => {
+    expect(MIN_ETH_WEI).toBe(550_000_000_000_000n);
+    const [p] = findQualifyingPayments([eth(MIN_ETH_WEI)], cfg);
+    expect(p).toMatchObject({ asset: 'ETH', units: MIN_ETH_WEI });
+  });
+
+  it('accepts internal ETH transfers from smart-contract wallets', () => {
+    expect(findQualifyingPayments([eth(MIN_ETH_WEI, { category: 'internal' })], cfg)).toHaveLength(1);
+  });
+
+  it('rejects 1 wei under the minimum, and ETH to another address', () => {
+    expect(findQualifyingPayments([eth(MIN_ETH_WEI - 1n), eth(MIN_ETH_WEI, { toAddress: BUYER })], cfg)).toEqual([]);
+  });
+});
+
+describe('Transfers API checks', () => {
+  const client = (transfers) => ({ request: vi.fn(async ({ params: [p] }) => ({
+    transfers: transfers.filter((t) => (p.contractAddresses ? t.asset === 'USDC' : t.asset === 'ETH')),
+  })) });
+  const t = (asset, wei, extra = {}) => ({ asset, hash: TX, from: BUYER, rawContract: { value: rawValue(wei) }, ...extra });
+  const cfg = { from: BUYER, usdcAddress: USDC, receivingAddress: RECEIVER };
+
+  it('hasPaid: USDC total, ETH total, or neither', async () => {
+    expect(await hasPaid(client([t('USDC', 500_000n), t('USDC', 500_000n)]), cfg)).toBe(true);
+    expect(await hasPaid(client([t('ETH', MIN_ETH_WEI)]), cfg)).toBe(true);
+    expect(await hasPaid(client([t('USDC', 999_999n), t('ETH', MIN_ETH_WEI - 1n)]), cfg)).toBe(false);
+  });
+
+  it('ethPaymentsInTx: only transfers in this tx at or above the minimum', async () => {
+    const other = `0x${'cd'.repeat(32)}`;
+    const found = await ethPaymentsInTx(
+      client([t('ETH', MIN_ETH_WEI), t('ETH', MIN_ETH_WEI, { hash: other }), t('ETH', 1n)]),
+      { txHash: TX, blockNumber: 123n, receivingAddress: RECEIVER },
+    );
+    expect(found).toHaveLength(1);
+    expect(found[0].from.toLowerCase()).toBe(BUYER);
+  });
+});
+
 describe('POST /api/webhooks/payment', () => {
   let handler;
   let fetchMock;
@@ -121,6 +169,20 @@ describe('POST /api/webhooks/payment', () => {
     expect(body.details.txHash).toBe(TX);
     expect(body.details.dedupeId).toBe(TX);
     expect(body.details.wallet.toLowerCase()).toBe(BUYER);
+    expect(body.details).toMatchObject({ paidAsset: 'USDC', paidAmount: '1' });
+  });
+
+  it('records an ETH payment at the $1 list price', async () => {
+    const ethPay = activity({
+      category: 'external',
+      asset: 'ETH',
+      rawContract: { rawValue: rawValue(MIN_ETH_WEI), address: null, decimals: 18 },
+    });
+    const res = await post(JSON.stringify(payload([ethPay])));
+    expect(await res.json()).toEqual({ received: 1 });
+    const body = JSON.parse(fetchMock.mock.calls[0][1].body);
+    expect(body.amount).toBe(1);
+    expect(body.details).toMatchObject({ paidAsset: 'ETH', paidAmount: '0.00055', dedupeId: TX });
   });
 
   it('returns 502 so Alchemy retries when Lucia fails', async () => {

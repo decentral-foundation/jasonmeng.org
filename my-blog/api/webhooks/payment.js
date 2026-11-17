@@ -1,8 +1,9 @@
 // POST /api/webhooks/payment
 // Receives Alchemy ADDRESS_ACTIVITY webhooks for the receiving address and
-// records a Lucia conversion for each USDC payment of at least 1 USDC.
+// records a Lucia conversion for each payment of at least 1 USDC or at least
+// MIN_ETH of native ETH.
 import { formatUnits } from 'viem';
-import { USDC_DECIMALS } from '../../shared/payment.js';
+import { PRICE_USD, USDC_DECIMALS } from '../../shared/payment.js';
 import { findQualifyingPayments, isValidAlchemySignature } from '../_lib/alchemy.js';
 import { ConfigError, getServerConfig, json } from '../_lib/config.js';
 import { sendLuciaConversion } from '../_lib/lucia.js';
@@ -46,14 +47,18 @@ export default {
     const results = await Promise.allSettled(payments.map((p) => sendLuciaConversion({
       wallet: p.from,
       txHash: p.txHash,
-      amountUsdc: Number(formatUnits(p.units, USDC_DECIMALS)),
       chainKey: config.chainKey,
+      asset: p.asset,
+      paidAmount: formatUnits(p.units, p.asset === 'USDC' ? USDC_DECIMALS : 18),
+      // USDC is already in dollars. There's no price feed for ETH, so an ETH
+      // payment is recorded at the $1 list price.
+      amountUsd: p.asset === 'USDC' ? Number(formatUnits(p.units, USDC_DECIMALS)) : PRICE_USD,
     })));
 
     const failed = results.filter((r) => r.status === 'rejected');
     payments.forEach((p, i) => {
       const r = results[i];
-      if (r.status === 'fulfilled') console.log(`[webhook] conversion sent for ${p.txHash} from ${p.from}`);
+      if (r.status === 'fulfilled') console.log(`[webhook] conversion sent for ${p.asset} payment ${p.txHash} from ${p.from}`);
       else console.error(`[webhook] conversion failed for ${p.txHash}:`, r.reason?.message);
     });
 

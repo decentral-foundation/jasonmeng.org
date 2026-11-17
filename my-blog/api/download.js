@@ -3,15 +3,17 @@
 // Streams the PDF to a buyer who proves payment in one of two ways:
 //
 //   { txHash, signature }
-//     The receipt for txHash must have succeeded and contain a USDC Transfer
-//     log to the receiving address for at least 1 USDC. `signature` must be
-//     the transfer's sender signing txDownloadMessage(txHash).
+//     The receipt for txHash must have succeeded and pay the receiving
+//     address either at least 1 USDC (a USDC Transfer log, checked with viem)
+//     or at least MIN_ETH of native ETH (direct or internal, found with
+//     Alchemy's Transfers API so smart-contract wallets work). `signature`
+//     must be the payer signing txDownloadMessage(txHash).
 //
 //   { address, issuedAt, signature }   ("Already paid?")
 //     `signature` must be `address` signing restoreDownloadMessage(address,
 //     issuedAt) within the last SIGNATURE_MAX_AGE_MS. Alchemy's Transfers API
-//     must show that `address` has sent at least 1 USDC in total to the
-//     receiving address on the configured chain.
+//     must show that `address` has sent the receiving address, on the
+//     configured chain, at least 1 USDC in total or at least MIN_ETH in total.
 //
 // KNOWN LIMIT: there is no replay protection. The same tx hash and signature
 // can download the PDF any number of times, and a restore signature works
@@ -23,13 +25,14 @@ import path from 'node:path';
 import { Readable } from 'node:stream';
 import { erc20Abi, getAddress, isAddress, isHex, parseEventLogs } from 'viem';
 import {
+  MIN_ETH,
   PDF_FILENAME,
   PRICE_UNITS,
   SIGNATURE_MAX_AGE_MS,
   restoreDownloadMessage,
   txDownloadMessage,
 } from '../shared/payment.js';
-import { totalPaidBy } from './_lib/alchemy.js';
+import { ethPaymentsInTx, hasPaid } from './_lib/alchemy.js';
 import { ConfigError, getServerConfig, json } from './_lib/config.js';
 
 // Lives outside public/ so this route is the only way to reach it. Bundled
@@ -47,6 +50,8 @@ const isTxHash = (v) => typeof v === 'string' && /^0x[0-9a-fA-F]{64}$/.test(v);
 const isSignature = (v) => typeof v === 'string' && isHex(v) && v.length >= 132;
 
 async function verifyTxPayment({ publicClient, usdcAddress, receivingAddress }, txHash, signature) {
+  // Payers whose payment in this transaction qualifies.
+  const payers = new Set();
   let receipt;
   try {
     receipt = await publicClient.getTransactionReceipt({ hash: txHash });
@@ -61,20 +66,27 @@ async function verifyTxPayment({ publicClient, usdcAddress, receivingAddress }, 
     throw new HttpError(402, 'That transaction failed on-chain, so no USDC was transferred.');
   }
 
-  const payments = parseEventLogs({ abi: erc20Abi, eventName: 'Transfer', logs: receipt.logs })
+  parseEventLogs({ abi: erc20Abi, eventName: 'Transfer', logs: receipt.logs })
     .filter((log) => getAddress(log.address) === usdcAddress
       && getAddress(log.args.to) === receivingAddress
-      && log.args.value >= PRICE_UNITS);
+      && log.args.value >= PRICE_UNITS)
+    .forEach((log) => payers.add(getAddress(log.args.from)));
 
-  if (payments.length === 0) {
-    throw new HttpError(402, 'That transaction does not contain a payment of at least 1 USDC to this site.');
+  // No USDC payment: look for native ETH instead.
+  if (payers.size === 0) {
+    const eth = await ethPaymentsInTx(publicClient, { txHash, blockNumber: receipt.blockNumber, receivingAddress });
+    eth.forEach((p) => payers.add(p.from));
   }
 
-  // Check the signature against each qualifying sender. verifyMessage also
+  if (payers.size === 0) {
+    throw new HttpError(402, `That transaction does not pay this site at least 1 USDC or ${MIN_ETH} ETH.`);
+  }
+
+  // Check the signature against each qualifying payer. verifyMessage also
   // handles smart-contract wallets (ERC-1271 / ERC-6492).
   const message = txDownloadMessage(txHash);
-  for (const payment of payments) {
-    const ok = await publicClient.verifyMessage({ address: payment.args.from, message, signature });
+  for (const payer of payers) {
+    const ok = await publicClient.verifyMessage({ address: payer, message, signature });
     if (ok) return;
   }
   throw new HttpError(401, 'The signature was not made by the wallet that sent the payment.');
@@ -95,14 +107,13 @@ async function verifyRestore(config, address, issuedAt, signature) {
   });
   if (!ok) throw new HttpError(401, 'The signature does not match that wallet.');
 
-  const total = await totalPaidBy(config.publicClient, {
+  const paid = await hasPaid(config.publicClient, {
     from: address,
     usdcAddress: config.usdcAddress,
     receivingAddress: config.receivingAddress,
-    target: PRICE_UNITS,
   });
-  if (total < PRICE_UNITS) {
-    throw new HttpError(402, `No payment of at least 1 USDC from ${address} was found on ${config.chain.name}.`);
+  if (!paid) {
+    throw new HttpError(402, `No payment of at least 1 USDC or ${MIN_ETH} ETH from ${address} was found on ${config.chain.name}.`);
   }
 }
 

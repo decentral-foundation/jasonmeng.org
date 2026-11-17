@@ -1,10 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider, useConnect, useConnection, useSignMessage, useSwitchChain, useWriteContract } from 'wagmi';
-import { readContract, waitForTransactionReceipt } from 'wagmi/actions';
+import {
+  WagmiProvider,
+  useConnect,
+  useConnection,
+  useSendTransaction,
+  useSignMessage,
+  useSwitchChain,
+  useWriteContract,
+} from 'wagmi';
+import { getBalance, readContract, waitForTransactionReceipt } from 'wagmi/actions';
 import { erc20Abi, getAddress, isAddress } from 'viem';
 import lucia from '../lucia';
 import {
+  MIN_ETH,
+  MIN_ETH_WEI,
   PRICE_UNITS,
   PRODUCT_NAME,
   restoreDownloadMessage,
@@ -45,6 +55,7 @@ function PurchasePanel() {
   const { connectAsync, connectors } = useConnect();
   const { switchChainAsync } = useSwitchChain();
   const { writeContractAsync } = useWriteContract();
+  const { sendTransactionAsync } = useSendTransaction();
   const { signMessageAsync } = useSignMessage();
 
   const [status, setStatus] = useState({ phase: 'idle', message: '' });
@@ -126,37 +137,52 @@ function PurchasePanel() {
     }
   }, []);
 
-  const handleBuy = () => run(async () => {
-    lucia.buttonClick('pipeline_audit_buy');
+  // Sends 1 USDC, or MIN_ETH of native ETH, then finishes the purchase.
+  const handlePay = (asset) => run(async () => {
+    lucia.buttonClick(asset === 'ETH' ? 'pipeline_audit_buy_eth' : 'pipeline_audit_buy');
     if (!configured) throw new Error('Payments are not configured yet. Please check back soon.');
 
     const from = await ensureWallet();
-    const balance = await readContract(wagmiConfig, {
-      address: usdcAddress,
-      abi: erc20Abi,
-      functionName: 'balanceOf',
-      args: [from],
-      chainId: chain.id,
-    });
-    if (balance < PRICE_UNITS) {
-      throw new Error(
-        chainKey === 'sepolia'
-          ? `This wallet has less than 1 test USDC on ${chain.name}. Get some free at faucet.circle.com, plus a little Sepolia ETH for gas.`
-          : `This wallet has less than 1 USDC on ${chain.name}. You also need a little ETH for gas.`,
-      );
+
+    let txHash;
+    if (asset === 'ETH') {
+      const { value: balance } = await getBalance(wagmiConfig, { address: from, chainId: chain.id });
+      if (balance < MIN_ETH_WEI) {
+        throw new Error(
+          chainKey === 'sepolia'
+            ? `This wallet has less than ${MIN_ETH} Sepolia ETH. Get some free from a Sepolia faucet, plus a little extra for gas.`
+            : `This wallet has less than ${MIN_ETH} ETH on ${chain.name}, plus a little extra for gas.`,
+        );
+      }
+      setStatus({ phase: 'wallet', message: `Approve sending ${MIN_ETH} ETH in your wallet…` });
+      txHash = await sendTransactionAsync({ to: receivingAddress, value: MIN_ETH_WEI, chainId: chain.id });
+    } else {
+      const balance = await readContract(wagmiConfig, {
+        address: usdcAddress,
+        abi: erc20Abi,
+        functionName: 'balanceOf',
+        args: [from],
+        chainId: chain.id,
+      });
+      if (balance < PRICE_UNITS) {
+        throw new Error(
+          chainKey === 'sepolia'
+            ? `This wallet has less than 1 test USDC on ${chain.name}. Get some free at faucet.circle.com, plus a little Sepolia ETH for gas.`
+            : `This wallet has less than 1 USDC on ${chain.name}. You also need a little ETH for gas.`,
+        );
+      }
+      setStatus({ phase: 'wallet', message: 'Approve the 1 USDC transfer in your wallet…' });
+      txHash = await writeContractAsync({
+        address: usdcAddress,
+        abi: erc20Abi,
+        functionName: 'transfer',
+        args: [receivingAddress, PRICE_UNITS],
+        chainId: chain.id,
+      });
     }
 
-    setStatus({ phase: 'wallet', message: 'Approve the 1 USDC transfer in your wallet…' });
-    const txHash = await writeContractAsync({
-      address: usdcAddress,
-      abi: erc20Abi,
-      functionName: 'transfer',
-      args: [receivingAddress, PRICE_UNITS],
-      chainId: chain.id,
-    });
-
     // Saved before confirmation so a buyer who closes the tab can resume.
-    const record = { chainId: chain.id, txHash, from };
+    const record = { chainId: chain.id, txHash, from, asset };
     remember(record);
     await finishPurchase(record);
   });
@@ -194,11 +220,11 @@ function PurchasePanel() {
       <div className="flex items-baseline justify-between gap-4 flex-wrap">
         <div>
           <div className="text-3xl font-bold text-gray-900">$1</div>
-          <div className="text-sm text-gray-600">Paid in USDC on {chain.name}</div>
+          <div className="text-sm text-gray-600">1 USDC or {MIN_ETH} ETH on {chain.name}</div>
         </div>
         {chainKey === 'sepolia' && (
           <span className="text-xs font-medium px-2 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-            Testnet: uses free test USDC
+            Testnet: uses free test tokens
           </span>
         )}
       </div>
@@ -243,14 +269,24 @@ function PurchasePanel() {
           Download again
         </button>
       ) : (
-        <button
-          type="button"
-          onClick={handleBuy}
-          disabled={busy || !configured}
-          className={`w-full px-6 py-3 bg-gray-900 text-white rounded-md transition-colors ${busy || !configured ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-800'}`}
-        >
-          {busy ? 'Working…' : 'Buy for $1'}
-        </button>
+        <div className="space-y-2">
+          <button
+            type="button"
+            onClick={() => handlePay('USDC')}
+            disabled={busy || !configured}
+            className={`w-full px-6 py-3 bg-gray-900 text-white rounded-md transition-colors ${busy || !configured ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-800'}`}
+          >
+            {busy ? 'Working…' : 'Buy for $1'}
+          </button>
+          <button
+            type="button"
+            onClick={() => handlePay('ETH')}
+            disabled={busy || !configured}
+            className={`w-full px-6 py-2 border border-gray-900 text-gray-900 rounded-md text-sm transition-colors ${busy || !configured ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-900 hover:text-white'}`}
+          >
+            Pay with ETH ({MIN_ETH})
+          </button>
+        </div>
       )}
 
       <button
@@ -263,8 +299,8 @@ function PurchasePanel() {
       </button>
 
       <p className="text-xs text-gray-500">
-        Requires a browser wallet such as MetaMask. Payments sent from an exchange can&apos;t be matched to a
-        download. {isConnected && address ? `Connected: ${shortAddress(address)}.` : ''}
+        Requires a browser wallet such as MetaMask; smart-contract wallets work too. Payments sent from an
+        exchange can&apos;t be matched to a download. {isConnected && address ? `Connected: ${shortAddress(address)}.` : ''}
       </p>
     </div>
   );
@@ -307,7 +343,7 @@ function PipelineAudit() {
             <h3 className="text-xl font-semibold text-gray-900">How buying works</h3>
             <ol className="list-decimal pl-5 space-y-2">
               <li>Connect a browser wallet.</li>
-              <li>Send 1 USDC. Your wallet asks you to approve it.</li>
+              <li>Send 1 USDC, or {MIN_ETH} ETH. Your wallet asks you to approve it.</li>
               <li>Sign a free message to prove the payment came from you.</li>
               <li>The PDF downloads straight away.</li>
             </ol>
@@ -317,7 +353,7 @@ function PipelineAudit() {
           </div>
         </div>
 
-        <aside>
+        <aside className="order-first md:order-none">
           <PurchasePanel />
         </aside>
       </div>

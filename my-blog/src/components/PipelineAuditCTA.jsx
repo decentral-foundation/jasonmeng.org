@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import lucia from '../lucia';
+import { MIN_ETH } from '../../shared/payment.js';
 
 // Small call to action for the Pipeline Audit PDF. Use it in JSX anywhere,
 // or add `cta: 'pipeline-audit'` to a post in src/data/posts.js to show it
@@ -10,7 +11,7 @@ function PipelineAuditCTA() {
       <div className="flex-1">
         <div className="font-semibold text-gray-900">The 15-Minute Sales Pipeline Self-Audit</div>
         <p className="text-sm text-gray-600 mt-1">
-          A 20-question scorecard, stage benchmarks, and fixes for the five most common pipeline leaks. $1 in USDC.
+          A 20-question scorecard, stage benchmarks, and fixes for the five most common pipeline leaks. $1 in USDC or {MIN_ETH} ETH.
         </p>
       </div>
       <Link
