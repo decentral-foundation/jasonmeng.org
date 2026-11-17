@@ -5,6 +5,7 @@ import PostPage from './components/PostPage';
 import Home from './components/Home';
 import About from './components/About';
 import Apply from './components/Apply';
+import BookAudit from './components/BookAudit';
 import Header from './components/Header';
 import CookieConsent from './components/CookieConsent';
 import './index.css';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/post/:id" element={<PostPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/apply" element={<Apply />} />
+          <Route path="/book-audit" element={<BookAudit />} />
           <Route
             path="/pipeline-audit"
             element={

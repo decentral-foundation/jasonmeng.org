@@ -19,15 +19,23 @@ const output = path.join(contentDir, 'pipeline-audit.pdf');
 
 const config = JSON.parse(readFileSync(path.join(contentDir, 'config.json'), 'utf8'));
 const bookingUrl = (config.auditBookingUrl || '').trim();
-if (!bookingUrl) {
+const siteUrl = (config.siteUrl || '').trim().replace(/\/+$/, '');
+if (!bookingUrl || !siteUrl) {
   console.warn(
-    '\n⚠  auditBookingUrl is empty in content/pipeline-audit/config.json.\n'
-    + '   The last page will show a placeholder. Fill it in and rebuild before selling.\n',
+    '\n⚠  auditBookingUrl or siteUrl is empty in content/pipeline-audit/config.json.\n'
+    + '   The last page will show a placeholder. Fill them in and rebuild before selling.\n',
   );
 }
 
+// The PDF links to the site's /book-audit page rather than straight to the
+// booking page, so the click can be recorded as a Lucia conversion
+// (src/components/BookAudit.jsx), which then forwards to auditBookingUrl.
+const bookingLink = bookingUrl && siteUrl
+  ? `${siteUrl}/book-audit`
+  : 'https://example.com/audit-booking-link-coming-soon';
+
 const markdown = readFileSync(path.join(contentDir, 'audit.md'), 'utf8')
-  .replaceAll('{{AUDIT_BOOKING_URL}}', bookingUrl || 'https://example.com/audit-booking-link-coming-soon');
+  .replaceAll('{{AUDIT_BOOKING_URL}}', bookingLink);
 
 const work = mkdtempSync(path.join(tmpdir(), 'pipeline-audit-'));
 try {
