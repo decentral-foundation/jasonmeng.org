@@ -62,10 +62,13 @@ export default {
       else console.error(`[webhook] conversion failed for ${p.txHash}:`, r.reason?.message);
     });
 
-    // A non-2xx makes Alchemy retry the whole delivery. Without a confirmed
-    // Lucia dedupe field, a retry can re-send conversions that already
-    // succeeded in this batch. That trade favors not losing conversions.
-    if (failed.length) return json({ error: 'Failed to record conversion.', received: payments.length }, 502);
+    // A non-2xx makes Alchemy retry the whole delivery, so only ask for a
+    // retry when Lucia or the network failed (5xx, no response). A 4xx means
+    // Lucia rejected the request itself, and a retry would fail the same way.
+    // Without a confirmed Lucia dedupe field, a retry can re-send conversions
+    // that already succeeded in this batch. That trade favors not losing them.
+    const retryable = failed.some((r) => !(r.reason?.status >= 400 && r.reason?.status < 500));
+    if (retryable) return json({ error: 'Failed to record conversion.', received: payments.length }, 502);
 
     return json({ received: payments.length });
   },

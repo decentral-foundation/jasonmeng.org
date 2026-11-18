@@ -21,7 +21,7 @@
 // example Vercel KV or Upstash Redis) to record used tx hashes and nonces.
 import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
-import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { Readable } from 'node:stream';
 import { erc20Abi, getAddress, isAddress, isHex, parseEventLogs } from 'viem';
 import {
@@ -37,7 +37,9 @@ import { ConfigError, getServerConfig, json } from './_lib/config.js';
 
 // Lives outside public/ so this route is the only way to reach it. Bundled
 // into this function by "includeFiles" in vercel.json.
-const PDF_PATH = path.join(process.cwd(), 'content', 'pipeline-audit', 'pipeline-audit.pdf');
+// Resolved from this file, not process.cwd(): on Vercel the app sits in a
+// subfolder (/var/task/my-blog), so the working directory is the wrong base.
+const PDF_PATH = fileURLToPath(new URL('../content/pipeline-audit/pipeline-audit.pdf', import.meta.url));
 
 class HttpError extends Error {
   constructor(status, message) {

@@ -190,4 +190,10 @@ describe('POST /api/webhooks/payment', () => {
     const res = await post(JSON.stringify(payload([activity()])));
     expect(res.status).toBe(502);
   });
+
+  it('returns 200 when Lucia rejects the request, since a retry would fail the same way', async () => {
+    fetchMock.mockResolvedValue(new Response('{"statusCode":400}', { status: 400 }));
+    const res = await post(JSON.stringify(payload([activity()])));
+    expect(res.status).toBe(200);
+  });
 });
