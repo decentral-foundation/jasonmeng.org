@@ -50,6 +50,19 @@ async function downloadWithRetry(body) {
   }
 }
 
+// With several wallet extensions installed (e.g. MetaMask and Phantom), one of
+// them takes over window.ethereum, which the generic injected connector uses.
+// Wallets that announce themselves through EIP-6963 get their own connector,
+// so prefer MetaMask, then any announced wallet, then window.ethereum.
+function pickConnector(connectors) {
+  const announced = connectors.filter((c) => c.id !== 'injected');
+  const metaMask = announced.find((c) => c.id === 'io.metamask');
+  if (metaMask) return metaMask;
+  if (announced.length) return announced[0];
+  if (typeof window !== 'undefined' && window.ethereum) return connectors.find((c) => c.id === 'injected');
+  return undefined;
+}
+
 const BUSY = new Set(['connecting', 'switching', 'wallet', 'confirming', 'signing', 'downloading']);
 
 function PurchasePanel() {
@@ -86,12 +99,12 @@ function PurchasePanel() {
     let account = address;
     let current = chainId;
     if (!isConnected || !account) {
-      const injectedConnector = connectors[0];
-      if (!injectedConnector || typeof window === 'undefined' || !window.ethereum) {
+      const walletConnector = pickConnector(connectors);
+      if (!walletConnector) {
         throw new Error('No browser wallet found. Install MetaMask or another browser wallet, then reload this page.');
       }
       setStatus({ phase: 'connecting', message: 'Connect your wallet to continue…' });
-      const result = await connectAsync({ connector: injectedConnector });
+      const result = await connectAsync({ connector: walletConnector });
       account = result.accounts[0];
       current = result.chainId;
     }
