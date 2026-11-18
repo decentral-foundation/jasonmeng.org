@@ -38,3 +38,6 @@ yarn-error.log*
 *.sln
 *.sw? 
 .vercel
+
+# Local AI handoff notes (not committed)
+.claudedocs/
