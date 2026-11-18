@@ -44,7 +44,9 @@ export async function sendLuciaConversion({ wallet, txHash, chainKey, asset, pai
 
   if (!res.ok) {
     const text = await res.text().catch(() => '');
-    throw new Error(`Lucia conversion failed: HTTP ${res.status} ${text.slice(0, 300)}`);
+    const error = new Error(`Lucia conversion failed: HTTP ${res.status} ${text.slice(0, 300)}`);
+    error.status = res.status;
+    throw error;
   }
   return res.status;
 }
