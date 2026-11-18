@@ -13,7 +13,10 @@
 // browser session linked through LuciaSDK.sendWalletInfo().
 const LUCIA_CONVERSIONS_URL = 'https://api.luciaprotocol.com/api/events-ingestion/conversions';
 
-export const CONVERSION_TAG = 'pipeline_audit_purchase';
+// The browser records the sale itself as 'pipeline_audit_purchase' when the
+// payment is sent. This server-side conversion uses its own tag so Lucia
+// doesn't count each sale twice.
+export const CONVERSION_TAG = 'pipeline_audit_payment_webhook';
 
 export async function sendLuciaConversion({ wallet, txHash, chainKey, asset, paidAmount, amountUsd }) {
   const apiKey = process.env.LUCIA_API_KEY;

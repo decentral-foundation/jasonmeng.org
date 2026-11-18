@@ -42,14 +42,15 @@ Personal website built with React and Vite.
 ## Pipeline Audit ($1 PDF, paid in USDC)
 
 `/pipeline-audit` sells *The 15-Minute Sales Pipeline Self-Audit* for 1 USDC, or at
-least 0.00055 ETH, on Ethereum, and records the sale as a Lucia conversion from a
-webhook. There is no
+least 0.00055 ETH, on Ethereum. The sale is recorded as a Lucia conversion in the
+browser when the payment is sent, and again by a webhook under a separate tag. There is no
 database, auth, payment processor, or storage bucket.
 
 ```
 Buyer's wallet ──1 USDC or ≥0.00055 ETH──▶ your address
+      │  └─ tx hash returned ─▶ LuciaSDK.trackConversion('pipeline_audit_purchase', 1)
       │                        │
-      │                        └─ Alchemy address-activity webhook ─▶ /api/webhooks/payment ─▶ Lucia conversion
+      │                        └─ Alchemy address-activity webhook ─▶ /api/webhooks/payment ─▶ Lucia 'pipeline_audit_payment_webhook'
       │
       └─ signs message ─▶ /api/download ─▶ checks the chain with viem / Alchemy ─▶ streams the PDF
 ```
@@ -88,8 +89,17 @@ redeploy. Never give a secret a `PUBLIC_` or `VITE_` prefix.
 | ETH | **at least** 0.00055 ETH (`MIN_ETH` in `shared/payment.js`) | Plain sends *and* internal transfers, so smart-contract wallets (Safe, 4337 accounts) can pay. Found with Alchemy's Transfers API |
 
 Signatures from smart-contract wallets are checked with ERC-1271/6492 through viem.
-ETH payments are recorded in Lucia at the $1 list price (`amount: 1`), with the ETH
-paid in `details.paidAmount`, because there is no price feed.
+ETH payments are recorded in Lucia at the $1 list price (`amount: 1`), because there is
+no price feed.
+
+Lucia receives two conversions per sale, under different tags so they aren't added together:
+
+| Tag | Sent by | When |
+|---|---|---|
+| `pipeline_audit_purchase` | the browser (`LuciaSDK.trackConversion`) | as soon as the wallet returns a tx hash, before confirmation. Once per transaction; not on download retries, resumes or "Already paid?" |
+| `pipeline_audit_payment_webhook` | `/api/webhooks/payment` (REST API) | when Alchemy reports the payment. ETH paid is in `details.paidAmount` |
+
+A transaction that later fails or is replaced still counts as a `pipeline_audit_purchase`.
 
 USDC contracts come from [Circle's list](https://developers.circle.com/stablecoins/usdc-contract-addresses):
 mainnet `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`, Sepolia `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`.
@@ -137,7 +147,8 @@ Sepolia's webhook a preview URL and mainnet's the production URL.
    **Pay with ETH (0.00055)**.
 4. The PDF downloads. Check:
    - Vercel logs for `[webhook] conversion sent for 0x…` (the webhook usually arrives within a minute).
-   - The conversion `pipeline_audit_purchase` in the Lucia dashboard.
+   - The conversions `pipeline_audit_purchase` (browser) and `pipeline_audit_payment_webhook`
+     (webhook) in the Lucia dashboard.
 5. Resume: start another purchase, close the tab after approving the transfer, and reopen
    `/pipeline-audit`. It finishes on its own (or shows **Finish my download**).
 6. Restore: in a private window, click **Already paid? Get your download**, connect the

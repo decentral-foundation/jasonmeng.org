@@ -16,7 +16,9 @@ import {
   MIN_ETH,
   MIN_ETH_WEI,
   PRICE_UNITS,
+  PRICE_USD,
   PRODUCT_NAME,
+  PURCHASE_CONVERSION_TAG,
   restoreDownloadMessage,
   txDownloadMessage,
 } from '../../shared/payment.js';
@@ -180,6 +182,17 @@ function PurchasePanel() {
         chainId: chain.id,
       });
     }
+
+    // Record the sale in Lucia as soon as the payment is sent, before it is
+    // confirmed. This runs once per transaction: download retries, resumed
+    // downloads and "Already paid?" don't pass through here. A transaction
+    // that later fails or is replaced still counts as a conversion.
+    lucia.trackConversion(PURCHASE_CONVERSION_TAG, PRICE_USD, {
+      txHash,
+      wallet: from,
+      asset,
+      chain: chainKey,
+    });
 
     // Saved before confirmation so a buyer who closes the tab can resume.
     const record = { chainId: chain.id, txHash, from, asset };

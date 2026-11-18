@@ -165,7 +165,7 @@ describe('POST /api/webhooks/payment', () => {
     expect(url).toBe('https://api.luciaprotocol.com/api/events-ingestion/conversions');
     expect(init.headers['X-API-KEY']).toBe('lucia_test');
     const body = JSON.parse(init.body);
-    expect(body).toMatchObject({ tag: 'pipeline_audit_purchase', amount: 1 });
+    expect(body).toMatchObject({ tag: 'pipeline_audit_payment_webhook', amount: 1 });
     expect(body.details.txHash).toBe(TX);
     expect(body.details.dedupeId).toBe(TX);
     expect(body.details.wallet.toLowerCase()).toBe(BUYER);

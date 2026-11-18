@@ -26,6 +26,9 @@ export const DEFAULT_CHAIN = 'sepolia';
 // List price in USD, used as the Lucia conversion amount for ETH payments.
 export const PRICE_USD = 1;
 
+// Lucia conversion tag recorded in the browser when a payment is sent.
+export const PURCHASE_CONVERSION_TAG = 'pipeline_audit_purchase';
+
 // 1 USDC. USDC has 6 decimals on both networks.
 export const USDC_DECIMALS = 6;
 export const PRICE_UNITS = 1_000_000n;
