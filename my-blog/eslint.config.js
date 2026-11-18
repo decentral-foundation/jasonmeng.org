@@ -36,6 +36,13 @@ export default [
     },
   },
   {
+    // Vercel functions and build scripts run in Node.
+    files: ['api/**/*.js', 'scripts/**/*.{js,mjs}', 'vite.config.js'],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+  },
+  {
     files: ['**/*.test.{js,jsx,ts,tsx}'],
     languageOptions: {
       globals: {

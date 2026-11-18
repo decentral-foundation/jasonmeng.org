@@ -1,0 +1,44 @@
+/* Stylesheet for the Pipeline Audit PDF (used by scripts/build-pdf.mjs). */
+html { font-size: 10.5pt; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #1f2937;
+  line-height: 1.5;
+}
+h1 { font-size: 2.4em; font-weight: 700; line-height: 1.15; margin: 0.2em 0 0.4em; color: #111827; }
+h2 { font-size: 1.6em; font-weight: 700; margin: 0 0 0.6em; padding-bottom: 0.3em; border-bottom: 2px solid #111827; color: #111827; }
+h3 { font-size: 1.15em; font-weight: 600; margin: 1.2em 0 0.4em; color: #111827; }
+p, li { margin: 0.35em 0; }
+ul, ol { padding-left: 1.4em; }
+a { color: #111827; }
+
+table { width: 100%; border-collapse: collapse; margin: 0.6em 0 1em; font-size: 0.95em; }
+th, td { border: 1px solid #d1d5db; padding: 6px 8px; vertical-align: top; }
+th { background: #f3f4f6; text-align: left; font-weight: 600; }
+td:first-child { white-space: nowrap; }
+
+.page-break { page-break-after: always; break-after: page; }
+
+.cover { border-bottom: 1px solid #d1d5db; padding-bottom: 1.2em; margin-bottom: 1.6em; }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85em; color: #6b7280; margin: 0; }
+.subtitle { font-size: 1.25em; color: #4b5563; margin: 0; }
+
+.note {
+  background: #f9fafb;
+  border-left: 4px solid #4b5563;
+  padding: 0.7em 1em;
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+}
+
+.closing h2 { border-bottom: none; font-size: 2em; }
+.cta {
+  margin-top: 1.5em;
+  padding: 1em 1.2em;
+  border: 2px solid #111827;
+  border-radius: 8px;
+  font-size: 1.15em;
+  font-weight: 600;
+}
+.cta a { word-break: break-all; }
+.small { color: #6b7280; font-size: 0.85em; margin-top: 3em; }
